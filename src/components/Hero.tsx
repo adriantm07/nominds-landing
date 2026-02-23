@@ -12,14 +12,14 @@ export default function Hero() {
         minHeight: "100vh",
         display: "flex",
         alignItems: "center",
-        paddingTop: 110,
+        paddingTop: 100,
         paddingBottom: 80,
         position: "relative",
         overflow: "hidden",
         background: C.white,
       }}
     >
-      {/* Subtle green radial glow top-right */}
+      {/* Radial glow */}
       <div
         style={{
           position: "absolute", top: -180, right: -280,
@@ -35,50 +35,29 @@ export default function Hero() {
           display: "grid",
           gridTemplateColumns: "1fr 1fr",
           gap: 64,
-          alignItems: "center",
+          alignItems: "start",
         }}
       >
         {/* ── LEFT: Copy ── */}
         <div>
-          {/* Badge */}
-          <div
-            style={{
-              display: "inline-flex", alignItems: "center", gap: 6,
-              background: C.greenPale,
-              color: C.greenDeep,
-              border: "1px solid rgba(47,79,62,0.18)",
-              borderRadius: 20,
-              padding: "4px 12px",
-              fontSize: 11.5, fontWeight: 500, letterSpacing: "0.3px",
-              marginBottom: 22,
-            }}
-          >
-            <svg width="7" height="7" viewBox="0 0 8 8">
-              <circle cx="4" cy="4" r="4" fill={C.green} />
-            </svg>
-            Inteligencia documental para notarías
-          </div>
-
-          {/* Headline */}
           <h1
             style={{
-              fontFamily: "'DM Serif Display', Georgia, serif",
+              fontFamily: "'NeueHaas', 'Helvetica Neue', sans-serif",
               fontSize: "clamp(36px, 4.2vw, 58px)",
               lineHeight: 1.07,
               letterSpacing: "-1.5px",
               color: C.dark,
               marginBottom: 18,
-              fontWeight: 400,
+              fontWeight: 500,
             }}
           >
             De documentos
             <br />en papel a datos
             <br />
-            <em style={{ fontStyle: "italic", color: C.green }}>estructurados</em>
+            <span style={{ color: C.green }}>estructurados</span>
             <br />al instante
           </h1>
 
-          {/* Sub */}
           <p
             style={{
               fontSize: 16.5, lineHeight: 1.65,
@@ -88,10 +67,9 @@ export default function Hero() {
           >
             nominds lee, extrae y valida la información de documentos legales y de
             identidad con inteligencia artificial, eliminando el trabajo manual en
-            tus procesos notariales.
+            tus procesos.
           </p>
 
-          {/* CTAs */}
           <div style={{ display: "flex", gap: 10, alignItems: "center", flexWrap: "wrap" }}>
             <a
               href="#contacto"
@@ -106,7 +84,7 @@ export default function Hero() {
               }}
             >
               Agendar demo
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                 <path d="M5 12h14M12 5l7 7-7 7" />
               </svg>
             </a>
@@ -136,7 +114,7 @@ export default function Hero() {
               ))}
             </div>
             <span style={{ fontSize: 12.5, color: C.muted }}>
-              Utilizado por notarías en toda la república
+              Usado por notarías, despachos jurídicos y departamentos legales
             </span>
           </div>
         </div>

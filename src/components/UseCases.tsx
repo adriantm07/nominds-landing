@@ -1,118 +1,72 @@
 "use client";
 
 import { C, S } from "@/lib/tokens";
+import MiniScanAnimation, { MiniField } from "./MiniScanAnimation";
 
-const CASES = [
+const CASES: {
+  tag: string;
+  title: string;
+  desc: string;
+  src: string;
+  fields: MiniField[];
+}[] = [
   {
-    icon: "🪪",
-    docTitle: "Identificación oficial",
-    docSub: "INE / Pasaporte",
     tag: "Identidad",
     title: "Validación de identidad en comparecencias",
-    desc: "Extrae y valida automáticamente nombre, CURP, fecha de nacimiento y vigencia de INEs y pasaportes. Detecta inconsistencias en segundos.",
+    desc: "Procesa documentos de identificación oficial y extrae automáticamente la información del titular con validación de integridad en tiempo real.",
+    src: "/licencia/podras-tramitar-licencia-conducir-digital-2_31_46_1138_708.jpg",
+    fields: [
+      { label: "Nombre",    value: "PÉREZ GARCÍA JOHN",    t: 420 },
+      { label: "CURP",      value: "PEGA850912HDFSRN03",   t: 780 },
+      { label: "Vigencia",  value: "15/04/2026",            t: 1100 },
+      { label: "No. Lic.",  value: "123456789012",          t: 1380 },
+    ],
   },
   {
-    icon: "📋",
-    docTitle: "Acta de nacimiento",
-    docSub: "Registro Civil",
     tag: "Estado civil",
-    title: "Procesamiento de actas del Registro Civil",
-    desc: "Lee actas de nacimiento, matrimonio y defunción. Extrae fechas, nombres, números de registro y los integra directamente al expediente.",
+    title: "Procesamiento de actas de nacimiento",
+    desc: "Digitaliza y estructura la información contenida en actas de nacimiento con extracción automática de datos y vinculación directa al expediente.",
+    src: "/Acta de nacimiento/Screenshot 2026-02-23 092433.png",
+    fields: [
+      { label: "Nombre",    value: "MARTÍNEZ LÓPEZ ANA",   t: 400 },
+      { label: "Reg. Civil","value": "CDMX/2024/00341",    t: 720 },
+      { label: "Fecha nac.","value": "03/07/1991",          t: 1050 },
+      { label: "Tipo",      value: "Acta nacimiento",       t: 1320 },
+    ],
   },
   {
-    icon: "🏠",
-    docTitle: "Escritura pública",
-    docSub: "Compraventa",
     tag: "Inmuebles",
     title: "Extracción en escrituras de compraventa",
     desc: "Identifica inmueble, precio, partes, folio real y folios notariales en escrituras complejas de varias páginas. Listo para firma electrónica.",
+    src: "/Escrituras/Russildi-escritura-1008-c.jpg",
+    fields: [
+      { label: "Inmueble",   value: "Av. Insurgentes Sur 1602, Col. Crédito Constructor, Benito Juárez, CDMX", t: 380 },
+      { label: "Vendedor",   value: "RAMÍREZ OCHOA FERNANDO JOSÉ",  t: 700 },
+      { label: "Comprador",  value: "GÓMEZ REYES CARLOS ALBERTO",   t: 1020 },
+      { label: "Monto",      value: "$4,250,000.00 M.N.",            t: 1340 },
+    ],
   },
   {
-    icon: "💼",
-    docTitle: "Poder notarial",
-    docSub: "General / Especial",
-    tag: "Poderes",
-    title: "Digitalización de poderes notariales",
-    desc: "Extrae poderdante, apoderado, alcance, limitaciones y vigencia de poderes generales y especiales. Cruce automático contra base de datos.",
+    tag: "Registro Civil",
+    title: "Validación de actas del Registro Civil",
+    desc: "Procesa y estructura la información de actas del Registro Civil con extracción automática de datos y vinculación directa al expediente.",
+    src: "/Registro civil/images.jpg",
+    fields: [
+      { label: "Nombre",     value: "RUIZ SANTOS ELENA",    t: 400 },
+      { label: "No. Acta",   value: "CDMX/RC/2024/0892",    t: 730 },
+      { label: "Fecha",      value: "14/03/2024",            t: 1060 },
+      { label: "Oficial",    value: "Of. 42, CDMX",          t: 1360 },
+    ],
   },
-] as const;
+];
 
-function DocPreview({ icon, title, sub }: { icon: string; title: string; sub: string }) {
-  return (
-    <div
-      style={{
-        background: "white",
-        border: `1px solid ${C.border}`,
-        borderRadius: 10, padding: 13, width: 196,
-        boxShadow: "0 4px 14px rgba(26,29,25,0.07)",
-      }}
-    >
-      <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
-        <div
-          style={{
-            width: 26, height: 26, borderRadius: 6,
-            background: C.greenPale,
-            display: "flex", alignItems: "center", justifyContent: "center",
-            fontSize: 13,
-          }}
-        >
-          {icon}
-        </div>
-        <div>
-          <div style={{ fontSize: 10.5, fontWeight: 600, color: C.dark }}>{title}</div>
-          <div style={{ fontSize: 9.5, color: C.muted }}>{sub}</div>
-        </div>
-      </div>
-      <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
-        {[90, 55, 80, 68].map((w, i) => (
-          <div
-            key={i}
-            style={{
-              height: 5.5, borderRadius: 3,
-              background: i === 1 ? "rgba(47,79,62,0.2)" : C.border,
-              width: `${w}%`,
-            }}
-          />
-        ))}
-      </div>
-    </div>
-  );
-}
-
-export default function UseCases() {
-  return (
-    <section id="casos" style={S.section}>
-      <div style={S.container}>
-        <span style={S.eyebrow}>Casos de uso</span>
-        <h2 style={S.sectionTitle}>Para cada tipo de trámite notarial</h2>
-        <p style={S.sectionSub}>
-          nominds se adapta a los documentos y flujos más frecuentes en una notaría moderna.
-        </p>
-
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(2, 1fr)",
-            gap: 22, marginTop: 48,
-          }}
-        >
-          {CASES.map((c, i) => (
-            <UseCaseCard key={i} {...c} />
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function UseCaseCard({
-  icon, docTitle, docSub, tag, title, desc,
-}: (typeof CASES)[number]) {
+function UseCaseCard({ tag, title, desc, src, fields }: (typeof CASES)[number]) {
   return (
     <div
       style={{
         border: `1px solid ${C.border}`,
-        borderRadius: 16, overflow: "hidden",
+        borderRadius: 16,
+        overflow: "hidden",
         background: "white",
         transition: "border-color 0.2s, box-shadow 0.2s",
       }}
@@ -127,44 +81,64 @@ function UseCaseCard({
         el.style.boxShadow = "none";
       }}
     >
-      {/* Visual */}
-      <div
-        style={{
-          height: 150, background: C.offWhite,
-          display: "flex", alignItems: "center", justifyContent: "center",
-          padding: 20, position: "relative", overflow: "hidden",
-        }}
-      >
-        <div
-          style={{
-            position: "absolute", top: -38, right: -38,
-            width: 110, height: 110,
-            background: "radial-gradient(circle, rgba(47,79,62,0.07), transparent)",
-            borderRadius: "50%",
-          }}
-        />
-        <DocPreview icon={icon} title={docTitle} sub={docSub} />
+      {/* Animation area */}
+      <div style={{
+        padding: "14px 14px 10px",
+        background: C.offWhite,
+        borderBottom: `1px solid ${C.border}`,
+      }}>
+        <MiniScanAnimation src={src} fields={fields} />
       </div>
 
       {/* Content */}
-      <div style={{ padding: 22 }}>
-        <div
-          style={{
-            display: "inline-flex", alignItems: "center", gap: 5,
-            background: C.sandL, color: C.warmGray,
-            fontSize: 10.5, fontWeight: 500,
-            padding: "3px 9px", borderRadius: 20, marginBottom: 9,
-          }}
-        >
+      <div style={{ padding: "14px 18px 16px" }}>
+        <div style={{
+          display: "inline-flex", alignItems: "center",
+          background: C.sandL, color: C.warmGray,
+          fontSize: 10, fontWeight: 500,
+          padding: "2px 8px", borderRadius: 20, marginBottom: 6,
+        }}>
           {tag}
         </div>
-        <div style={{ fontSize: 15, fontWeight: 600, color: C.dark, marginBottom: 6, lineHeight: 1.35 }}>
+        <div style={{ fontSize: 14, fontWeight: 600, color: C.dark, marginBottom: 4, lineHeight: 1.3 }}>
           {title}
         </div>
-        <div style={{ fontSize: 13.5, color: C.warmGray, lineHeight: 1.6, fontWeight: 300 }}>
+        <div style={{ fontSize: 12.5, color: C.warmGray, lineHeight: 1.55, fontWeight: 300 }}>
           {desc}
         </div>
       </div>
     </div>
+  );
+}
+
+export default function UseCases() {
+  return (
+    <section id="casos" style={{ ...S.section, padding: "64px 28px" }}>
+      <div style={S.container}>
+        <span style={S.eyebrow}>Casos de uso</span>
+        <h2 style={{
+          ...S.sectionTitle,
+          fontFamily: "'NeueHaas', 'Helvetica Neue', sans-serif",
+          fontSize: "clamp(28px, 3.8vw, 48px)",
+          fontWeight: 700,
+          letterSpacing: "-0.8px",
+          lineHeight: 1.07,
+          marginBottom: 8,
+        }}>Para cada tipo de trámite</h2>
+        <p style={{ ...S.sectionSub, fontSize: 14.5, marginBottom: 0, lineHeight: 1.5 }}>
+          nominds se adapta a los documentos y flujos más frecuentes en una notaría moderna.
+        </p>
+
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(2, 1fr)",
+          gap: 12, marginTop: 24,
+        }}>
+          {CASES.map((c, i) => (
+            <UseCaseCard key={i} {...c} />
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }

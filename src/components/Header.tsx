@@ -37,37 +37,13 @@ export default function Header() {
         }}
       >
         {/* Logo */}
-        <a
-          href="#"
-          style={{
-            fontFamily: "'DM Serif Display', Georgia, serif",
-            fontSize: 21,
-            fontStyle: "italic",
-            color: C.dark,
-            textDecoration: "none",
-            display: "flex",
-            alignItems: "center",
-            gap: 8,
-            fontWeight: 400,
-          }}
-        >
-          <span
-            style={{
-              width: 27, height: 27,
-              background: C.green,
-              borderRadius: 6,
-              display: "flex", alignItems: "center", justifyContent: "center",
-              color: "white",
-              fontSize: 12,
-              fontStyle: "normal",
-              fontFamily: "DM Sans, sans-serif",
-              fontWeight: 700,
-              flexShrink: 0,
-            }}
-          >
-            n
-          </span>
-          nominds
+        <a href="#" style={{ display: "flex", alignItems: "center", textDecoration: "none", flexShrink: 0 }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/Brand guidelines/Logo/Logo Files/png/Black logo - no background.png"
+            alt="nominds"
+            style={{ height: 28, width: "auto", display: "block" }}
+          />
         </a>
 
         {/* Nav */}
@@ -78,37 +54,18 @@ export default function Header() {
               href={link.href}
               style={{
                 fontSize: 13.5,
-                color: C.warmGray,
+                color: C.dark,
                 textDecoration: "none",
-                fontWeight: 400,
+                fontWeight: 600,
                 transition: "color 0.2s",
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = C.dark)}
-              onMouseLeave={(e) => (e.currentTarget.style.color = C.warmGray)}
+              onMouseEnter={(e) => (e.currentTarget.style.color = C.green)}
+              onMouseLeave={(e) => (e.currentTarget.style.color = C.dark)}
             >
               {link.label}
             </a>
           ))}
         </nav>
-
-        {/* Hello button */}
-        <button
-          style={{
-            fontSize: 13.5,
-            color: C.dark,
-            background: "transparent",
-            border: `1px solid ${C.border}`,
-            borderRadius: 8,
-            padding: "6px 16px",
-            cursor: "pointer",
-            fontFamily: "DM Sans, sans-serif",
-            transition: "border-color 0.2s",
-          }}
-          onMouseEnter={(e) => (e.currentTarget.style.borderColor = C.dark)}
-          onMouseLeave={(e) => (e.currentTarget.style.borderColor = C.border)}
-        >
-          Hello
-        </button>
 
         {/* CTA */}
         <a

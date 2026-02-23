@@ -40,14 +40,14 @@ export const S = {
   } as React.CSSProperties,
 
   sectionTitle: {
-    fontFamily: "'DM Serif Display', Georgia, serif",
+    fontFamily: "'NeueHaas', 'Helvetica Neue', sans-serif",
     fontSize: "clamp(28px, 3.5vw, 44px)",
     lineHeight: 1.1,
-    letterSpacing: "-0.8px",
+    letterSpacing: "-0.5px",
     color: C.dark,
     marginBottom: 14,
     maxWidth: 600,
-    fontWeight: 400,
+    fontWeight: 500,
   } as React.CSSProperties,
 
   sectionSub: {
@@ -102,10 +102,12 @@ export const NAV_LINKS = [
 
 // ─── Scan animation field data ────────────────────────────────
 export const SCAN_FIELDS = [
-  { id: "name", icon: "👤", label: "Nombre completo",    value: "JORGE ANTONIO RAMÍREZ LUNA", conf: 97, tier: "high" as const, t: 620  },
-  { id: "curp", icon: "🪪", label: "CURP",               value: "RALJ940315HDFMNR03",        conf: 99, tier: "high" as const, t: 980  },
-  { id: "dob",  icon: "📅", label: "Fecha de nacimiento",value: "15 / Mar / 1994",            conf: 98, tier: "high" as const, t: 1300 },
-  { id: "vig",  icon: "⏳", label: "Vigencia",            value: "Enero 2026",                 conf: 84, tier: "med"  as const, t: 1600 },
+  { id: "name",   icon: "👤", label: "Nombre completo",     value: "PÉREZ GARCÍA JOHN ALEJANDRO", conf: 98, tier: "high" as const, t: 560  },
+  { id: "lic",    icon: "🪪", label: "No. Licencia",         value: "123456789012",                conf: 99, tier: "high" as const, t: 880  },
+  { id: "curp",   icon: "🔑", label: "CURP",                 value: "PEGA850912HDFSRN03",          conf: 99, tier: "high" as const, t: 1160 },
+  { id: "dob",    icon: "📅", label: "Fecha de nacimiento",  value: "12 / Sep / 1985",             conf: 97, tier: "high" as const, t: 1420 },
+  { id: "exp",    icon: "⏳", label: "Expedición",            value: "15 / Abr / 2022",             conf: 95, tier: "high" as const, t: 1680 },
+  { id: "addr",   icon: "📍", label: "Domicilio",             value: "AV. PRINCIPAL 456, EDOMEX",   conf: 88, tier: "med"  as const, t: 1920 },
 ] as const;
 
-export const LASER_MS = 1900;
+export const LASER_MS = 2300;

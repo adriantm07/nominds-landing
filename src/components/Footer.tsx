@@ -16,17 +16,13 @@ export default function Footer() {
           alignItems: "center", flexWrap: "wrap", gap: 12,
         }}
       >
-        <span
-          style={{
-            fontFamily: "'DM Serif Display', Georgia, serif",
-            fontSize: 17, fontStyle: "italic",
-            color: "rgba(250,250,248,0.5)",
-          }}
-        >
-          nominds
-        </span>
+        <img
+          src="/Brand guidelines/Logo/Logo Files/png/White logo - no background.png"
+          alt="nominds"
+          style={{ height: 22, opacity: 0.5 }}
+        />
         <span style={{ fontSize: 12, color: "rgba(250,250,248,0.28)" }}>
-          © 2024 nominds. Todos los derechos reservados.
+          © 2026 nominds. Todos los derechos reservados.
         </span>
       </div>
     </footer>

@@ -265,8 +265,8 @@ export default function Problem() {
               <div style={{
                 fontFamily: "'NeueHaas', 'Helvetica Neue', sans-serif",
                 fontSize: "clamp(30px, 3.5vw, 46px)",
-                fontWeight: 700,
-                color: C.scan,
+                fontWeight: 500,
+                color: C.white,
                 lineHeight: 1,
                 marginBottom: 8,
               }}>

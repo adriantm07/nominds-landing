@@ -51,7 +51,7 @@ const LIST_FEATURES = [
       </svg>
     ),
     title: "Diseñado para lo legal",
-    desc: "No es un OCR genérico. nominds fue entrenado con documentos del contexto legal y notarial mexicano.",
+    desc: "No es un OCR genérico. nominds fue entrenado con documentos del contexto legal y notarial de habla hispana.",
   },
 ] as const;
 
@@ -121,7 +121,7 @@ export default function Features() {
             ...S.sectionTitle,
             fontFamily: "'NeueHaas', 'Helvetica Neue', sans-serif",
             fontSize: "clamp(28px, 3.8vw, 48px)",
-            fontWeight: 700,
+            fontWeight: 500,
             letterSpacing: "-0.8px",
             lineHeight: 1.07,
             marginBottom: 14,

@@ -120,13 +120,13 @@ export default function UseCases() {
           ...S.sectionTitle,
           fontFamily: "'NeueHaas', 'Helvetica Neue', sans-serif",
           fontSize: "clamp(28px, 3.8vw, 48px)",
-          fontWeight: 700,
+          fontWeight: 500,
           letterSpacing: "-0.8px",
           lineHeight: 1.07,
           marginBottom: 8,
         }}>Para cada tipo de trámite</h2>
         <p style={{ ...S.sectionSub, fontSize: 14.5, marginBottom: 0, lineHeight: 1.5 }}>
-          nominds se adapta a los documentos y flujos más frecuentes en una notaría moderna.
+          nominds se adapta a los documentos y flujos más frecuentes en despachos legales y notarías.
         </p>
 
         <div style={{

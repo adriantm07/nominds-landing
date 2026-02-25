@@ -15,6 +15,8 @@ export const C = {
   sand:      "#D4DBD6",
   sandL:     "#ECF0ED",
   scan:      "#4CAF7A",
+  amber:     "#C8922A",   // amarillo tierra — branding accent
+  amberPale: "#F5EDD8",   // fondo suave para badges amber
 } as const;
 
 // ─── Reusable style objects ───────────────────────────────────
@@ -35,7 +37,7 @@ export const S = {
     fontWeight: 600,
     textTransform: "uppercase" as const,
     letterSpacing: "1.5px",
-    color: C.green,
+    color: C.amber,
     marginBottom: 14,
   } as React.CSSProperties,
 

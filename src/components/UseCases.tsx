@@ -1,6 +1,7 @@
 "use client";
 
 import { C, S } from "@/lib/tokens";
+import { useIsMobile } from "@/lib/useIsMobile";
 import MiniScanAnimation, { MiniField } from "./MiniScanAnimation";
 
 const CASES: {
@@ -9,6 +10,7 @@ const CASES: {
   desc: string;
   src: string;
   fields: MiniField[];
+  variant?: "fields" | "document";
 }[] = [
   {
     tag: "Identidad",
@@ -29,7 +31,7 @@ const CASES: {
     src: "/Acta de nacimiento/Screenshot 2026-02-23 092433.png",
     fields: [
       { label: "Nombre",    value: "MARTÍNEZ LÓPEZ ANA",   t: 400 },
-      { label: "Reg. Civil","value": "CDMX/2024/00341",    t: 720 },
+      { label: "Reg. Civil","value": "NL/2024/00341",       t: 720 },
       { label: "Fecha nac.","value": "03/07/1991",          t: 1050 },
       { label: "Tipo",      value: "Acta nacimiento",       t: 1320 },
     ],
@@ -39,8 +41,9 @@ const CASES: {
     title: "Extracción en escrituras de compraventa",
     desc: "Identifica inmueble, precio, partes, folio real y folios notariales en escrituras complejas de varias páginas. Listo para firma electrónica.",
     src: "/Escrituras/Russildi-escritura-1008-c.jpg",
+    variant: "document",
     fields: [
-      { label: "Inmueble",   value: "Av. Insurgentes Sur 1602, Col. Crédito Constructor, Benito Juárez, CDMX", t: 380 },
+      { label: "Inmueble",   value: "Av. Lázaro Cárdenas 2400, Col. Del Valle, San Pedro Garza García, N.L.", t: 380 },
       { label: "Vendedor",   value: "RAMÍREZ OCHOA FERNANDO JOSÉ",  t: 700 },
       { label: "Comprador",  value: "GÓMEZ REYES CARLOS ALBERTO",   t: 1020 },
       { label: "Monto",      value: "$4,250,000.00 M.N.",            t: 1340 },
@@ -53,14 +56,14 @@ const CASES: {
     src: "/Registro civil/images.jpg",
     fields: [
       { label: "Nombre",     value: "RUIZ SANTOS ELENA",    t: 400 },
-      { label: "No. Acta",   value: "CDMX/RC/2024/0892",    t: 730 },
+      { label: "No. Acta",   value: "NL/RC/2024/0892",       t: 730 },
       { label: "Fecha",      value: "14/03/2024",            t: 1060 },
-      { label: "Oficial",    value: "Of. 42, CDMX",          t: 1360 },
+      { label: "Oficial",    value: "Of. 29, Monterrey",      t: 1360 },
     ],
   },
 ];
 
-function UseCaseCard({ tag, title, desc, src, fields }: (typeof CASES)[number]) {
+function UseCaseCard({ tag, title, desc, src, fields, variant }: (typeof CASES)[number]) {
   return (
     <div
       style={{
@@ -69,6 +72,8 @@ function UseCaseCard({ tag, title, desc, src, fields }: (typeof CASES)[number]) 
         overflow: "hidden",
         background: "white",
         transition: "border-color 0.2s, box-shadow 0.2s",
+        display: "flex",
+        flexDirection: "column",
       }}
       onMouseEnter={(e) => {
         const el = e.currentTarget as HTMLElement;
@@ -86,12 +91,15 @@ function UseCaseCard({ tag, title, desc, src, fields }: (typeof CASES)[number]) 
         padding: "14px 14px 10px",
         background: C.offWhite,
         borderBottom: `1px solid ${C.border}`,
+        height: 190,
+        display: "flex",
+        alignItems: "stretch",
       }}>
-        <MiniScanAnimation src={src} fields={fields} />
+        <MiniScanAnimation src={src} fields={fields} variant={variant} />
       </div>
 
       {/* Content */}
-      <div style={{ padding: "14px 18px 16px" }}>
+      <div style={{ padding: "14px 18px 16px", flex: 1 }}>
         <div style={{
           display: "inline-flex", alignItems: "center",
           background: C.sandL, color: C.warmGray,
@@ -112,8 +120,10 @@ function UseCaseCard({ tag, title, desc, src, fields }: (typeof CASES)[number]) 
 }
 
 export default function UseCases() {
+  const isMobile = useIsMobile();
+
   return (
-    <section id="casos" style={{ ...S.section, padding: "64px 28px" }}>
+    <section id="casos" style={{ ...S.section, padding: isMobile ? "72px 24px" : "96px 28px" }}>
       <div style={S.container}>
         <span style={S.eyebrow}>Casos de uso</span>
         <h2 style={{
@@ -123,16 +133,16 @@ export default function UseCases() {
           fontWeight: 500,
           letterSpacing: "-0.8px",
           lineHeight: 1.07,
-          marginBottom: 8,
+          marginBottom: 10,
         }}>Para cada tipo de trámite</h2>
-        <p style={{ ...S.sectionSub, fontSize: 14.5, marginBottom: 0, lineHeight: 1.5 }}>
+        <p style={{ ...S.sectionSub, fontSize: 15, marginBottom: 0, lineHeight: 1.6 }}>
           nominds se adapta a los documentos y flujos más frecuentes en despachos legales y notarías.
         </p>
 
         <div style={{
           display: "grid",
-          gridTemplateColumns: "repeat(2, 1fr)",
-          gap: 12, marginTop: 24,
+          gridTemplateColumns: isMobile ? "1fr" : "repeat(2, 1fr)",
+          gap: 16, marginTop: 32,
         }}>
           {CASES.map((c, i) => (
             <UseCaseCard key={i} {...c} />

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { C, S } from "@/lib/tokens";
+import { useIsMobile } from "@/lib/useIsMobile";
 
 const LIST_FEATURES = [
   {
@@ -110,12 +111,14 @@ function FeatureRow({ icon, title, desc }: { icon: React.ReactNode; title: strin
 }
 
 export default function Features() {
+  const isMobile = useIsMobile();
+
   return (
-    <section id="producto-features" style={{ ...S.section, padding: "72px 28px" }}>
+    <section id="producto-features" style={{ ...S.section, padding: isMobile ? "72px 24px" : "96px 28px" }}>
       <div style={S.container}>
 
         {/* Header */}
-        <div style={{ marginBottom: 44, maxWidth: 620 }}>
+        <div style={{ marginBottom: 40, maxWidth: 620 }}>
           <span style={S.eyebrow}>Lo que hace nominds</span>
           <h2 style={{
             ...S.sectionTitle,
@@ -136,8 +139,8 @@ export default function Features() {
         {/* 2-col layout */}
         <div style={{
           display: "grid",
-          gridTemplateColumns: "1fr 380px",
-          gap: 32,
+          gridTemplateColumns: isMobile ? "1fr" : "1fr 380px",
+          gap: isMobile ? 24 : 32,
           alignItems: "stretch",
         }}>
 
@@ -204,7 +207,7 @@ export default function Features() {
                   background: "rgba(255,255,255,0.15)",
                 }} />
                 <div style={{ fontSize: 12, color: "rgba(250,250,248,0.55)", fontWeight: 400 }}>
-                  Notaría 19 · México
+                  Notaría 29 · Monterrey
                 </div>
               </div>
             </div>

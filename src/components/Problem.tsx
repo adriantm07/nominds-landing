@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { C, S } from "@/lib/tokens";
+import { useIsMobile } from "@/lib/useIsMobile";
 
 const BEFORE = [
   {
@@ -200,8 +201,10 @@ function Column({ side, steps }: { side: "before" | "after"; steps: typeof BEFOR
 
 // ─── Main ─────────────────────────────────────────────────────
 export default function Problem() {
+  const isMobile = useIsMobile();
+
   return (
-    <section style={{ ...S.section, padding: "56px 28px", background: C.dark, position: "relative", overflow: "hidden" }}>
+    <section style={{ ...S.section, padding: isMobile ? "72px 24px" : "96px 28px", background: C.dark, position: "relative", overflow: "hidden" }}>
       {/* bg glow */}
       <div style={{
         position: "absolute", top: "50%", left: "50%",
@@ -214,12 +217,12 @@ export default function Problem() {
       <div style={S.container}>
 
         {/* Header */}
-        <div style={{ marginBottom: 36, maxWidth: 640 }}>
-          <span style={{ ...S.eyebrow, color: C.greenL }}>El problema actual</span>
+        <div style={{ marginBottom: 40, maxWidth: 640 }}>
+          <span style={S.eyebrow}>El problema actual</span>
           <h2 style={{
             ...S.sectionTitle,
             color: C.white,
-            fontSize: "clamp(30px, 4vw, 52px)",
+            fontSize: "clamp(28px, 4vw, 52px)",
             fontWeight: 700,
             letterSpacing: "-1px",
             lineHeight: 1.05,
@@ -234,45 +237,65 @@ export default function Problem() {
         </div>
 
         {/* Two columns + divider */}
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 48px 1fr", gap: 0, alignItems: "stretch" }}>
-          <Column side="before" steps={BEFORE} />
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <ArrowDivider />
+        {isMobile ? (
+          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            <Column side="before" steps={BEFORE} />
+            <div style={{ display: "flex", justifyContent: "center", padding: "2px 0" }}>
+              <div style={{
+                width: 32, height: 32, borderRadius: "50%",
+                border: "1px solid rgba(255,255,255,0.1)",
+                background: "rgba(255,255,255,0.04)",
+                display: "flex", alignItems: "center", justifyContent: "center",
+                color: "rgba(255,255,255,0.2)",
+              }}>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <line x1="12" y1="5" x2="12" y2="19"/><polyline points="5 12 12 19 19 12"/>
+                </svg>
+              </div>
+            </div>
+            <Column side="after" steps={AFTER} />
           </div>
-          <Column side="after" steps={AFTER} />
-        </div>
+        ) : (
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 48px 1fr", gap: 0, alignItems: "stretch" }}>
+            <Column side="before" steps={BEFORE} />
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <ArrowDivider />
+            </div>
+            <Column side="after" steps={AFTER} />
+          </div>
+        )}
 
         {/* Stat bar */}
         <div style={{
           display: "grid",
           gridTemplateColumns: "repeat(3, 1fr)",
-          marginTop: 28,
+          marginTop: 20,
           background: "rgba(255,255,255,0.03)",
           borderRadius: 14,
           border: "1px solid rgba(255,255,255,0.06)",
           overflow: "hidden",
         }}>
           {[
-            { n: "95%", label: "Precisión en extracción" },
-            { n: "10×", label: "Más rápido que captura manual" },
-            { n: "0",   label: "Reprocesos por error humano" },
+            { n: "95%", label: "Precisión" },
+            { n: "10×", label: "Más rápido" },
+            { n: "0",   label: "Sin errores" },
           ].map(({ n, label }, i) => (
             <div key={i} style={{
-              padding: "18px 24px",
+              padding: isMobile ? "14px 10px" : "18px 24px",
               textAlign: "center",
               borderRight: i < 2 ? "1px solid rgba(255,255,255,0.06)" : "none",
             }}>
               <div style={{
                 fontFamily: "'NeueHaas', 'Helvetica Neue', sans-serif",
-                fontSize: "clamp(30px, 3.5vw, 46px)",
+                fontSize: isMobile ? "clamp(24px, 7vw, 36px)" : "clamp(30px, 3.5vw, 46px)",
                 fontWeight: 500,
                 color: C.white,
                 lineHeight: 1,
-                marginBottom: 8,
+                marginBottom: 6,
               }}>
                 {n}
               </div>
-              <div style={{ fontSize: 12.5, color: "rgba(255,255,255,0.3)", fontWeight: 400 }}>
+              <div style={{ fontSize: isMobile ? 11 : 12.5, color: "rgba(255,255,255,0.3)", fontWeight: 400 }}>
                 {label}
               </div>
             </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { C, S } from "@/lib/tokens";
+import { useIsMobile } from "@/lib/useIsMobile";
 
 const REASONS = [
   {
@@ -50,18 +51,20 @@ const REASONS = [
 ] as const;
 
 export default function WhyNominds() {
+  const isMobile = useIsMobile();
+
   return (
-    <section id="porque" style={{ ...S.section, background: "white" }}>
+    <section id="porque" style={{ ...S.section, padding: isMobile ? "72px 24px" : "88px 28px", background: "white" }}>
       <div style={S.container}>
 
         {/* ── Header row ── */}
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: 48,
+            gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
+            gap: isMobile ? 12 : 48,
             alignItems: "end",
-            marginBottom: 56,
+            marginBottom: 40,
           }}
         >
           <div>
@@ -89,7 +92,7 @@ export default function WhyNominds() {
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(4, 1fr)",
+            gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, 1fr)",
             gap: 14,
           }}
         >

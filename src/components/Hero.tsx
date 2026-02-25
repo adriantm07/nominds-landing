@@ -1,9 +1,12 @@
 "use client";
 
 import { C, S } from "@/lib/tokens";
+import { useIsMobile } from "@/lib/useIsMobile";
 import ScanAnimation from "./ScanAnimation";
 
 export default function Hero() {
+  const isMobile = useIsMobile();
+
   return (
     <section
       id="producto"
@@ -12,8 +15,10 @@ export default function Hero() {
         minHeight: "100vh",
         display: "flex",
         alignItems: "center",
-        paddingTop: 100,
-        paddingBottom: 80,
+        paddingTop: isMobile ? 88 : 96,
+        paddingBottom: isMobile ? 64 : 96,
+        paddingLeft: 24,
+        paddingRight: 24,
         position: "relative",
         overflow: "hidden",
         background: C.white,
@@ -33,8 +38,8 @@ export default function Hero() {
         style={{
           ...S.container,
           display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gap: 64,
+          gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
+          gap: isMobile ? 48 : 56,
           alignItems: "start",
         }}
       >
@@ -43,11 +48,11 @@ export default function Hero() {
           <h1
             style={{
               fontFamily: "'NeueHaas', 'Helvetica Neue', sans-serif",
-              fontSize: "clamp(36px, 4.2vw, 58px)",
+              fontSize: isMobile ? "clamp(36px, 10vw, 52px)" : "clamp(36px, 4.2vw, 58px)",
               lineHeight: 1.07,
               letterSpacing: "-1.5px",
               color: C.dark,
-              marginBottom: 18,
+              marginBottom: 16,
               fontWeight: 500,
             }}
           >
@@ -60,9 +65,9 @@ export default function Hero() {
 
           <p
             style={{
-              fontSize: 16.5, lineHeight: 1.65,
-              color: C.warmGray, maxWidth: 480,
-              marginBottom: 32, fontWeight: 300,
+              fontSize: 15.5, lineHeight: 1.65,
+              color: C.warmGray, maxWidth: isMobile ? "100%" : 480,
+              marginBottom: 28, fontWeight: 300,
             }}
           >
             nominds lee, extrae y valida la información de documentos legales y de
@@ -99,7 +104,7 @@ export default function Hero() {
           </div>
 
           {/* Social proof */}
-          <div style={{ display: "flex", alignItems: "center", gap: 10, marginTop: 36 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 10, marginTop: 32 }}>
             <div style={{ display: "flex" }}>
               {[0, 1, 2, 3].map((i) => (
                 <div

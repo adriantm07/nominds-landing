@@ -5,7 +5,7 @@ export default function Footer() {
     <footer
       style={{
         background: C.dark2,
-        padding: "32px 28px",
+        padding: "40px 28px",
         borderTop: "1px solid rgba(255,255,255,0.05)",
       }}
     >

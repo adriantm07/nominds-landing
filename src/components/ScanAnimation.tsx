@@ -348,8 +348,8 @@ function OutCard({ field, visible }: { field: typeof SCAN_FIELDS[number]; visibl
             marginLeft: "auto", flexShrink: 0,
             fontSize: 9, fontWeight: 700,
             padding: "1px 5px", borderRadius: 8,
-            background: isHigh ? "#D6E8DF" : "#F5EDD8",
-            color:      isHigh ? "#1E4032" : "#7A5520",
+            background: isHigh ? "#D6E8DF" : C.amberPale,
+            color:      isHigh ? "#1E4032" : C.amber,
             opacity: visible ? 1 : 0,
             transition: "opacity 0.3s 0.2s",
           }}
@@ -371,7 +371,7 @@ function OutCard({ field, visible }: { field: typeof SCAN_FIELDS[number]; visibl
         <div
           style={{
             height: "100%", borderRadius: 2,
-            background: isHigh ? C.green : "#C49A3A",
+            background: isHigh ? C.green : C.amber,
             width: visible ? `${field.conf}%` : "0%",
             transition: visible ? "width 0.7s cubic-bezier(0.4,0,0.2,1) 0.25s" : "none",
           }}

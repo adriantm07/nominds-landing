@@ -435,130 +435,161 @@
       font-size: .875rem;
       color: var(--light-text);
     }
-    .pm-steps {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
+    .pm-steps { display: flex; align-items: center; gap: 4px; }
     .pm-step {
       width: 22px; height: 22px;
       border-radius: 50%;
       background: rgba(250,247,242,.12);
       border: 1.5px solid rgba(250,247,242,.2);
       display: flex; align-items: center; justify-content: center;
-      font-size: .6875rem;
-      font-weight: 700;
+      font-size: .6875rem; font-weight: 700;
       color: rgba(250,247,242,.35);
+      transition: all .4s ease;
     }
-    .pm-step.done {
-      background: var(--secondary);
-      border-color: var(--secondary);
-      color: #fff;
-    }
-    .pm-step.active {
-      background: var(--primary);
-      border-color: var(--primary);
-      color: #fff;
-    }
-    .pm-step-line {
-      width: 14px; height: 1px;
-      background: rgba(250,247,242,.18);
-    }
+    .pm-step.done { background: var(--secondary); border-color: var(--secondary); color: #fff; }
+    .pm-step.active { background: var(--primary); border-color: var(--primary); color: #fff; }
+    .pm-step-line { width: 14px; height: 1px; background: rgba(250,247,242,.18); }
 
-    .pm-body {
-      padding: 20px 20px 16px;
+    /* === ANIMATED MOCKUP STAGES === */
+    .am-stages { position: relative; min-height: 310px; overflow: hidden; }
+    .am-stage {
+      position: absolute; inset: 0; padding: 18px 20px;
+      opacity: 0; transform: translateY(10px);
+      transition: opacity .4s ease, transform .4s ease;
+      pointer-events: none;
     }
-    .pm-section-label {
-      font-size: .6875rem;
-      font-weight: 600;
-      letter-spacing: .06em;
-      text-transform: uppercase;
-      color: var(--secondary);
-      margin-bottom: 4px;
-    }
-    .pm-title {
-      font-family: var(--font-serif);
-      font-size: 1.125rem;
-      color: var(--text);
-      margin-bottom: 16px;
-    }
-    .pm-field {
-      margin-bottom: 10px;
-    }
-    .pm-field-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-bottom: 10px;
-    }
-    .pm-field-label {
-      font-size: .6875rem;
-      color: var(--text-muted);
-      margin-bottom: 3px;
-    }
-    .pm-field-value {
-      font-size: .8125rem;
-      font-weight: 500;
-      color: var(--text);
-      background: var(--off-white);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 7px 10px;
-    }
-    .pm-upload-slot {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: #F0FBF0;
-      border: 1px solid #A8D8A8;
-      border-radius: 8px;
-      padding: 8px 12px;
-      font-size: .8125rem;
-      color: #2E7D32;
-      font-weight: 500;
-      margin-bottom: 16px;
-    }
-    .pm-check { color: #4CAF50; margin-left: 4px; }
+    .am-stage.active { opacity: 1; transform: translateY(0); pointer-events: auto; position: relative; }
 
-    .pm-progress {
-      height: 5px;
-      background: var(--border);
-      border-radius: 10px;
-      overflow: hidden;
-      margin-bottom: 5px;
+    .am-label {
+      font-size: .6875rem; font-weight: 600; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--secondary); margin-bottom: 4px;
     }
-    .pm-progress-bar {
-      height: 100%;
-      width: 58%;
-      background: linear-gradient(90deg, var(--primary), var(--secondary));
-      border-radius: 10px;
+    .am-title {
+      font-family: var(--font-serif); font-size: 1.0625rem;
+      color: var(--text); margin-bottom: 14px;
     }
-    .pm-progress-label {
-      font-size: .6875rem;
-      color: var(--text-muted);
-      margin-bottom: 14px;
+    .am-btn {
+      background: var(--primary); color: #fff;
+      border-radius: 100px; padding: 10px 20px;
+      font-size: .8125rem; font-weight: 600; text-align: center;
+      opacity: 0; transition: opacity .4s ease .2s; cursor: default;
     }
-    .pm-btn {
-      background: var(--primary);
-      color: var(--light-text);
-      border-radius: 100px;
-      padding: 10px 20px;
-      font-size: .8125rem;
-      font-weight: 600;
-      text-align: center;
-    }
+    .am-btn.visible { opacity: 1; }
 
-    .pm-wa-badge {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      background: #F0FBF5;
-      border-top: 1px solid #D4EDD8;
-      padding: 10px 20px;
-      font-size: .75rem;
-      color: #2E7D40;
-      font-weight: 500;
+    /* Stage 1: Tramite selector */
+    .tramite-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px; }
+    .tramite-card {
+      border: 1.5px solid var(--border); border-radius: 10px;
+      padding: 10px 10px 8px; transition: all .35s ease;
     }
+    .tramite-card.selected {
+      border-color: var(--primary); background: #FDF5EE;
+      box-shadow: 0 0 0 3px rgba(139,69,19,.08);
+    }
+    .tramite-icon { font-size: 1.25rem; margin-bottom: 4px; }
+    .tramite-name { font-size: .75rem; font-weight: 600; color: var(--text); line-height: 1.2; }
+    .tramite-card.selected .tramite-name { color: var(--primary); }
+
+    /* Stage 2: Upload */
+    .upload-list { display: flex; flex-direction: column; gap: 7px; margin-bottom: 14px; }
+    .upload-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 8px 10px; border-radius: 10px;
+      border: 1.5px dashed var(--border); background: var(--off-white);
+      opacity: 0; transform: translateX(-10px);
+      transition: all .35s ease, border-color .35s, background .35s;
+    }
+    .upload-item.uploading {
+      opacity: 1; transform: translateX(0);
+      border-style: solid; border-color: var(--secondary); background: #FDF5EE;
+    }
+    .upload-item.done { border-style: solid; border-color: #A8D8A8; background: #F0FBF0; }
+    .upload-icon {
+      width: 28px; height: 28px; border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; font-size: .875rem;
+    }
+    .upload-item.uploading .upload-icon { background: #FDE8CC; }
+    .upload-item.done .upload-icon { background: #D4EDD8; }
+    .upload-info { flex: 1; min-width: 0; }
+    .upload-name { font-size: .75rem; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .upload-size { font-size: .6875rem; color: var(--text-muted); }
+    .upload-progress { height: 3px; background: var(--border); border-radius: 10px; overflow: hidden; margin-top: 4px; }
+    .upload-progress-bar {
+      height: 100%; background: linear-gradient(90deg, var(--primary), var(--secondary));
+      border-radius: 10px; width: 0%; transition: width 1s ease;
+    }
+    .upload-item.done .upload-progress-bar { width: 100%; background: #4CAF50; }
+    .upload-status { font-size: .75rem; font-weight: 700; }
+    .upload-item.uploading .upload-status { color: var(--secondary); }
+    .upload-item.done .upload-status { color: #4CAF50; }
+
+    /* Stage 3: OCR */
+    .ocr-doc {
+      position: relative; background: var(--off-white);
+      border: 1px solid var(--border); border-radius: 10px;
+      height: 86px; overflow: hidden; margin-bottom: 12px;
+    }
+    .ocr-doc-lines { padding: 12px; display: flex; flex-direction: column; gap: 7px; }
+    .ocr-line { height: 6px; background: var(--border); border-radius: 4px; }
+    .ocr-line:nth-child(1){width:70%} .ocr-line:nth-child(2){width:90%}
+    .ocr-line:nth-child(3){width:55%} .ocr-line:nth-child(4){width:80%} .ocr-line:nth-child(5){width:45%}
+    .ocr-scan-line {
+      position: absolute; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--secondary), var(--primary), var(--secondary), transparent);
+      box-shadow: 0 0 10px rgba(196,124,62,.7), 0 0 24px rgba(139,69,19,.4);
+      animation: scanMove 1.8s ease-in-out forwards;
+    }
+    @keyframes scanMove {
+      0%   { top: 0%;   opacity: 1; }
+      85%  { opacity: 1; }
+      100% { top: 100%; opacity: 0; }
+    }
+    .ocr-fields { display: flex; flex-direction: column; gap: 6px; }
+    .ocr-field {
+      display: flex; align-items: center; gap: 8px;
+      opacity: 0; transform: translateX(10px); transition: all .3s ease;
+    }
+    .ocr-field.visible { opacity: 1; transform: translateX(0); }
+    .ocr-field-key { font-size: .6875rem; color: var(--text-muted); width: 72px; flex-shrink: 0; }
+    .ocr-field-val {
+      font-size: .75rem; font-weight: 600; color: var(--text);
+      background: var(--off-white); border: 1px solid var(--border);
+      border-radius: 6px; padding: 3px 8px; flex: 1;
+    }
+    .ocr-badge {
+      display: flex; align-items: center; gap: 5px;
+      font-size: .6875rem; font-weight: 600; color: var(--secondary);
+      margin-top: 8px; opacity: 0; transition: opacity .4s ease;
+    }
+    .ocr-badge.visible { opacity: 1; }
+
+    /* Stage 4: Ready */
+    .ready-wrap { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 4px 0; }
+    .ready-check {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: linear-gradient(135deg, #4CAF50, #2E7D32);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 12px; box-shadow: 0 8px 24px rgba(76,175,80,.3);
+      transform: scale(0); transition: transform .5s cubic-bezier(.34,1.56,.64,1);
+    }
+    .ready-check.pop { transform: scale(1); }
+    .ready-title { font-family: var(--font-serif); font-size: 1.0625rem; color: var(--text); margin-bottom: 4px; }
+    .ready-sub { font-size: .8125rem; color: var(--text-muted); margin-bottom: 12px; line-height: 1.5; }
+    .ready-docs { display: flex; flex-direction: column; gap: 5px; width: 100%; margin-bottom: 14px; }
+    .ready-doc-item {
+      display: flex; align-items: center; gap: 8px;
+      padding: 6px 10px; background: #F0FBF0;
+      border: 1px solid #A8D8A8; border-radius: 8px;
+      font-size: .75rem; font-weight: 500; color: #2E7D32;
+      opacity: 0; transition: opacity .3s ease;
+    }
+    .ready-doc-item.visible { opacity: 1; }
+
+    /* Dots indicator */
+    .am-dots { display: flex; justify-content: center; gap: 5px; padding: 8px 0 12px; background: #fff; }
+    .am-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border); transition: all .3s ease; }
+    .am-dot.active { width: 18px; border-radius: 3px; background: var(--primary); }
 
     /* ===========================
        HOW IT WORKS
@@ -1261,11 +1292,12 @@
           </div>
         </div>
 
-        <!-- Platform UI Mockup -->
+        <!-- Platform UI Mockup Animado -->
         <div class="phone-wrap reveal reveal-delay-2">
           <div class="phone-glow"></div>
           <div class="platform-mockup">
-            <!-- Progress bar -->
+
+            <!-- Header -->
             <div class="pm-header">
               <div class="pm-logo">
                 <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
@@ -1275,53 +1307,142 @@
                 TuNotariaExpress
               </div>
               <div class="pm-steps">
-                <span class="pm-step done">1</span>
+                <span class="pm-step active" id="pmst-1">1</span>
                 <span class="pm-step-line"></span>
-                <span class="pm-step active">2</span>
+                <span class="pm-step" id="pmst-2">2</span>
                 <span class="pm-step-line"></span>
-                <span class="pm-step">3</span>
+                <span class="pm-step" id="pmst-3">3</span>
                 <span class="pm-step-line"></span>
-                <span class="pm-step">4</span>
+                <span class="pm-step" id="pmst-4">4</span>
               </div>
             </div>
 
-            <div class="pm-body">
-              <div class="pm-section-label">Compraventa de Inmueble · Paso 2 de 4</div>
-              <div class="pm-title">Datos del inmueble</div>
+            <!-- Stages -->
+            <div class="am-stages">
 
-              <div class="pm-field">
-                <div class="pm-field-label">Dirección del inmueble</div>
-                <div class="pm-field-value">Av. Insurgentes Sur 1234, Col. Del Valle</div>
-              </div>
-              <div class="pm-field-row">
-                <div class="pm-field">
-                  <div class="pm-field-label">Municipio</div>
-                  <div class="pm-field-value">Benito Juárez</div>
+              <!-- Etapa 1: Elige tu trámite -->
+              <div class="am-stage active" id="am-stage-1">
+                <div class="am-label">Paso 1 de 4</div>
+                <div class="am-title">¿Qué trámite necesitas?</div>
+                <div class="tramite-grid">
+                  <div class="tramite-card" id="tc-acta">
+                    <div class="tramite-icon">🏢</div>
+                    <div class="tramite-name">Acta Constitutiva</div>
+                  </div>
+                  <div class="tramite-card" id="tc-compra">
+                    <div class="tramite-icon">🏠</div>
+                    <div class="tramite-name">Compraventa</div>
+                  </div>
+                  <div class="tramite-card" id="tc-testa">
+                    <div class="tramite-icon">📜</div>
+                    <div class="tramite-name">Testamento</div>
+                  </div>
+                  <div class="tramite-card" id="tc-donacion">
+                    <div class="tramite-icon">🤝</div>
+                    <div class="tramite-name">Donación</div>
+                  </div>
                 </div>
-                <div class="pm-field">
-                  <div class="pm-field-label">Estado</div>
-                  <div class="pm-field-value">CDMX</div>
+                <div class="am-btn" id="am-btn-1">Continuar con Acta Constitutiva →</div>
+              </div>
+
+              <!-- Etapa 2: Sube documentos -->
+              <div class="am-stage" id="am-stage-2">
+                <div class="am-label">Paso 2 de 4 · Acta Constitutiva</div>
+                <div class="am-title">Sube tus documentos</div>
+                <div class="upload-list">
+                  <div class="upload-item" id="udoc-1">
+                    <div class="upload-icon">📄</div>
+                    <div class="upload-info">
+                      <div class="upload-name">INE_frente.pdf</div>
+                      <div class="upload-size">1.2 MB</div>
+                      <div class="upload-progress"><div class="upload-progress-bar" id="upbar-1"></div></div>
+                    </div>
+                    <div class="upload-status">↑</div>
+                  </div>
+                  <div class="upload-item" id="udoc-2">
+                    <div class="upload-icon">📄</div>
+                    <div class="upload-info">
+                      <div class="upload-name">CURP.pdf</div>
+                      <div class="upload-size">340 KB</div>
+                      <div class="upload-progress"><div class="upload-progress-bar" id="upbar-2"></div></div>
+                    </div>
+                    <div class="upload-status">↑</div>
+                  </div>
+                  <div class="upload-item" id="udoc-3">
+                    <div class="upload-icon">📄</div>
+                    <div class="upload-info">
+                      <div class="upload-name">RFC_constancia.pdf</div>
+                      <div class="upload-size">890 KB</div>
+                      <div class="upload-progress"><div class="upload-progress-bar" id="upbar-3"></div></div>
+                    </div>
+                    <div class="upload-status">↑</div>
+                  </div>
                 </div>
               </div>
 
-              <div class="pm-upload-slot">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12" stroke="var(--secondary)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                <span>Escritura_propiedad.pdf <span class="pm-check">✓</span></span>
+              <!-- Etapa 3: OCR escaneando -->
+              <div class="am-stage" id="am-stage-3">
+                <div class="am-label">Paso 3 de 4 · Analizando</div>
+                <div class="am-title">Leyendo documentos con OCR</div>
+                <div class="ocr-doc" id="ocr-doc">
+                  <div class="ocr-doc-lines">
+                    <div class="ocr-line"></div>
+                    <div class="ocr-line"></div>
+                    <div class="ocr-line"></div>
+                    <div class="ocr-line"></div>
+                    <div class="ocr-line"></div>
+                  </div>
+                  <div class="ocr-scan-line" id="ocr-scan"></div>
+                </div>
+                <div class="ocr-fields">
+                  <div class="ocr-field" id="ocrf-1">
+                    <div class="ocr-field-key">Nombre</div>
+                    <div class="ocr-field-val">Carlos Mendoza R.</div>
+                  </div>
+                  <div class="ocr-field" id="ocrf-2">
+                    <div class="ocr-field-key">RFC</div>
+                    <div class="ocr-field-val">MERC890423HDF</div>
+                  </div>
+                  <div class="ocr-field" id="ocrf-3">
+                    <div class="ocr-field-key">CURP</div>
+                    <div class="ocr-field-val">MERC890423HDFNRL09</div>
+                  </div>
+                  <div class="ocr-badge" id="ocr-badge">
+                    <svg width="12" height="12" viewBox="0 0 16 16" fill="var(--secondary)"><circle cx="8" cy="8" r="7" stroke="var(--secondary)" stroke-width="1.5" fill="none"/><path d="M5 8l2 2 4-4" stroke="var(--secondary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    3 campos extraídos automáticamente
+                  </div>
+                </div>
               </div>
 
-              <div class="pm-progress">
-                <div class="pm-progress-bar"></div>
+              <!-- Etapa 4: Expediente listo -->
+              <div class="am-stage" id="am-stage-4">
+                <div class="ready-wrap">
+                  <div class="ready-check" id="ready-check">
+                    <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                      <path d="M5 14l7 7L23 7" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                  <div class="ready-title">¡Expediente listo!</div>
+                  <div class="ready-sub">Tu expediente está completo y verificado.<br/>Solo elige cuándo ir a firmar.</div>
+                  <div class="ready-docs">
+                    <div class="ready-doc-item" id="rdoc-1">📄 INE_frente.pdf · verificado ✓</div>
+                    <div class="ready-doc-item" id="rdoc-2">📄 CURP.pdf · verificado ✓</div>
+                    <div class="ready-doc-item" id="rdoc-3">📄 RFC_constancia.pdf · verificado ✓</div>
+                  </div>
+                  <div class="am-btn visible">Agendar cita con el notario →</div>
+                </div>
               </div>
-              <div class="pm-progress-label">Expediente 58% completo</div>
 
-              <div class="pm-btn">Guardar y continuar →</div>
             </div>
 
-            <!-- WhatsApp value add badge -->
-            <div class="pm-wa-badge">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="#25D366"><path d="M17.5 14.4c-.3-.1-1.7-.8-1.9-.9-.3-.1-.5-.1-.7.1-.2.2-.7.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.6-2-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5.1-.2 0-.4-.1-.5-.1-.1-.7-1.7-.9-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4 0 1.4 1 2.7 1.1 2.9.1.2 2 3.1 4.9 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.4.2-.6.2-1.2.1-1.3z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.7 1.5 5.3L2 22l4.9-1.5C8.4 21.5 10.2 22 12 22c5.5 0 10-4.5 10-10S17.5 2 12 2z" stroke="#25D366" stroke-width="1.2" fill="none"/></svg>
-              También disponible vía WhatsApp
+            <!-- Dots indicador -->
+            <div class="am-dots">
+              <div class="am-dot active" data-dot="1"></div>
+              <div class="am-dot" data-dot="2"></div>
+              <div class="am-dot" data-dot="3"></div>
+              <div class="am-dot" data-dot="4"></div>
             </div>
+
           </div>
           <p class="phone-footnote">Tu progreso se guarda automáticamente. Continúa cuando quieras.</p>
         </div>
@@ -1971,6 +2092,132 @@
         window.scrollTo({ top, behavior: 'smooth' });
       });
     });
+
+    // === ANIMATED MOCKUP ===
+    (function() {
+      let current = 1;
+      let stageTimer;
+      let started = false;
+
+      function setStepIndicator(n) {
+        [1,2,3,4].forEach(s => {
+          const el = document.getElementById('pmst-' + s);
+          if (!el) return;
+          el.classList.remove('active','done');
+          if (s < n) el.classList.add('done');
+          if (s === n) el.classList.add('active');
+        });
+        document.querySelectorAll('.am-dot').forEach(d => {
+          d.classList.toggle('active', +d.dataset.dot === n);
+        });
+      }
+
+      function showStage(n) {
+        [1,2,3,4].forEach(s => {
+          const el = document.getElementById('am-stage-' + s);
+          if (el) el.classList.remove('active');
+        });
+        const stage = document.getElementById('am-stage-' + n);
+        if (stage) stage.classList.add('active');
+        setStepIndicator(n);
+        current = n;
+      }
+
+      function animateStage1() {
+        clearTimeout(stageTimer);
+        showStage(1);
+        document.querySelectorAll('.tramite-card').forEach(c => c.classList.remove('selected'));
+        document.getElementById('am-btn-1').classList.remove('visible');
+        setTimeout(() => {
+          const acta = document.getElementById('tc-acta');
+          if (acta) acta.classList.add('selected');
+        }, 700);
+        setTimeout(() => {
+          const btn = document.getElementById('am-btn-1');
+          if (btn) btn.classList.add('visible');
+        }, 1200);
+        stageTimer = setTimeout(animateStage2, 3200);
+      }
+
+      function animateStage2() {
+        clearTimeout(stageTimer);
+        showStage(2);
+        const docs = ['udoc-1','udoc-2','udoc-3'];
+        const bars = ['upbar-1','upbar-2','upbar-3'];
+        docs.forEach(id => {
+          const el = document.getElementById(id);
+          if (el) { el.classList.remove('uploading','done'); }
+        });
+        bars.forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.style.width = '0%';
+        });
+        [0,1,2].forEach(i => {
+          setTimeout(() => {
+            const doc = document.getElementById(docs[i]);
+            if (doc) doc.classList.add('uploading');
+            setTimeout(() => {
+              const bar = document.getElementById(bars[i]);
+              if (bar) bar.style.width = '100%';
+              setTimeout(() => {
+                const doc2 = document.getElementById(docs[i]);
+                if (doc2) { doc2.classList.remove('uploading'); doc2.classList.add('done'); }
+              }, 900);
+            }, 100);
+          }, i * 950 + 300);
+        });
+        stageTimer = setTimeout(animateStage3, 4400);
+      }
+
+      function animateStage3() {
+        clearTimeout(stageTimer);
+        showStage(3);
+        ['ocrf-1','ocrf-2','ocrf-3'].forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.classList.remove('visible');
+        });
+        const badge = document.getElementById('ocr-badge');
+        if (badge) badge.classList.remove('visible');
+        const scan = document.getElementById('ocr-scan');
+        if (scan) { scan.style.animation = 'none'; scan.offsetHeight; scan.style.animation = 'scanMove 1.8s ease-in-out forwards'; }
+        setTimeout(() => { const f = document.getElementById('ocrf-1'); if(f) f.classList.add('visible'); }, 2000);
+        setTimeout(() => { const f = document.getElementById('ocrf-2'); if(f) f.classList.add('visible'); }, 2600);
+        setTimeout(() => { const f = document.getElementById('ocrf-3'); if(f) f.classList.add('visible'); }, 3200);
+        setTimeout(() => { if(badge) badge.classList.add('visible'); }, 3900);
+        stageTimer = setTimeout(animateStage4, 5200);
+      }
+
+      function animateStage4() {
+        clearTimeout(stageTimer);
+        showStage(4);
+        const check = document.getElementById('ready-check');
+        if (check) check.classList.remove('pop');
+        ['rdoc-1','rdoc-2','rdoc-3'].forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.classList.remove('visible');
+        });
+        setTimeout(() => { if(check) check.classList.add('pop'); }, 200);
+        setTimeout(() => { const e = document.getElementById('rdoc-1'); if(e) e.classList.add('visible'); }, 800);
+        setTimeout(() => { const e = document.getElementById('rdoc-2'); if(e) e.classList.add('visible'); }, 1100);
+        setTimeout(() => { const e = document.getElementById('rdoc-3'); if(e) e.classList.add('visible'); }, 1400);
+        stageTimer = setTimeout(animateStage1, 4000);
+      }
+
+      // Start when mockup is visible
+      const mockup = document.querySelector('.platform-mockup');
+      if (mockup) {
+        const obs = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting && !started) {
+              started = true;
+              animateStage1();
+              obs.disconnect();
+            }
+          });
+        }, { threshold: 0.3 });
+        obs.observe(mockup);
+      }
+    })();
   </script>
 
 </body>

@@ -3,6 +3,7 @@
 import { C, S } from "@/lib/tokens";
 import { useIsMobile } from "@/lib/useIsMobile";
 import ScanAnimation from "./ScanAnimation";
+import Button from "./Button";
 
 export default function Hero() {
   const isMobile = useIsMobile();
@@ -29,7 +30,7 @@ export default function Hero() {
         style={{
           position: "absolute", top: -180, right: -280,
           width: 720, height: 720,
-          background: "radial-gradient(circle, rgba(47,79,62,0.06) 0%, transparent 65%)",
+          background: "radial-gradient(circle, rgba(46,107,78,0.06) 0%, transparent 65%)",
           pointerEvents: "none",
         }}
       />
@@ -76,31 +77,15 @@ export default function Hero() {
           </p>
 
           <div style={{ display: "flex", gap: 10, alignItems: "center", flexWrap: "wrap" }}>
-            <a
-              href="#contacto"
-              style={S.btnPrimary}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.background = C.greenDeep;
-                (e.currentTarget as HTMLElement).style.transform = "translateY(-1px)";
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.background = C.green;
-                (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
-              }}
-            >
+            <Button as="a" href="#contacto" variant="primary">
               Agendar demo
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                 <path d="M5 12h14M12 5l7 7-7 7" />
               </svg>
-            </a>
-            <a
-              href="#casos"
-              style={S.btnOutline}
-              onMouseEnter={(e) => (e.currentTarget as HTMLElement).style.background = C.offWhite}
-              onMouseLeave={(e) => (e.currentTarget as HTMLElement).style.background = "transparent"}
-            >
+            </Button>
+            <Button as="a" href="#casos" variant="outline">
               Ver casos de uso
-            </a>
+            </Button>
           </div>
 
           {/* Social proof */}

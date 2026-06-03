@@ -69,6 +69,24 @@
     font-family: 'Satoshi', 'Helvetica Neue', sans-serif;
     overflow-x: hidden;
   }
+
+  /* ── Focus visible (accesibilidad · solo teclado) ──
+     Anillo de marca verde para usuarios de teclado; el click de mouse
+     no lo dispara (:focus-visible). Reemplaza los outline:none sueltos. */
+  :focus-visible {
+    outline: 2px solid #2E6B4E;        /* action-primary (bosque vivo) */
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+  /* Sobre fondos oscuros, el anillo usa scan para contraste */
+  .on-dark :focus-visible,
+  [data-theme="dark"] :focus-visible {
+    outline-color: #4CAF7A;            /* accent-scan */
+  }
+  /* No mostrar el anillo cuando el foco viene del mouse */
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
 }
 
 @layer utilities {
@@ -109,4 +127,23 @@
   .conf-bar.grown {
     width: var(--conf-w, 0%);
   }
+}
+
+/* ── prefers-reduced-motion (accesibilidad · obligatorio) ──
+   Cuando el usuario pide menos movimiento: se neutralizan animaciones,
+   transiciones y scroll suave. Importante: los elementos que arrancan
+   ocultos (reveal, cascada, scan) se fuerzan visibles para no perder
+   contenido. No va dentro de @layer para que el !important gane siempre. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  html { scroll-behavior: auto !important; }
+
+  /* Forzar estado final visible de los patrones que arrancan ocultos */
+  .reveal { opacity: 1 !important; transform: none !important; }
+  .scan-bar-fill { transform: scaleX(1) !important; }
 }

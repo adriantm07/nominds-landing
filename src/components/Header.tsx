@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { C, S, NAV_LINKS } from "@/lib/tokens";
 import { useIsMobile } from "@/lib/useIsMobile";
+import Button from "./Button";
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -71,23 +72,12 @@ export default function Header() {
 
         {/* Desktop CTA */}
         {!isMobile && (
-          <a
-            href="#contacto"
-            style={S.btnPrimary}
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLElement).style.background = C.greenDeep;
-              (e.currentTarget as HTMLElement).style.transform = "translateY(-1px)";
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLElement).style.background = C.green;
-              (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
-            }}
-          >
+          <Button as="a" href="#contacto" variant="primary">
             Agendar demo
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
-          </a>
+          </Button>
         )}
 
         {/* Hamburger */}
@@ -145,19 +135,18 @@ export default function Header() {
               {link.label}
             </a>
           ))}
-          <a
+          <Button
+            as="a"
             href="#contacto"
+            variant="primary"
             onClick={handleNavClick}
-            style={{
-              ...S.btnPrimary,
-              marginTop: 16, justifyContent: "center", width: "100%",
-            }}
+            style={{ marginTop: 16, width: "100%" }}
           >
             Agendar demo
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
-          </a>
+          </Button>
         </div>
       )}
     </header>

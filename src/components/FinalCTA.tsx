@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { C, S } from "@/lib/tokens";
 import { useIsMobile } from "@/lib/useIsMobile";
+import Button from "./Button";
 
 export default function FinalCTA() {
   const [form, setForm] = useState({ nombre: "", contacto: "", empresa: "", comentario: "" });
@@ -65,7 +66,7 @@ export default function FinalCTA() {
           position: "absolute", top: "50%", left: "50%",
           transform: "translate(-50%,-50%)",
           width: 700, height: 500,
-          background: "radial-gradient(ellipse, rgba(47,79,62,0.35) 0%, transparent 65%)",
+          background: "radial-gradient(ellipse, rgba(46,107,78,0.35) 0%, transparent 65%)",
           pointerEvents: "none",
         }}
       />
@@ -233,30 +234,16 @@ export default function FinalCTA() {
                 </div>
 
                 {/* Submit */}
-                <button
+                <Button
                   type="submit"
-                  style={{
-                    background: C.green, color: "white",
-                    border: "none", borderRadius: 10,
-                    padding: "13px 24px", fontSize: 14.5, fontWeight: 600,
-                    cursor: "pointer", marginTop: 4,
-                    display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
-                    transition: "background 0.2s, transform 0.15s",
-                  }}
-                  onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLElement).style.background = C.greenDeep;
-                    (e.currentTarget as HTMLElement).style.transform = "translateY(-1px)";
-                  }}
-                  onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLElement).style.background = C.green;
-                    (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
-                  }}
+                  variant="primary"
+                  style={{ borderRadius: 10, fontWeight: 600, marginTop: 4, width: "100%" }}
                 >
                   Enviar solicitud
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                     <path d="M5 12h14M12 5l7 7-7 7" />
                   </svg>
-                </button>
+                </Button>
               </form>
             ) : (
               /* Confirmación */

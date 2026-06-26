@@ -100,7 +100,7 @@ export default function Button({
     padding: sz.padding,
     fontSize: sz.fontSize,
     fontWeight: variant === "primary" ? 500 : 400,
-    fontFamily: "'Satoshi', sans-serif",
+    fontFamily: "'DM Sans', sans-serif",
     cursor: isDisabled ? "not-allowed" : "pointer",
     opacity: disabled && !loading ? 0.5 : 1,
     textDecoration: "none",

@@ -72,7 +72,7 @@ export default function Benefits() {
             >
               <div
                 style={{
-                  fontFamily: "'NeueHaas', 'Helvetica Neue', sans-serif",
+                  fontFamily: "'DM Serif Display', Georgia, serif",
                   fontSize: isMobile ? "clamp(28px, 7vw, 44px)" : "clamp(48px, 5vw, 68px)",
                   fontWeight: 500,
                   letterSpacing: isMobile ? "-1.5px" : "-3px",
@@ -120,7 +120,7 @@ export default function Benefits() {
                   </span>
                   <span
                     style={{
-                      fontFamily: "'NeueHaas', 'Helvetica Neue', sans-serif",
+                      fontFamily: "'DM Serif Display', Georgia, serif",
                       fontSize: "clamp(26px, 2.5vw, 34px)",
                       fontWeight: 500,
                       letterSpacing: "-1.5px",
@@ -209,7 +209,7 @@ export default function Benefits() {
                 </div>
               </div>
               <div style={{
-                fontFamily: "'NeueHaas', 'Helvetica Neue', sans-serif",
+                fontFamily: "'DM Serif Display', Georgia, serif",
                 fontSize: 26, fontWeight: 500,
                 letterSpacing: "-1px",
                 color: C.scan,

@@ -10,8 +10,8 @@ import { C } from "@/lib/tokens";
    Documento espejo de BRAND_GUIDELINES.md · v1.0.0
 ──────────────────────────────────────────────────────────────── */
 
-const DISPLAY = "'NeueHaas', 'Helvetica Neue', sans-serif";
-const BODY = "'Satoshi', 'Helvetica Neue', sans-serif";
+const DISPLAY = "'DM Serif Display', Georgia, serif";
+const BODY = "'DM Sans', 'Helvetica Neue', sans-serif";
 const MONO = "'DM Mono', monospace";
 
 const SECTIONS = [
@@ -364,25 +364,25 @@ export default function BrandPage() {
           {/* 5 · Tipografía */}
           <Section id="tipografia">
             <Eyebrow>05 · Tipografía</Eyebrow>
-            <SectionTitle>NeueHaas · Satoshi · DM Mono</SectionTitle>
+            <SectionTitle>DM Serif Display · DM Sans · DM Mono</SectionTitle>
             <Lead>
-              NeueHaas Display para display y headings (tracking negativo, su firma). Satoshi para body y UI (300/400 sobre mucho aire). DM Mono solo para datos, OCR e IDs.
+              DM Serif Display para display y headings (serif editorial, su firma). DM Sans para body y UI (sobre mucho aire). DM Mono solo para datos, OCR e IDs.
             </Lead>
             <Card style={{ display: "flex", flexDirection: "column", gap: 22 }}>
               <div>
-                <Meta>Display XL · NeueHaas Medium · −2px</Meta>
+                <Meta>Display XL · DM Serif Display · −2px</Meta>
                 <div style={{ fontFamily: DISPLAY, fontSize: 60, lineHeight: 1.05, letterSpacing: "-2px", fontWeight: 500 }}>De papel a datos</div>
               </div>
               <div>
-                <Meta>Display M · NeueHaas · −0.8px</Meta>
+                <Meta>Display M · DM Serif Display · −0.8px</Meta>
                 <div style={{ fontFamily: DISPLAY, fontSize: 36, letterSpacing: "-0.8px", fontWeight: 500 }}>Por qué las notarías eligen nominds</div>
               </div>
               <div>
-                <Meta>Body M · Satoshi Light 300</Meta>
-                <div style={{ fontFamily: BODY, fontSize: 16, lineHeight: 1.7, fontWeight: 300, maxWidth: 540 }}>nominds lee, extrae y estructura la información de documentos legales con inteligencia artificial, eliminando el trabajo manual.</div>
+                <Meta>Body M · DM Sans 400</Meta>
+                <div style={{ fontFamily: BODY, fontSize: 16, lineHeight: 1.7, fontWeight: 400, maxWidth: 540 }}>nominds lee, extrae y estructura la información de documentos legales con inteligencia artificial, eliminando el trabajo manual.</div>
               </div>
               <div>
-                <Meta>Eyebrow · Satoshi 600 · 11px · 1.5px · MAYÚS · amber</Meta>
+                <Meta>Eyebrow · DM Sans 600 · 11px · 1.5px · MAYÚS · amber</Meta>
                 <div style={{ fontSize: 11, fontWeight: 600, textTransform: "uppercase", letterSpacing: "1.5px", color: C.amber }}>El problema actual</div>
               </div>
               <div>

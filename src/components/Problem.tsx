@@ -126,7 +126,7 @@ function TimelineCol({
         }} />
         {isBefore ? (
           <span style={{
-            fontFamily: "'NeueHaas', 'Helvetica Neue', sans-serif",
+            fontFamily: "'DM Serif Display', Georgia, serif",
             fontSize: 18, fontWeight: 700,
             color: accent, letterSpacing: "-0.3px",
           }}>
@@ -213,7 +213,7 @@ function TimelineCol({
           borderRadius: 12, padding: "10px 16px",
         }}>
           <div style={{
-            fontFamily: "'NeueHaas', 'Helvetica Neue', sans-serif",
+            fontFamily: "'DM Serif Display', Georgia, serif",
             fontSize: 22, fontWeight: 700,
             color: accent, letterSpacing: "-0.5px",
           }}>
@@ -328,7 +328,7 @@ export default function Problem() {
               borderRight: i < 2 ? "1px solid rgba(255,255,255,0.06)" : "none",
             }}>
               <div style={{
-                fontFamily: "'NeueHaas', 'Helvetica Neue', sans-serif",
+                fontFamily: "'DM Serif Display', Georgia, serif",
                 fontSize: isMobile ? "clamp(24px, 7vw, 36px)" : "clamp(30px, 3.5vw, 46px)",
                 fontWeight: 500,
                 color: C.white,

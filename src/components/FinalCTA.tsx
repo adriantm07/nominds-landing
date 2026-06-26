@@ -101,7 +101,7 @@ export default function FinalCTA() {
 
             <h2
               style={{
-                fontFamily: "'NeueHaas', 'Helvetica Neue', sans-serif",
+                fontFamily: "'DM Serif Display', Georgia, serif",
                 fontSize: "clamp(32px, 3.5vw, 50px)",
                 lineHeight: 1.08, letterSpacing: "-1.5px",
                 color: C.white, fontWeight: 500, margin: "0 0 16px",
@@ -259,7 +259,7 @@ export default function FinalCTA() {
                   ✓
                 </div>
                 <h3 style={{
-                  fontFamily: "'NeueHaas', 'Helvetica Neue', sans-serif",
+                  fontFamily: "'DM Serif Display', Georgia, serif",
                   fontSize: 20, fontWeight: 500, color: C.white,
                   letterSpacing: "-0.4px", margin: "0 0 10px",
                 }}>

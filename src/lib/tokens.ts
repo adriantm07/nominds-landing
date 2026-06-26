@@ -45,7 +45,7 @@ export const S = {
   } as React.CSSProperties,
 
   sectionTitle: {
-    fontFamily: "'NeueHaas', 'Helvetica Neue', sans-serif",
+    fontFamily: "'DM Serif Display', Georgia, serif",
     fontSize: "clamp(28px, 3.5vw, 44px)",
     lineHeight: 1.1,
     letterSpacing: "-0.5px",
@@ -168,8 +168,10 @@ export const color = {
 
 // ─── Tipografía ───────────────────────────────────────────────
 export const font = {
-  display: "'NeueHaas', 'Helvetica Neue', sans-serif",
-  body:    "'Satoshi', 'Helvetica Neue', sans-serif",
+  // v1.1.0: DM Serif Display (titulares) + DM Sans (body / UI) + DM Mono (datos).
+  // Reemplaza NeueHaas + Satoshi de la v1.0.0. Ver §6 de las brand guidelines.
+  display: "'DM Serif Display', Georgia, serif",
+  body:    "'DM Sans', 'Helvetica Neue', sans-serif",
   mono:    "'DM Mono', monospace",
 } as const;
 

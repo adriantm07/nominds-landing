@@ -48,7 +48,7 @@ export default function Hero() {
         <div>
           <h1
             style={{
-              fontFamily: "'NeueHaas', 'Helvetica Neue', sans-serif",
+              fontFamily: "'DM Serif Display', Georgia, serif",
               fontSize: isMobile ? "clamp(36px, 10vw, 52px)" : "clamp(36px, 4.2vw, 58px)",
               lineHeight: 1.07,
               letterSpacing: "-1.5px",

@@ -37,10 +37,10 @@ module.exports = {
         status:     { success: "#2E6B4E", warning: "#C8922A", error: "#B84E2F", info: "#2D6CC4" },
       },
       fontFamily: {
-        // FIX v1.0.0: apuntaban a DM Sans / DM Serif (placeholders del prototipo).
-        // Ahora reflejan la tipografía oficial cargada en globals.css.
-        display: ["NeueHaas", "Helvetica Neue", "sans-serif"],
-        sans:    ["Satoshi", "Helvetica Neue", "sans-serif"],
+        // v1.1.0: tipografía oficial DM Serif Display (titulares) + DM Sans (UI).
+        // Reemplaza NeueHaas + Satoshi de la v1.0.0. Ver §6 de las brand guidelines.
+        display: ["DM Serif Display", "Georgia", "serif"],
+        sans:    ["DM Sans", "Helvetica Neue", "sans-serif"],
         mono:    ["DM Mono", "monospace"],
       },
       maxWidth: {

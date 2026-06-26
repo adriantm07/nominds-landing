@@ -1,50 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&display=swap');
-
-/* ── Satoshi (body / UI) ── */
-@font-face {
-  font-family: 'Satoshi';
-  src: url('/Brand guidelines/Tipografia/Satoshi_Complete/Fonts/WEB/fonts/Satoshi-Variable.woff2') format('woff2');
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Satoshi';
-  src: url('/Brand guidelines/Tipografia/Satoshi_Complete/Fonts/WEB/fonts/Satoshi-VariableItalic.woff2') format('woff2');
-  font-weight: 100 900;
-  font-style: italic;
-  font-display: swap;
-}
-
-/* ── Neue Haas Display (headlines) ── */
-@font-face {
-  font-family: 'NeueHaas';
-  src: url('/Brand guidelines/Tipografia/NeueHassDisplay/NeueHaasDisplayRoman.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'NeueHaas';
-  src: url('/Brand guidelines/Tipografia/NeueHassDisplay/NeueHaasDisplayMediu.ttf') format('truetype');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'NeueHaas';
-  src: url('/Brand guidelines/Tipografia/NeueHassDisplay/NeueHaasDisplayBold.ttf') format('truetype');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'NeueHaas';
-  src: url('/Brand guidelines/Tipografia/NeueHassDisplay/NeueHaasDisplayLight.ttf') format('truetype');
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
+/* ── Tipografía oficial (v1.1.0) ──
+   DM Serif Display (headlines) + DM Sans (body / UI) + DM Mono (datos).
+   Reemplaza NeueHaas + Satoshi de la v1.0.0. Ver §6 de las brand guidelines. */
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=DM+Mono:wght@400;500&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -66,7 +23,7 @@
   body {
     background-color: #FAFAF8;
     color: #1A1D19;
-    font-family: 'Satoshi', 'Helvetica Neue', sans-serif;
+    font-family: 'DM Sans', 'Helvetica Neue', sans-serif;
     overflow-x: hidden;
   }
 

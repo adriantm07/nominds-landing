@@ -128,7 +128,7 @@ export default function UseCases() {
         <span style={S.eyebrow}>Casos de uso</span>
         <h2 style={{
           ...S.sectionTitle,
-          fontFamily: "'NeueHaas', 'Helvetica Neue', sans-serif",
+          fontFamily: "'DM Serif Display', Georgia, serif",
           fontSize: "clamp(28px, 3.8vw, 48px)",
           fontWeight: 500,
           letterSpacing: "-0.8px",

@@ -1,6 +1,6 @@
 # nominds — Brand Guidelines
 
-**Version 1.0.0** · Junio 2026 · Brand owner: Adrián TM
+**Version 1.1.0** · Junio 2026 · Brand owner: Adrián TM
 
 > Inteligencia documental para el mundo legal y notarial de México.
 
@@ -69,6 +69,7 @@ Cuando este documento y el código difieran, **el código es la verdad y este do
 
 | Versión | Fecha | Cambios |
 |---|---|---|
+| **1.1.0** | Jun 2026 | **Cambio de tipografía:** display + body migran de NeueHaas + Satoshi a **DM Serif Display + DM Sans** (decisión del brand owner). DM Mono sin cambio. Las tres familias pasan a Google Fonts (`@import` en `globals.css`); se retiran los `@font-face` locales. Código y `/brand` sincronizados. |
 | **1.0.0** | Jun 2026 | Versión inicial. Sistematiza paleta de 17 tokens, tipografía (NeueHaas + Satoshi + DM Mono), 11 componentes en producción, 5 patrones nativos, voz y motion. |
 
 Versionado semántico del documento: ver §17.
@@ -287,59 +288,61 @@ El ámbar (`#C8922A`, "amarillo tierra") es **el único acento cromático de la 
 
 ## 6. Tipografía
 
-Tres familias, cada una con un rol exclusivo. Fuentes en `public/Brand guidelines/Tipografia/`, cargadas en `globals.css`.
+Tres familias, cada una con un rol exclusivo. Todas servidas desde Google Fonts, cargadas con un `@import` en `globals.css`.
 
-| Familia | Rol | Pesos disponibles | Archivo |
+| Familia | Rol | Pesos disponibles | Fuente |
 |---|---|---|---|
-| **NeueHaas Display** | Display y headings | Light 300, Roman 400, Medium 500, Bold 700 (+ XXThin→Black en disco) | `.ttf` |
-| **Satoshi** | Body, UI, todo lo demás | Variable 100–900 + itálicas | `.woff2` variable |
+| **DM Serif Display** | Display y headings | 400 (regular + itálica) | Google Fonts |
+| **DM Sans** | Body, UI, todo lo demás | Variable 100–1000 + itálicas | Google Fonts |
 | **DM Mono** | Datos, código, OCR, IDs | 400, 500 | Google Fonts |
 
-> ⚠️ **Bug de configuración conocido:** `tailwind.config.js` aún declara `sans: DM Sans` y `serif: DM Serif Display` (placeholders del prototipo). Debe corregirse a `sans: Satoshi`, `display: NeueHaas`, `mono: DM Mono` (ver §15 y la refactorización de tokens). Hasta entonces, los componentes fijan `fontFamily` inline.
+> **Migración v1.1.0:** la tipografía de display + body se cambió de **NeueHaas + Satoshi** a **DM Serif Display + DM Sans** (decisión del brand owner). El sistema pasa de grotesca geométrica a una serif editorial para titulares sobre una humanista para texto. DM Mono **no cambia**. Las tres familias ahora viven en Google Fonts (un solo `@import`), por lo que ya no hay `@font-face` locales ni archivos `.ttf`/`.woff2` de fuente en `public/`.
+
+> **Nota de pesos:** DM Serif Display solo existe en **400**. Donde la escala pide 500/700 para display, el navegador renderiza 400 (no hay sintético recomendado). El énfasis en titulares se logra por tamaño y tracking, no por peso. DM Sans sí es variable (100–1000), así que el body conserva sus pesos.
 
 ### Reglas de uso (inquebrantables)
 
-1. **NeueHaas Display** → solo display y headings. Nunca para body.
-2. **Satoshi** → todo el body, UI, labels, botones, formularios.
+1. **DM Serif Display** → solo display y headings. Nunca para body.
+2. **DM Sans** → todo el body, UI, labels, botones, formularios.
 3. **DM Mono** → solo datos extraídos, OCR, IDs (CURP, folios, claves), código. Nunca para prosa.
 
 ### Escala tipográfica definitiva
 
 | Nivel | Tamaño | Line-height | Tracking | Peso | Familia | Uso |
 |---|---|---|---|---|---|---|
-| **Display XL** | 60–72px | 1.05 | −2px | 500 Medium | NeueHaas | Hero principal, portadas de deck |
-| **Display L** | 44–56px | 1.07 | −1.5px | 500 | NeueHaas | Títulos de sección grandes, stat chips grandes |
-| **Display M** | 32–40px | 1.1 | −0.8px | 500 | NeueHaas | Títulos de sección estándar (`S.sectionTitle`) |
-| **H1** | 28–36px | 1.1 | −0.5px | 500 | NeueHaas | Encabezado de página/app |
-| **H2** | 22–28px | 1.15 | −0.4px | 500 / 700 | NeueHaas | Subsección, títulos de card destacada |
-| **H3** | 18–22px | 1.2 | −0.3px | 500 / 600 | NeueHaas | Card headers |
-| **H4** | 16–18px | 1.3 | 0 | 600 | NeueHaas / Satoshi | Títulos menores, labels fuertes |
-| **Body L** | 17–18px | 1.6 | 0 | 300 / 400 | Satoshi | Intro, párrafos destacados |
-| **Body M** | 15–16px | 1.6–1.7 | 0 | 300 / 400 | Satoshi | Body estándar, descripciones |
-| **Body S** | 13–14px | 1.55 | 0 | 300 / 400 | Satoshi | Texto secundario, items de lista |
-| **Body XS** | 11–12px | 1.5 | 0.1px | 400 | Satoshi | Notas al pie, metadatos |
-| **Caption / Eyebrow** | 11px | 1.2 | 1.5px **mayúsculas** | 600 | Satoshi | Eyebrows (`S.eyebrow`), labels de campo |
+| **Display XL** | 60–72px | 1.05 | −2px | 400 | DM Serif Display | Hero principal, portadas de deck |
+| **Display L** | 44–56px | 1.07 | −1.5px | 400 | DM Serif Display | Títulos de sección grandes, stat chips grandes |
+| **Display M** | 32–40px | 1.1 | −0.8px | 400 | DM Serif Display | Títulos de sección estándar (`S.sectionTitle`) |
+| **H1** | 28–36px | 1.1 | −0.5px | 400 | DM Serif Display | Encabezado de página/app |
+| **H2** | 22–28px | 1.15 | −0.4px | 400 | DM Serif Display | Subsección, títulos de card destacada |
+| **H3** | 18–22px | 1.2 | −0.3px | 400 | DM Serif Display | Card headers |
+| **H4** | 16–18px | 1.3 | 0 | 600 | DM Sans | Títulos menores, labels fuertes |
+| **Body L** | 17–18px | 1.6 | 0 | 300 / 400 | DM Sans | Intro, párrafos destacados |
+| **Body M** | 15–16px | 1.6–1.7 | 0 | 300 / 400 | DM Sans | Body estándar, descripciones |
+| **Body S** | 13–14px | 1.55 | 0 | 300 / 400 | DM Sans | Texto secundario, items de lista |
+| **Body XS** | 11–12px | 1.5 | 0.1px | 400 | DM Sans | Notas al pie, metadatos |
+| **Caption / Eyebrow** | 11px | 1.2 | 1.5px **mayúsculas** | 600 | DM Sans | Eyebrows (`S.eyebrow`), labels de campo |
 | **Code / Mono** | 13–15px | 1.4 | 0.5–0.9px | 400 / 500 | DM Mono | Datos extraídos, CURP, folios, IDs |
 
 **Notas:**
-- Los titulares NeueHaas usan tracking **negativo** (más apretado a mayor tamaño). Es la firma tipográfica de la marca.
-- El body Satoshi por defecto va en **300 (Light)** para descripciones y **400** para texto funcional. El peso ligero sobre mucho aire es central a la sobriedad editorial.
-- Las cifras "duras" en stats (50×, 96%, <90s) son **NeueHaas Medium 500**, tracking negativo fuerte.
+- Los titulares DM Serif Display usan tracking **negativo** (más apretado a mayor tamaño). Es la firma tipográfica de la marca.
+- El body DM Sans por defecto va en **300 (Light)** para descripciones y **400** para texto funcional. El peso ligero sobre mucho aire es central a la sobriedad editorial.
+- Las cifras "duras" en stats (50×, 96%, <90s) van en **DM Serif Display**, tracking negativo fuerte.
 
 ### Especímenes
 
 ```
-Display XL · NeueHaas Medium · −2px
+Display XL · DM Serif Display · −2px
 De documentos en papel a datos estructurados
 
-Display M · NeueHaas Medium · −0.8px
+Display M · DM Serif Display · −0.8px
 Por qué las notarías eligen nominds
 
-Body M · Satoshi Light 300
+Body M · DM Sans 400
 nominds lee, extrae y estructura la información de
 documentos legales con inteligencia artificial.
 
-Eyebrow · Satoshi 600 · 11px · 1.5px · MAYÚSCULAS · amber
+Eyebrow · DM Sans 600 · 11px · 1.5px · MAYÚSCULAS · amber
 EL PROBLEMA ACTUAL
 
 Mono · DM Mono · datos extraídos
@@ -464,11 +467,11 @@ Specs basadas en los componentes en producción. Clases Tailwind asumen los toke
 
 ### 9.4 Dark stat chip (el patrón `50×`)
 
-Patrón del one-pager. Card sobre fondo verde/oscuro con cifra grande NeueHaas.
+Patrón del one-pager. Card sobre fondo verde/oscuro con cifra grande DM Serif Display.
 
 ```jsx
 <div className="bg-nm-green rounded-[14px] p-4">
-  <div className="font-[NeueHaas] text-[40px] leading-none text-nm-white">
+  <div className="font-display text-[40px] leading-none text-nm-white">
     50<span className="text-[18px] font-semibold align-top ml-0.5">×</span>
   </div>
   <h4 className="text-nm-white text-[14.5px] font-bold mt-1">
@@ -480,7 +483,7 @@ Patrón del one-pager. Card sobre fondo verde/oscuro con cifra grande NeueHaas.
 </div>
 ```
 
-Variantes de cifra: `green` bg (chip duro), `dark` bg (stat bar). Cifra siempre NeueHaas Medium, unidad (`×`, `%`, `s`) en `green`/`scan` más pequeña.
+Variantes de cifra: `green` bg (chip duro), `dark` bg (stat bar). Cifra siempre DM Serif Display, unidad (`×`, `%`, `s`) en `green`/`scan` más pequeña.
 
 ### 9.5 Inputs / form fields
 
@@ -507,7 +510,7 @@ Basado en `FinalCTA.tsx` (variante oscura) — definir también variante clara.
 **Estilo UI (datos de app):**
 - Sin bordes verticales, hairline `nm-border` entre filas.
 - Header `sand-l`, texto `muted` 11px mayúsculas tracked.
-- Body Satoshi 13–14px; columnas de datos en **DM Mono**.
+- Body DM Sans 13–14px; columnas de datos en **DM Mono**.
 
 ### 9.7 Confidence markers (OCR a nivel de letra)
 
@@ -550,7 +553,7 @@ El patrón INE: documento a la izquierda, panel de datos a la derecha con **tags
 
 - Overlay `rgba(26,29,25,0.45)` + `backdrop-blur 4px`.
 - Panel `bg white`, `radius 20`, `shadow-lg`, padding 32, max-width 480–560.
-- Header H3 NeueHaas, botón cerrar ghost esquina superior derecha.
+- Header H3 DM Serif Display, botón cerrar ghost esquina superior derecha.
 - Footer de acciones: ghost (cancelar) + primario.
 
 ### 9.13 Toast / Notification
@@ -693,11 +696,11 @@ Catálogo de `tailwind.config.js`.
 ## 14. Aplicaciones por canal
 
 ### One-pager / hoja de ventas
-Referencia de patrones: proyecto **tunotariaexpress** (`../tunotariaexpress/`), sucesor del prototipo *expedito*. Estructura del one-pager: header (logo + tag) → hero (eyebrow + título NeueHaas + sub) → demo INE (doc↔datos + tags) → 3 chips (incluye dark stat `50×`) → demo escritura (selección azul + tabla) → 3 chips → footer (mensaje + contacto). Formato vertical 1080×1920 para móvil/social.
+Referencia de patrones: proyecto **tunotariaexpress** (`../tunotariaexpress/`), sucesor del prototipo *expedito*. Estructura del one-pager: header (logo + tag) → hero (eyebrow + título DM Serif Display + sub) → demo INE (doc↔datos + tags) → 3 chips (incluye dark stat `50×`) → demo escritura (selección azul + tabla) → 3 chips → footer (mensaje + contacto). Formato vertical 1080×1920 para móvil/social.
 
 ### Pitch deck / deck corporativo
 - Portada: símbolo + wordmark sobre `nm-white` o `nm-dark`, eyebrow ámbar.
-- Tipografía: títulos NeueHaas, body Satoshi, datos DM Mono.
+- Tipografía: títulos DM Serif Display, body DM Sans, datos DM Mono.
 - Una idea por slide, mucho aire, máximo un foco ámbar.
 - Stats como dark stat chips. Casos como doc↔datos.
 
@@ -708,20 +711,20 @@ Referencia de patrones: proyecto **tunotariaexpress** (`../tunotariaexpress/`), 
 - **Login:** fondo `nm-dark` con grid sutil (como FinalCTA), card de form (9.5 oscuro), logo white.
 
 ### Website
-Hero (eyebrow + NeueHaas + sub + CTAs + social proof + ScanAnimation) → Problem (timeline oscuro before/after) → Features (lista + trust card verde) → UseCases (grid doc↔datos) → Benefits (stats + testimonios) → WhyNominds (4 cards) → FinalCTA (form oscuro) → Footer. Container 1100, secciones alternando `white`/`off-white`/`dark`.
+Hero (eyebrow + DM Serif Display + sub + CTAs + social proof + ScanAnimation) → Problem (timeline oscuro before/after) → Features (lista + trust card verde) → UseCases (grid doc↔datos) → Benefits (stats + testimonios) → WhyNominds (4 cards) → FinalCTA (form oscuro) → Footer. Container 1100, secciones alternando `white`/`off-white`/`dark`.
 
 ### Email
-- **Firma:** logo dark 24px + nombre (Satoshi 600 14px) + cargo (`muted` 12px) + `nominds.com · +52 81 8280 2853`.
-- **Transaccional:** header logo, cuerpo Satoshi sobre `white`, CTA botón verde, footer `dark-2` con logo white.
+- **Firma:** logo dark 24px + nombre (DM Sans 600 14px) + cargo (`muted` 12px) + `nominds.com · +52 81 8280 2853`.
+- **Transaccional:** header logo, cuerpo DM Sans sobre `white`, CTA botón verde, footer `dark-2` con logo white.
 - **Outreach:** texto plano, voz directa (§13), sin imágenes pesadas; máximo un CTA.
 
 ### Documentos legales / facturas / membretes
 - Membrete: logo dark esquina superior, datos en `muted`, hairline `border`.
-- Cuerpo Satoshi/serif del sistema documental; datos en DM Mono.
+- Cuerpo DM Sans del sistema documental; datos en DM Mono.
 
 ### LinkedIn
 - **Post:** voz §13, una idea, dato citado con humildad.
-- **Carrusel:** portada NeueHaas + eyebrow ámbar; slides con un patrón nativo por lámina (escaneo, doc↔datos, stat chip).
+- **Carrusel:** portada DM Serif Display + eyebrow ámbar; slides con un patrón nativo por lámina (escaneo, doc↔datos, stat chip).
 - **Cover/banner:** símbolo + wordmark white sobre `nm-dark` con grid sutil; asset base en `Logo/Logo Files/Linkedin/`.
 
 ---
@@ -789,8 +792,8 @@ Nombres **semánticos** (por función, no por valor). Se entregan en 3 formatos.
   --color-status-info: #2D6CC4;
   --color-mark-selection: rgba(74,144,226,0.42);
   /* typography */
-  --font-display: 'NeueHaas', 'Helvetica Neue', sans-serif;
-  --font-body: 'Satoshi', 'Helvetica Neue', sans-serif;
+  --font-display: 'DM Serif Display', Georgia, serif;
+  --font-body: 'DM Sans', 'Helvetica Neue', sans-serif;
   --font-mono: 'DM Mono', monospace;
   /* radius */
   --radius-sm: 8px; --radius-md: 12px; --radius-lg: 16px; --radius-xl: 20px;
@@ -821,7 +824,7 @@ colors: {
   status: { success:'#2E6B4E', warning:'#C8922A', error:'#B84E2F', info:'#2D6CC4' },
   // 'nm' legacy se mantiene para retrocompat
 },
-fontFamily: { display:['NeueHaas','Helvetica Neue','sans-serif'], sans:['Satoshi','Helvetica Neue','sans-serif'], mono:['DM Mono','monospace'] },
+fontFamily: { display:['DM Serif Display','Georgia','serif'], sans:['DM Sans','Helvetica Neue','sans-serif'], mono:['DM Mono','monospace'] },
 borderRadius: { sm:'8px', md:'12px', lg:'16px', xl:'20px' },
 ```
 
@@ -836,7 +839,7 @@ borderRadius: { sm:'8px', md:'12px', lg:'16px', xl:'20px' },
     "accent": { "scan": { "value": "#4CAF7A" }, "brand": { "value": "#C8922A" } },
     "status": { "error": { "value": "#B84E2F" }, "info": { "value": "#2D6CC4" } }
   },
-  "font": { "display": { "value": "NeueHaas" }, "body": { "value": "Satoshi" }, "mono": { "value": "DM Mono" } },
+  "font": { "display": { "value": "DM Serif Display" }, "body": { "value": "DM Sans" }, "mono": { "value": "DM Mono" } },
   "radius": { "sm": { "value": "8px" }, "md": { "value": "12px" }, "lg": { "value": "16px" }, "xl": { "value": "20px" } }
 }
 ```
@@ -905,7 +908,7 @@ Objetivo: **WCAG 2.1 AA** mínimo.
 | **Acción** | primary `#2E6B4E` · hover `#245840` · subtle `#E4EFE8` |
 | **Acento** | scan `#4CAF7A` · brand/amber `#C8922A` · amber-subtle `#F5EDD8` |
 | **Estado** | success `#2E6B4E` · warning `#C8922A` · error `#B84E2F` · info `#2D6CC4` |
-| **Tipografía** | display NeueHaas · body Satoshi · mono DM Mono |
+| **Tipografía** | display DM Serif Display · body DM Sans · mono DM Mono |
 | **Radius** | 8 / 12 / 16 / 20 |
 | **Layout** | container 1100 · section 88×28 (editorial) / 48×24 (compacto) |
 | **Motion** | ease `cubic-bezier(0.4,0,0.2,1)` · láser 2300ms |
@@ -962,4 +965,4 @@ Objetivo: **WCAG 2.1 AA** mínimo.
 
 ---
 
-*nominds — Brand Guidelines v1.0.0 · Documento mantenido en `BRAND_GUIDELINES.md`, renderizado vivo en `/brand`, preview estático en `brand-preview.html`.*
+*nominds — Brand Guidelines v1.1.0 · Documento mantenido en `BRAND_GUIDELINES.md`, renderizado vivo en `/brand`, preview estático en `brand-preview.html`.*

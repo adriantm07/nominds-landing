@@ -445,7 +445,7 @@ export default function ScanAnimation({ autoPlay = true }: { autoPlay?: boolean 
             background: "transparent",
             border: `1px solid ${C.border}`,
             borderRadius: 7, padding: "4px 13px",
-            fontSize: 11, fontFamily: "'Satoshi', sans-serif",
+            fontSize: 11, fontFamily: "'DM Sans', sans-serif",
             color: C.muted, cursor: "pointer",
             opacity: phase === "done" ? 1 : 0,
             transition: "opacity 0.4s, color 0.2s, border-color 0.2s",

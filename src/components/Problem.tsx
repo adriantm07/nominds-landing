@@ -106,10 +106,10 @@ function TimelineCol({
   steps: typeof BEFORE;
 }) {
   const isBefore = side === "before";
-  const accent = isBefore ? "#E05252" : C.scan;
-  const accentBg = isBefore ? "rgba(224,82,82,0.08)" : "rgba(76,175,122,0.08)";
-  const accentBorder = isBefore ? "rgba(224,82,82,0.2)" : "rgba(76,175,122,0.2)";
-  const timeBg = isBefore ? "rgba(224,82,82,0.12)" : "rgba(76,175,122,0.12)";
+  const accent = isBefore ? C.error : C.scan;
+  const accentBg = isBefore ? "rgba(184,78,47,0.08)" : "rgba(76,175,122,0.08)";
+  const accentBorder = isBefore ? "rgba(184,78,47,0.2)" : "rgba(76,175,122,0.2)";
+  const timeBg = isBefore ? "rgba(184,78,47,0.12)" : "rgba(76,175,122,0.12)";
 
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
@@ -126,7 +126,7 @@ function TimelineCol({
         }} />
         {isBefore ? (
           <span style={{
-            fontFamily: "'NeueHaas', 'Helvetica Neue', sans-serif",
+            fontFamily: "'DM Serif Display', Georgia, serif",
             fontSize: 18, fontWeight: 700,
             color: accent, letterSpacing: "-0.3px",
           }}>
@@ -208,12 +208,12 @@ function TimelineCol({
         <div style={{
           display: "inline-flex", alignItems: "center", gap: 8,
           marginTop: 16,
-          background: isBefore ? "rgba(224,82,82,0.1)" : "rgba(76,175,122,0.1)",
+          background: isBefore ? "rgba(184,78,47,0.1)" : "rgba(76,175,122,0.1)",
           border: `1px solid ${accentBorder}`,
           borderRadius: 12, padding: "10px 16px",
         }}>
           <div style={{
-            fontFamily: "'NeueHaas', 'Helvetica Neue', sans-serif",
+            fontFamily: "'DM Serif Display', Georgia, serif",
             fontSize: 22, fontWeight: 700,
             color: accent, letterSpacing: "-0.5px",
           }}>
@@ -238,7 +238,7 @@ export default function Problem() {
         position: "absolute", top: "50%", left: "50%",
         transform: "translate(-50%,-50%)",
         width: 800, height: 600,
-        background: "radial-gradient(ellipse, rgba(47,79,62,0.12) 0%, transparent 65%)",
+        background: "radial-gradient(ellipse, rgba(46,107,78,0.12) 0%, transparent 65%)",
         pointerEvents: "none",
       }} />
 
@@ -328,7 +328,7 @@ export default function Problem() {
               borderRight: i < 2 ? "1px solid rgba(255,255,255,0.06)" : "none",
             }}>
               <div style={{
-                fontFamily: "'NeueHaas', 'Helvetica Neue', sans-serif",
+                fontFamily: "'DM Serif Display', Georgia, serif",
                 fontSize: isMobile ? "clamp(24px, 7vw, 36px)" : "clamp(30px, 3.5vw, 46px)",
                 fontWeight: 500,
                 color: C.white,

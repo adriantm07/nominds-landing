@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>nominds — Brand Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  /* ── Brand fonts v1.1.0: DM Serif Display + DM Sans + DM Mono (Google Fonts) ── */
+
+  :root{
+    --white:#FAFAF8; --off-white:#F4F2EE; --border:#E6E8E3; --muted:#969C92;
+    --dark:#1A1D19; --dark-2:#272B25; --dark-3:#383D35; --warm-gray:#717870;
+    --green:#2E6B4E; --green-l:#3C8264; --green-p:#E4EFE8; --green-d:#245840;
+    --sand:#D4DBD6; --sand-l:#ECF0ED; --scan:#4CAF7A;
+    --amber:#C8922A; --amber-p:#F5EDD8; --error:#B84E2F; --info:#2D6CC4;
+    --display:'DM Serif Display',Georgia,serif;
+    --body:'DM Sans','Helvetica Neue',sans-serif;
+    --mono:'DM Mono',monospace;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
+  body{background:var(--white);color:var(--dark);font-family:var(--body);font-weight:300;line-height:1.6;}
+
+  .wrap{max-width:1100px;margin:0 auto;padding:0 28px;}
+  .eyebrow{display:inline-block;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--amber);margin-bottom:14px;}
+  .stitle{font-family:var(--display);font-size:clamp(28px,3.5vw,40px);line-height:1.1;letter-spacing:-0.8px;font-weight:500;margin-bottom:12px;}
+  .lead{font-size:16px;color:var(--warm-gray);font-weight:300;line-height:1.7;max-width:620px;margin-bottom:32px;}
+  section{padding:64px 0;border-bottom:1px solid var(--border);}
+  .meta{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:10px;}
+  .grid{display:grid;gap:16px;}
+  .card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:24px;}
+
+  /* header */
+  .hero{padding:64px 0 0;}
+  .hero h1{font-family:var(--display);font-size:clamp(40px,5vw,64px);line-height:1.05;letter-spacing:-2px;font-weight:500;margin-bottom:16px;}
+
+  /* swatches */
+  .swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;}
+  .sw{border:1px solid var(--border);border-radius:12px;overflow:hidden;background:#fff;}
+  .sw .chip{height:76px;display:flex;align-items:flex-end;padding:10px;}
+  .sw .body{padding:10px 12px;}
+  .sw .name{font-size:12.5px;font-weight:600;color:var(--dark);}
+  .sw .hex{font-size:11px;color:var(--muted);font-family:var(--mono);margin-top:2px;}
+  .sw .tok{font-size:10.5px;color:var(--warm-gray);margin-top:3px;}
+  .sw .con{font-size:10px;color:var(--warm-gray);margin-top:4px;}
+
+  /* type specimens */
+  .spec{margin-bottom:22px;}
+  .spec .t-xl{font-family:var(--display);font-size:60px;line-height:1.05;letter-spacing:-2px;font-weight:500;}
+  .spec .t-l{font-family:var(--display);font-size:48px;letter-spacing:-1.5px;font-weight:500;}
+  .spec .t-m{font-family:var(--display);font-size:36px;letter-spacing:-.8px;font-weight:500;}
+  .spec .h1{font-family:var(--display);font-size:30px;letter-spacing:-.5px;font-weight:500;}
+  .spec .h2{font-family:var(--display);font-size:24px;letter-spacing:-.4px;font-weight:500;}
+  .spec .h3{font-family:var(--display);font-size:20px;font-weight:500;}
+  .spec .body-l{font-family:var(--body);font-size:18px;line-height:1.6;font-weight:400;max-width:560px;}
+  .spec .body-m{font-family:var(--body);font-size:16px;line-height:1.7;font-weight:300;max-width:540px;}
+  .spec .body-s{font-family:var(--body);font-size:14px;line-height:1.55;font-weight:300;max-width:480px;}
+  .spec .mono{font-family:var(--mono);font-size:14px;line-height:1.8;}
+
+  /* buttons */
+  .btn{display:inline-flex;align-items:center;gap:7px;border-radius:8px;padding:11px 22px;font-size:14.5px;font-weight:500;cursor:pointer;font-family:var(--body);border:none;transition:background .2s,transform .15s;text-decoration:none;}
+  .btn-primary{background:var(--green);color:#fff;}
+  .btn-primary:hover{background:var(--green-d);transform:translateY(-1px);}
+  .btn-outline{background:transparent;color:var(--dark);border:1px solid var(--border);font-weight:400;}
+  .btn-outline:hover{background:var(--off-white);}
+  .btn-ghost{background:transparent;color:var(--dark);font-weight:400;}
+  .btn-ghost:hover{background:var(--off-white);}
+  .btn:disabled{opacity:.5;cursor:not-allowed;}
+
+  .chiprow{display:flex;gap:10px;flex-wrap:wrap;}
+  .badge{font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;}
+
+  /* OCR marks */
+  .doc{font-family:Georgia,serif;font-size:14px;line-height:1.85;color:#2a2a2a;}
+  .mk-amber{background:rgba(200,146,42,.18);border-bottom:1px solid var(--amber);border-radius:2px;padding:0 2px;}
+  .mk-red{background:rgba(184,78,47,.15);border-bottom:1px solid var(--error);border-radius:2px;padding:0 2px;}
+  .mk-info{background:rgba(45,108,196,.18);border-bottom:1px solid var(--info);border-radius:2px;padding:0 2px;}
+  .legend{display:flex;gap:14px;margin-top:12px;padding-top:10px;border-top:1px solid var(--border);font-family:var(--body);}
+  .lg{display:inline-flex;align-items:center;gap:5px;font-size:11px;color:var(--muted);}
+  .lg i{width:9px;height:9px;border-radius:2px;display:inline-block;opacity:.4;}
+
+  table{width:100%;border-collapse:collapse;font-size:13px;}
+  thead th{text-align:left;padding:10px 16px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);background:var(--sand-l);}
+  tbody td{padding:9px 16px;border-top:1px solid var(--border);}
+  td.mono,th.mono{font-family:var(--mono);font-size:12px;}
+
+  /* scan demo */
+  .scan{display:flex;gap:16px;flex-wrap:wrap;}
+  .scandoc{position:relative;width:150px;height:150px;flex-shrink:0;border-radius:10px;overflow:hidden;border:1px solid var(--border);background:linear-gradient(160deg,#f9f9f7,#e8e8e3);box-shadow:0 4px 16px rgba(26,29,25,.12);}
+  .scandoc .pad{padding:12px;font-family:Arial,sans-serif;}
+  .scandoc .row{font-size:6.5px;color:#9a9a96;border-left:2px solid transparent;padding-left:3px;margin-bottom:5px;transition:all .35s;}
+  .scandoc .row.lit{color:var(--dark);border-left-color:var(--scan);background:rgba(76,175,122,.08);}
+  .laser{position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(to right,transparent,var(--scan),transparent);box-shadow:0 0 12px 3px rgba(76,175,122,.45);}
+  .field{background:#fff;border:1px solid var(--border);border-radius:8px;padding:7px 10px;opacity:0;transform:translateY(6px);transition:all .35s cubic-bezier(.4,0,.2,1);}
+  .field.show{opacity:1;transform:translateY(0);}
+  .conf-bar{height:2px;background:var(--border);border-radius:2px;margin-top:5px;overflow:hidden;}
+  .conf-bar i{display:block;height:100%;border-radius:2px;width:0;transition:width .7s cubic-bezier(.4,0,.2,1) .25s;}
+
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.7)}}
+  @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+  @keyframes grow{from{width:0}to{width:90%}}
+
+  .note{background:var(--amber-p);border:1px solid rgba(200,146,42,.3);border-radius:10px;padding:12px 16px;font-size:13px;color:var(--dark-2);margin-bottom:24px;}
+
+  /* Accesibilidad · focus visible (solo teclado) */
+  :focus-visible{outline:2px solid var(--green);outline-offset:2px;border-radius:4px;}
+  :focus:not(:focus-visible){outline:none;}
+
+  /* Accesibilidad · prefers-reduced-motion */
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;}
+    .field{opacity:1!important;transform:none!important;}
+    html{scroll-behavior:auto!important;}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <header class="hero">
+    <span class="eyebrow">Sistema de diseño · vista de validación</span>
+    <h1>nominds<span style="color:var(--green)">.</span> Brand Preview</h1>
+    <p class="lead">Vista estática para validar visualmente tipografía, color y componentes con las fuentes y la paleta reales. Verde &ldquo;bosque vivo&rdquo; (#2E6B4E) como color principal. Espejo de <code style="font-family:var(--mono)">BRAND_GUIDELINES.md</code> v1.0.0.</p>
+    <div class="note">📄 Este archivo se abre directo en el navegador (sin servidor). La página viva equivalente es <code style="font-family:var(--mono)">/brand</code> dentro de la app.</div>
+  </header>
+
+  <!-- LOGO -->
+  <section>
+    <span class="eyebrow">01 · Logo</span>
+    <h2 class="stitle">Símbolo entrelazado + wordmark</h2>
+    <p class="lead">Logo dark = primario (full color canónico = monocromo nm-dark). White sobre fondos oscuros.</p>
+    <div class="grid" style="grid-template-columns:1fr 1fr;">
+      <div class="card" style="display:flex;align-items:center;justify-content:center;min-height:140px;">
+        <img src="public/Brand guidelines/Logo/Logo Files/png/Black logo - no background.png" alt="nominds dark" style="height:40px;" />
+      </div>
+      <div class="card" style="background:var(--dark);border:none;display:flex;align-items:center;justify-content:center;min-height:140px;">
+        <img src="public/Brand guidelines/Logo/Logo Files/png/White logo - no background.png" alt="nominds white" style="height:40px;" />
+      </div>
+    </div>
+  </section>
+
+  <!-- TIPOGRAFÍA -->
+  <section>
+    <span class="eyebrow">02 · Tipografía</span>
+    <h2 class="stitle">DM Serif Display · DM Sans · DM Mono</h2>
+    <p class="lead">DM Serif Display para display/headings (tracking negativo, su firma). DM Sans para body/UI. DM Mono solo para datos, OCR e IDs.</p>
+    <div class="card">
+      <div class="spec"><div class="meta">Display XL · DM Serif Display · −2px</div><div class="t-xl">De papel a datos</div></div>
+      <div class="spec"><div class="meta">Display L · DM Serif Display · −1.5px</div><div class="t-l">Inteligencia documental</div></div>
+      <div class="spec"><div class="meta">Display M · DM Serif Display · −0.8px</div><div class="t-m">Por qué las notarías eligen nominds</div></div>
+      <div class="spec"><div class="meta">H1 · DM Serif Display · −0.5px</div><div class="h1">Tu equipo deja de teclear</div></div>
+      <div class="spec"><div class="meta">H2 · DM Serif Display</div><div class="h2">Extrae, estructura, organiza</div></div>
+      <div class="spec"><div class="meta">H3 · DM Serif Display</div><div class="h3">Confianza por campo</div></div>
+      <div class="spec"><div class="meta">Body L · DM Sans 400</div><div class="body-l">nominds lee, extrae y estructura la información de documentos legales con inteligencia artificial.</div></div>
+      <div class="spec"><div class="meta">Body M · DM Sans 300</div><div class="body-m">Cada expediente procesado a mano es tiempo, dinero y riesgo de error. nominds convierte papel en datos estructurados, listos para usar, con un porcentaje de confianza por cada dato.</div></div>
+      <div class="spec"><div class="meta">Body S · DM Sans 300</div><div class="body-s">Usado por notarías, despachos jurídicos y departamentos legales con alto volumen de KYC.</div></div>
+      <div class="spec"><div class="meta">Eyebrow · DM Sans 600 · 11px · 1.5px · MAYÚS · amber</div><div class="eyebrow" style="margin:0;">El problema actual</div></div>
+      <div class="spec"><div class="meta">Mono · DM Mono · datos extraídos</div><div class="mono">NOMBRE&nbsp;&nbsp;PÉREZ GARCÍA JOHN ALEJANDRO<br>CURP&nbsp;&nbsp;&nbsp;&nbsp;PEGA850912HDFSRN03<br>FOLIO&nbsp;&nbsp;&nbsp;NL/2024/00341</div></div>
+    </div>
+  </section>
+
+  <!-- COLOR -->
+  <section>
+    <span class="eyebrow">03 · Color</span>
+    <h2 class="stitle">Verde &ldquo;bosque vivo&rdquo; como color principal</h2>
+    <p class="lead">El verde es el ancla de la marca: tierra pero vivo —confianza, seguridad, profesionalismo, evolución—. El ámbar es el único acento cromático.</p>
+
+    <div class="meta">Verdes de marca</div>
+    <div class="swatches" style="margin-bottom:28px;">
+      <div class="sw"><div class="chip" style="background:#2E6B4E"><span style="color:#fff;font-size:12px;font-weight:500">Texto</span></div><div class="body"><div class="name">Green (primario)</div><div class="hex">#2E6B4E</div><div class="tok">action-primary</div><div class="con">white 5.9:1 ✓ AA</div></div></div>
+      <div class="sw"><div class="chip" style="background:#245840"><span style="color:#fff;font-size:12px;font-weight:500">Texto</span></div><div class="body"><div class="name">Green deep</div><div class="hex">#245840</div><div class="tok">action-primary-hover</div><div class="con">white 8.2:1 ✓ AAA</div></div></div>
+      <div class="sw"><div class="chip" style="background:#3C8264"><span style="color:#fff;font-size:12px;font-weight:500">Texto</span></div><div class="body"><div class="name">Green light</div><div class="hex">#3C8264</div><div class="tok">green-l</div></div></div>
+      <div class="sw"><div class="chip" style="background:#E4EFE8"></div><div class="body"><div class="name">Green pale</div><div class="hex">#E4EFE8</div><div class="tok">action-primary-subtle</div><div class="con">green 5.5:1 ✓</div></div></div>
+      <div class="sw"><div class="chip" style="background:#4CAF7A"></div><div class="body"><div class="name">Scan</div><div class="hex">#4CAF7A</div><div class="tok">accent-scan</div><div class="con">láser / progreso</div></div></div>
+    </div>
+
+    <div class="meta">Neutros y texto</div>
+    <div class="swatches" style="margin-bottom:28px;">
+      <div class="sw"><div class="chip" style="background:#FAFAF8;border-bottom:1px solid var(--border)"></div><div class="body"><div class="name">White (fondo)</div><div class="hex">#FAFAF8</div><div class="tok">background-base</div></div></div>
+      <div class="sw"><div class="chip" style="background:#F4F2EE"></div><div class="body"><div class="name">Off-white</div><div class="hex">#F4F2EE</div><div class="tok">background-subtle</div></div></div>
+      <div class="sw"><div class="chip" style="background:#ECF0ED"></div><div class="body"><div class="name">Sand-l</div><div class="hex">#ECF0ED</div><div class="tok">background-sand</div></div></div>
+      <div class="sw"><div class="chip" style="background:#E6E8E3"></div><div class="body"><div class="name">Border</div><div class="hex">#E6E8E3</div><div class="tok">border-default</div></div></div>
+      <div class="sw"><div class="chip" style="background:#1A1D19"><span style="color:#fff;font-size:12px;font-weight:500">Texto</span></div><div class="body"><div class="name">Dark (texto)</div><div class="hex">#1A1D19</div><div class="tok">text-primary</div><div class="con">15.8:1 ✓ AAA</div></div></div>
+      <div class="sw"><div class="chip" style="background:#272B25"><span style="color:#fff;font-size:12px;font-weight:500">Texto</span></div><div class="body"><div class="name">Dark-2</div><div class="hex">#272B25</div><div class="tok">text-secondary</div><div class="con">13.0:1 ✓ AAA</div></div></div>
+      <div class="sw"><div class="chip" style="background:#717870"><span style="color:#fff;font-size:12px;font-weight:500">Texto</span></div><div class="body"><div class="name">Warm gray</div><div class="hex">#717870</div><div class="tok">text-tertiary</div><div class="con">4.6:1 ✓ AA</div></div></div>
+      <div class="sw"><div class="chip" style="background:#969C92"></div><div class="body"><div class="name">Muted</div><div class="hex">#969C92</div><div class="tok">text-muted</div><div class="con">2.9:1 ⚠ grande</div></div></div>
+    </div>
+
+    <div class="meta">Acento + estado</div>
+    <div class="swatches">
+      <div class="sw"><div class="chip" style="background:#C8922A"><span style="color:#fff;font-size:12px;font-weight:500">Texto</span></div><div class="body"><div class="name">Amber</div><div class="hex">#C8922A</div><div class="tok">accent-brand</div><div class="con">eyebrow / acento</div></div></div>
+      <div class="sw"><div class="chip" style="background:#F5EDD8"></div><div class="body"><div class="name">Amber pale</div><div class="hex">#F5EDD8</div><div class="tok">accent-brand-subtle</div></div></div>
+      <div class="sw"><div class="chip" style="background:#B84E2F"><span style="color:#fff;font-size:12px;font-weight:500">Texto</span></div><div class="body"><div class="name">Error</div><div class="hex">#B84E2F</div><div class="tok">status-error</div><div class="con">rojo tierra</div></div></div>
+      <div class="sw"><div class="chip" style="background:#2D6CC4"><span style="color:#fff;font-size:12px;font-weight:500">Texto</span></div><div class="body"><div class="name">Info</div><div class="hex">#2D6CC4</div><div class="tok">status-info</div><div class="con">selección / info</div></div></div>
+    </div>
+
+    <div class="meta" style="margin-top:28px;">Combinaciones (en contexto)</div>
+    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr));">
+      <div class="card" style="background:var(--green);border:none;color:#fff;"><div style="font-family:var(--display);font-size:24px;font-weight:500;">Aa</div><div style="font-size:13px;opacity:.85;margin-top:6px;">white sobre green</div></div>
+      <div class="card" style="background:var(--green-p);border:none;color:var(--green);"><div style="font-family:var(--display);font-size:24px;font-weight:500;">Aa</div><div style="font-size:13px;margin-top:6px;">green sobre green-pale</div></div>
+      <div class="card" style="background:var(--dark);border:none;color:#fff;"><div style="font-family:var(--display);font-size:24px;font-weight:500;">Aa <span style="color:var(--scan)">Aa</span></div><div style="font-size:13px;opacity:.7;margin-top:6px;">white / scan sobre dark</div></div>
+      <div class="card"><div style="font-family:var(--display);font-size:24px;font-weight:500;color:var(--dark);">Aa</div><div style="font-size:13px;color:var(--amber);margin-top:6px;">eyebrow amber sobre white</div></div>
+    </div>
+  </section>
+
+  <!-- COMPONENTES -->
+  <section>
+    <span class="eyebrow">04 · Componentes</span>
+    <h2 class="stitle">UI en vivo</h2>
+
+    <div class="meta">Botones</div>
+    <div class="chiprow" style="align-items:center;margin-bottom:28px;">
+      <button class="btn btn-primary">Agendar demo →</button>
+      <button class="btn btn-outline">Ver casos de uso</button>
+      <button class="btn btn-ghost">Ghost</button>
+      <button class="btn btn-primary" disabled>Disabled</button>
+    </div>
+
+    <div class="meta">Chips / Badges</div>
+    <div class="chiprow" style="margin-bottom:28px;">
+      <span class="badge" style="background:var(--sand-l);color:var(--dark-2);">Neutro</span>
+      <span class="badge" style="background:var(--green-p);color:var(--green);">Éxito · alta</span>
+      <span class="badge" style="background:var(--amber-p);color:var(--amber);">Advertencia · media</span>
+      <span class="badge" style="background:rgba(184,78,47,.12);color:var(--error);">Error · baja</span>
+      <span class="badge" style="background:rgba(45,108,196,.12);color:var(--info);">Info</span>
+    </div>
+
+    <div class="meta">Dark stat chip (el patrón 50×)</div>
+    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr));margin-bottom:28px;max-width:600px;">
+      <div style="background:var(--green);border-radius:14px;padding:20px;">
+        <div style="font-family:var(--display);font-size:40px;line-height:1;color:#fff;">50<span style="font-size:18px;font-weight:600;vertical-align:top;margin-left:2px;">×</span></div>
+        <div style="color:#fff;font-size:14px;font-weight:700;margin-top:6px;">más rápido que la captura manual</div>
+        <div style="color:rgba(250,250,248,.78);font-size:12px;margin-top:4px;">Tu equipo se enfoca en validar, no en teclear.</div>
+      </div>
+      <div style="background:var(--dark);border-radius:14px;padding:20px;">
+        <div style="font-family:var(--display);font-size:40px;line-height:1;color:#fff;">96<span style="font-size:18px;color:var(--scan);vertical-align:top;margin-left:2px;">%</span></div>
+        <div style="color:#fff;font-size:14px;font-weight:700;margin-top:6px;">precisión en extracción</div>
+        <div style="color:rgba(250,250,248,.55);font-size:12px;margin-top:4px;">promedio en documentos legales.</div>
+      </div>
+    </div>
+
+    <div class="meta">Input (claro)</div>
+    <div style="max-width:360px;margin-bottom:28px;">
+      <label style="font-size:11.5px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;display:block;margin-bottom:5px;">Nombre completo *</label>
+      <input placeholder="Lic. Juan Hernández" style="width:100%;padding:10px 13px;border-radius:8px;border:1px solid var(--border);background:#fff;font-size:13.5px;color:var(--dark);outline:none;font-family:var(--body);"
+        onfocus="this.style.borderColor='#2E6B4E'" onblur="this.style.borderColor='#E6E8E3'" />
+    </div>
+
+    <div class="meta">Confidence markers (OCR a nivel de letra)</div>
+    <div class="card doc" style="max-width:600px;">
+      Notario Público No. <span class="mk-amber">42</span>, Monterrey. Folio real: <span class="mk-red">○○○○○○</span>. Inmueble en <span class="mk-info">Av. Insurgentes Sur 1602</span>.
+      <div class="legend">
+        <span class="lg"><i style="background:var(--amber);border:1px solid var(--amber);"></i>Dudoso</span>
+        <span class="lg"><i style="background:var(--error);border:1px solid var(--error);"></i>Probable error</span>
+        <span class="lg"><i style="background:var(--info);border:1px solid var(--info);"></i>Selección</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PATRÓN: SCAN -->
+  <section>
+    <span class="eyebrow">05 · Patrón nativo</span>
+    <h2 class="stitle">La animación de escaneo</h2>
+    <p class="lead">El signature move: documento + láser verde (scan) + cascada de campos con confianza. Pulsa Replay.</p>
+    <div class="card" style="background:var(--off-white);">
+      <div class="scan">
+        <div class="scandoc" id="scandoc">
+          <div class="pad">
+            <div style="font-size:7px;font-weight:900;color:#8B1A1A;margin-bottom:6px;">LICENCIA · EDOMEX</div>
+            <div class="row" data-i="0">PÉREZ GARCÍA JOHN</div>
+            <div class="row" data-i="1">PEGA850912HDFSRN03</div>
+            <div class="row" data-i="2">15/04/2026</div>
+            <div class="row" data-i="3">AV. PRINCIPAL 456</div>
+          </div>
+        </div>
+        <div style="flex:1;min-width:240px;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+            <div id="dot" style="width:7px;height:7px;border-radius:50%;background:var(--scan);"></div>
+            <span id="status" style="font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);">Escaneando…</span>
+            <button onclick="runScan()" style="margin-left:auto;background:transparent;border:1px solid var(--border);border-radius:7px;padding:3px 12px;font-size:11px;color:var(--muted);cursor:pointer;font-family:var(--body);">↺ Replay</button>
+          </div>
+          <div id="fields" style="display:grid;gap:6px;"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MOTION -->
+  <section>
+    <span class="eyebrow">06 · Motion</span>
+    <h2 class="stitle">Sutil · funcional · consistente</h2>
+    <p class="lead">Curva estándar cubic-bezier(.4,0,.2,1). Barridos lineales (láser). Loops orgánicos ease-in-out.</p>
+    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(160px,1fr));">
+      <div class="card" style="text-align:center;"><div style="width:40px;height:40px;background:var(--green);border-radius:10px;margin:8px auto 14px;animation:floaty 6s ease-in-out infinite;"></div><div class="meta" style="margin:0;">float · 6s</div></div>
+      <div class="card" style="text-align:center;"><div style="width:16px;height:16px;background:var(--scan);border-radius:50%;margin:20px auto 22px;animation:pulse 1.8s ease-in-out infinite;"></div><div class="meta" style="margin:0;">pulse-dot · 1.8s</div></div>
+      <div class="card"><div style="height:6px;background:var(--border);border-radius:3px;margin:24px 0 20px;overflow:hidden;"><div style="height:100%;background:var(--green);border-radius:3px;animation:grow 1.4s cubic-bezier(.4,0,.2,1) infinite alternate;"></div></div><div class="meta" style="margin:0;">grow-bar · confianza</div></div>
+    </div>
+  </section>
+
+  <!-- VOZ -->
+  <section>
+    <span class="eyebrow">07 · Voz y tono</span>
+    <h2 class="stitle">Directos, profesionales, honestos</h2>
+    <div class="grid" style="grid-template-columns:1fr 1fr;">
+      <div class="card" style="background:var(--green-p);border:none;">
+        <div style="font-size:12px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;">✓ Sí decimos</div>
+        <div style="font-size:13px;color:var(--dark-2);line-height:1.5;margin-bottom:8px;">De documentos en papel a datos estructurados</div>
+        <div style="font-size:13px;color:var(--dark-2);line-height:1.5;margin-bottom:8px;">Alertas solo cuando algo importa</div>
+        <div style="font-size:13px;color:var(--dark-2);line-height:1.5;margin-bottom:8px;">Cada dato incluye un porcentaje de confianza</div>
+        <div style="font-size:13px;color:var(--dark-2);line-height:1.5;">Construido mano a mano con notarías reales</div>
+      </div>
+      <div class="card" style="background:rgba(184,78,47,.06);border:1px solid rgba(184,78,47,.18);">
+        <div style="font-size:12px;font-weight:700;color:var(--error);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;">✕ No decimos</div>
+        <div style="font-size:13px;color:var(--dark-2);line-height:1.5;margin-bottom:8px;">La revolución mágica de tus documentos</div>
+        <div style="font-size:13px;color:var(--dark-2);line-height:1.5;margin-bottom:8px;">Elimina el 100% del trabajo humano</div>
+        <div style="font-size:13px;color:var(--dark-2);line-height:1.5;margin-bottom:8px;">Garantizamos extracción perfecta</div>
+        <div style="font-size:13px;color:var(--dark-2);line-height:1.5;">nominds reemplaza a tu equipo</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACCESIBILIDAD -->
+  <section style="border-bottom:none;">
+    <span class="eyebrow">08 · Accesibilidad</span>
+    <h2 class="stitle">WCAG 2.1 AA mínimo</h2>
+    <div class="card" style="padding:0;overflow:hidden;">
+      <table>
+        <thead><tr><th>Texto</th><th>Fondo</th><th>Ratio</th><th>Resultado</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">dark</td><td class="mono">white</td><td class="mono">15.8:1</td><td style="color:var(--green);">✓ AAA</td></tr>
+          <tr><td class="mono">warm-gray</td><td class="mono">white</td><td class="mono">4.6:1</td><td style="color:var(--green);">✓ AA</td></tr>
+          <tr><td class="mono">white</td><td class="mono">green</td><td class="mono">5.9:1</td><td style="color:var(--green);">✓ AA</td></tr>
+          <tr><td class="mono">white</td><td class="mono">green-deep</td><td class="mono">8.2:1</td><td style="color:var(--green);">✓ AAA</td></tr>
+          <tr><td class="mono">amber</td><td class="mono">white</td><td class="mono">3.4:1</td><td style="color:var(--amber);">⚠ ≥18px/bold</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:12.5px;color:var(--muted);margin-top:24px;">nominds — Brand Preview · espejo de BRAND_GUIDELINES.md v1.0.0 · ruta viva /brand</p>
+  </section>
+
+</div>
+
+<script>
+  var DEMO=[
+    {label:'Nombre',value:'PÉREZ GARCÍA JOHN',conf:98,high:true,t:500},
+    {label:'CURP',value:'PEGA850912HDFSRN03',conf:99,high:true,t:850},
+    {label:'Vigencia',value:'15 / Abr / 2026',conf:95,high:true,t:1200},
+    {label:'Domicilio',value:'AV. PRINCIPAL 456, EDOMEX',conf:86,high:false,t:1550}
+  ];
+  var timers=[];
+  function buildFields(){
+    var c=document.getElementById('fields');c.innerHTML='';
+    DEMO.forEach(function(f,i){
+      var bg=f.high?'#E4EFE8':'#F5EDD8', fg=f.high?'#2E6B4E':'#C8922A', bar=f.high?'#2E6B4E':'#C8922A';
+      var el=document.createElement('div');el.className='field';el.id='f'+i;
+      el.innerHTML='<div style="display:flex;align-items:center;gap:6px;margin-bottom:3px;">'
+        +'<span style="font-size:8.5px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:#969C92;">'+f.label+'</span>'
+        +'<span style="margin-left:auto;font-size:9px;font-weight:700;padding:1px 6px;border-radius:8px;background:'+bg+';color:'+fg+';">'+f.conf+'%</span></div>'
+        +'<div style="font-size:11px;font-weight:600;color:#1A1D19;font-family:var(--mono);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">'+f.value+'</div>'
+        +'<div class="conf-bar"><i style="background:'+bar+';" data-w="'+f.conf+'"></i></div>';
+      c.appendChild(el);
+    });
+  }
+  function runScan(){
+    timers.forEach(clearTimeout);timers=[];
+    buildFields();
+    document.querySelectorAll('.scandoc .row').forEach(function(r){r.classList.remove('lit');});
+    var old=document.querySelector('.laser');if(old)old.remove();
+    document.getElementById('status').textContent='Escaneando…';
+    document.getElementById('dot').style.background='#4CAF7A';
+    document.getElementById('dot').style.animation='pulse 1.5s ease-in-out infinite';
+    // laser
+    var laser=document.createElement('div');laser.className='laser';
+    document.getElementById('scandoc').appendChild(laser);
+    requestAnimationFrame(function(){
+      laser.style.transition='none';laser.style.transform='translateY(0)';
+      void laser.offsetHeight;
+      laser.style.transition='transform 1800ms linear';laser.style.transform='translateY(150px)';
+    });
+    DEMO.forEach(function(f,i){
+      timers.push(setTimeout(function(){
+        var row=document.querySelector('.scandoc .row[data-i="'+i+'"]');if(row)row.classList.add('lit');
+        var fl=document.getElementById('f'+i);if(fl){fl.classList.add('show');var bar=fl.querySelector('.conf-bar i');bar.style.width=bar.getAttribute('data-w')+'%';}
+      },f.t));
+    });
+    timers.push(setTimeout(function(){
+      document.getElementById('status').textContent='Extracción completa';
+      document.getElementById('dot').style.background='#2E6B4E';
+      document.getElementById('dot').style.animation='none';
+    },2100));
+  }
+  runScan();
+</script>
+</body>
+</html>

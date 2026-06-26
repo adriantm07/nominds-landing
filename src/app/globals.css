@@ -1,50 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&display=swap');
-
-/* ── Satoshi (body / UI) ── */
-@font-face {
-  font-family: 'Satoshi';
-  src: url('/Brand guidelines/Tipografia/Satoshi_Complete/Fonts/WEB/fonts/Satoshi-Variable.woff2') format('woff2');
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Satoshi';
-  src: url('/Brand guidelines/Tipografia/Satoshi_Complete/Fonts/WEB/fonts/Satoshi-VariableItalic.woff2') format('woff2');
-  font-weight: 100 900;
-  font-style: italic;
-  font-display: swap;
-}
-
-/* ── Neue Haas Display (headlines) ── */
-@font-face {
-  font-family: 'NeueHaas';
-  src: url('/Brand guidelines/Tipografia/NeueHassDisplay/NeueHaasDisplayRoman.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'NeueHaas';
-  src: url('/Brand guidelines/Tipografia/NeueHassDisplay/NeueHaasDisplayMediu.ttf') format('truetype');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'NeueHaas';
-  src: url('/Brand guidelines/Tipografia/NeueHassDisplay/NeueHaasDisplayBold.ttf') format('truetype');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'NeueHaas';
-  src: url('/Brand guidelines/Tipografia/NeueHassDisplay/NeueHaasDisplayLight.ttf') format('truetype');
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
+/* ── Tipografía oficial (v1.1.0) ──
+   DM Serif Display (headlines) + DM Sans (body / UI) + DM Mono (datos).
+   Reemplaza NeueHaas + Satoshi de la v1.0.0. Ver §6 de las brand guidelines. */
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=DM+Mono:wght@400;500&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -66,8 +23,26 @@
   body {
     background-color: #FAFAF8;
     color: #1A1D19;
-    font-family: 'Satoshi', 'Helvetica Neue', sans-serif;
+    font-family: 'DM Sans', 'Helvetica Neue', sans-serif;
     overflow-x: hidden;
+  }
+
+  /* ── Focus visible (accesibilidad · solo teclado) ──
+     Anillo de marca verde para usuarios de teclado; el click de mouse
+     no lo dispara (:focus-visible). Reemplaza los outline:none sueltos. */
+  :focus-visible {
+    outline: 2px solid #2E6B4E;        /* action-primary (bosque vivo) */
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+  /* Sobre fondos oscuros, el anillo usa scan para contraste */
+  .on-dark :focus-visible,
+  [data-theme="dark"] :focus-visible {
+    outline-color: #4CAF7A;            /* accent-scan */
+  }
+  /* No mostrar el anillo cuando el foco viene del mouse */
+  :focus:not(:focus-visible) {
+    outline: none;
   }
 }
 
@@ -109,4 +84,23 @@
   .conf-bar.grown {
     width: var(--conf-w, 0%);
   }
+}
+
+/* ── prefers-reduced-motion (accesibilidad · obligatorio) ──
+   Cuando el usuario pide menos movimiento: se neutralizan animaciones,
+   transiciones y scroll suave. Importante: los elementos que arrancan
+   ocultos (reveal, cascada, scan) se fuerzan visibles para no perder
+   contenido. No va dentro de @layer para que el !important gane siempre. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  html { scroll-behavior: auto !important; }
+
+  /* Forzar estado final visible de los patrones que arrancan ocultos */
+  .reveal { opacity: 1 !important; transform: none !important; }
+  .scan-bar-fill { transform: scaleX(1) !important; }
 }

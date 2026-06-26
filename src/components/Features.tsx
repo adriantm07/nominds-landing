@@ -88,7 +88,7 @@ function FeatureRow({ icon, title, desc }: { icon: React.ReactNode; title: strin
       </div>
       <div>
         <div style={{
-          fontFamily: "'NeueHaas', 'Helvetica Neue', sans-serif",
+          fontFamily: "'DM Serif Display', Georgia, serif",
           fontSize: 14,
           fontWeight: 600,
           color: C.dark,
@@ -122,7 +122,7 @@ export default function Features() {
           <span style={S.eyebrow}>Lo que hace nominds</span>
           <h2 style={{
             ...S.sectionTitle,
-            fontFamily: "'NeueHaas', 'Helvetica Neue', sans-serif",
+            fontFamily: "'DM Serif Display', Georgia, serif",
             fontSize: "clamp(28px, 3.8vw, 48px)",
             fontWeight: 500,
             letterSpacing: "-0.8px",
@@ -163,7 +163,7 @@ export default function Features() {
             {/* Top */}
             <div>
               <div style={{
-                fontFamily: "'NeueHaas', 'Helvetica Neue', sans-serif",
+                fontFamily: "'DM Serif Display', Georgia, serif",
                 fontSize: "clamp(22px, 2.2vw, 30px)",
                 fontWeight: 700,
                 color: "#FAFAF8",

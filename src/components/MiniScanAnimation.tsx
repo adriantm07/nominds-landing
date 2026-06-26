@@ -12,6 +12,8 @@ export type MiniField = {
 type Phase = "idle" | "scanning" | "done";
 
 const LASER_MS = 1800;
+// Selección estilo Word — token `info` (#2D6CC4 = rgb 45,108,196) a 0.18 alpha
+const SELECTION_BG = "rgba(45,108,196,0.18)";
 
 function useAnimationCycle(fields: MiniField[]) {
   const [phase, setPhase]       = useState<Phase>("idle");
@@ -163,7 +165,7 @@ function CheckBadge({ visible, confirmed }: { visible: boolean; confirmed: boole
       <style>{`
         @keyframes checkConfirm {
           0%   { transform: scale(0.5);  opacity: 0;
-                 background: #E8EFEB; color: #2F4F3E; box-shadow: 0 0 0 0 rgba(200,146,42,0); }
+                 background: #E4EFE8; color: #2E6B4E; box-shadow: 0 0 0 0 rgba(200,146,42,0); }
           45%  { transform: scale(1.28); opacity: 1;
                  background: #F5EDD8; color: #C8922A; box-shadow: 0 0 0 0 rgba(200,146,42,0); }
           62%  { transform: scale(0.91);
@@ -386,7 +388,7 @@ function DocumentPanel({ visible }: { visible: boolean }) {
                     key={si}
                     style={{
                       ...baseStyle,
-                      background: isSelected ? "rgba(0, 100, 255, 0.18)" : undefined,
+                      background: isSelected ? SELECTION_BG : undefined,
                       borderRadius: isSelected ? 2 : undefined,
                       transition: "background 0.25s",
                     }}
@@ -396,14 +398,14 @@ function DocumentPanel({ visible }: { visible: boolean }) {
                 );
               }
 
-              const bg = seg.mark === "amber" ? "rgba(200,146,42,0.18)" : "rgba(220,60,60,0.15)";
-              const underline = seg.mark === "amber" ? `1px solid ${C.amber}` : "1px solid #DC3C3C";
+              const bg = seg.mark === "amber" ? "rgba(200,146,42,0.18)" : "rgba(184,78,47,0.15)";
+              const underline = seg.mark === "amber" ? `1px solid ${C.amber}` : `1px solid ${C.error}`;
               return (
                 <span
                   key={si}
                   style={{
                     ...baseStyle,
-                    background: isSelected ? "rgba(0, 100, 255, 0.18)" : bg,
+                    background: isSelected ? SELECTION_BG : bg,
                     borderBottom: underline,
                     borderRadius: 2,
                     padding: "0 1px",
@@ -428,7 +430,7 @@ function DocumentPanel({ visible }: { visible: boolean }) {
           Dudoso
         </span>
         <span style={{ display: "flex", alignItems: "center", gap: 4, fontSize: 8.5, color: C.muted }}>
-          <span style={{ display: "inline-block", width: 8, height: 8, borderRadius: 2, background: "rgba(220,60,60,0.18)", border: "1px solid #DC3C3C" }} />
+          <span style={{ display: "inline-block", width: 8, height: 8, borderRadius: 2, background: "rgba(184,78,47,0.18)", border: `1px solid ${C.error}` }} />
           Probable error
         </span>
       </div>

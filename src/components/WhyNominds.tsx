@@ -127,7 +127,7 @@ export default function WhyNominds() {
               {/* stat */}
               <div
                 style={{
-                  fontFamily: "'NeueHaas', 'Helvetica Neue', sans-serif",
+                  fontFamily: "'DM Serif Display', Georgia, serif",
                   fontSize: 22, fontWeight: 500,
                   letterSpacing: "-0.5px",
                   color: i === 1 ? C.scan : C.green,

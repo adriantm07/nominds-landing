@@ -128,8 +128,8 @@ function Crest() {
     <svg width="26" height="30" viewBox="0 0 26 30" fill="none">
       <rect x="0.5" y="0.5" width="25" height="29" rx="2" fill="#f8f8f6" stroke="#c8c8c4" strokeWidth="0.6" />
       <rect x="2" y="2"  width="10" height="12" rx="1" fill="#8B1A1A" opacity="0.55" />
-      <rect x="14" y="2" width="10" height="12" rx="1" fill="#2F4F3E" opacity="0.55" />
-      <rect x="2" y="16" width="10" height="12" rx="1" fill="#2F4F3E" opacity="0.55" />
+      <rect x="14" y="2" width="10" height="12" rx="1" fill="#2E6B4E" opacity="0.55" />
+      <rect x="2" y="16" width="10" height="12" rx="1" fill="#2E6B4E" opacity="0.55" />
       <rect x="14" y="16" width="10" height="12" rx="1" fill="#C9A84C" opacity="0.7" />
       <circle cx="13" cy="14" r="4.5" fill="white" opacity="0.85" stroke="#ccc" strokeWidth="0.4" />
       <circle cx="13" cy="14" r="2.5" fill="#8B1A1A" opacity="0.5" />
@@ -445,7 +445,7 @@ export default function ScanAnimation({ autoPlay = true }: { autoPlay?: boolean 
             background: "transparent",
             border: `1px solid ${C.border}`,
             borderRadius: 7, padding: "4px 13px",
-            fontSize: 11, fontFamily: "DM Sans, sans-serif",
+            fontSize: 11, fontFamily: "'DM Sans', sans-serif",
             color: C.muted, cursor: "pointer",
             opacity: phase === "done" ? 1 : 0,
             transition: "opacity 0.4s, color 0.2s, border-color 0.2s",
@@ -469,7 +469,7 @@ export default function ScanAnimation({ autoPlay = true }: { autoPlay?: boolean 
               marginLeft: "auto",
               fontSize: 9, fontFamily: "monospace", color: C.green,
               background: C.greenPale, padding: "2px 8px",
-              borderRadius: 10, border: "1px solid rgba(47,79,62,0.15)",
+              borderRadius: 10, border: "1px solid rgba(46,107,78,0.15)",
               opacity: phase !== "idle" ? 1 : 0, transition: "opacity 0.4s",
             }}
           >
@@ -494,8 +494,8 @@ export default function ScanAnimation({ autoPlay = true }: { autoPlay?: boolean 
         <div
           style={{
             marginTop: 10, padding: "10px 12px",
-            background: "rgba(47,79,62,0.07)",
-            border: "1px solid rgba(47,79,62,0.15)",
+            background: "rgba(46,107,78,0.07)",
+            border: "1px solid rgba(46,107,78,0.15)",
             borderRadius: 9,
             display: "flex", alignItems: "center", gap: 10,
             opacity: phase === "done" ? 1 : 0,

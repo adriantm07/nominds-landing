@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tu expediente — TuNotariaExpress</title>
+  <meta name="description" content="Arma tu expediente notarial subiendo tus documentos paso a paso. Tu notaría revisa y tú llegas a firmar." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --green:      #2E6B4E;
+      --green-l:    #3C8264;
+      --green-pale: #E4EFE8;
+      --green-deep: #245840;
+      --scan:       #4CAF7A;
+      --amber:      #C8922A;
+      --amber-pale: #F5EDD8;
+      --dark:       #1A1D19;
+      --dark-2:     #272B25;
+      --white:      #FAFAF8;
+      --off-white:  #F4F2EE;
+      --border:     #E6E8E3;
+      --sand-l:     #ECF0ED;
+      --warm-gray:  #717870;
+      --muted:      #969C92;
+      --error:      #B84E2F;
+
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 16px;
+
+      --font-serif: 'DM Serif Display', Georgia, serif;
+      --font-sans:  'DM Sans', system-ui, sans-serif;
+      --font-mono:  'DM Mono', monospace;
+
+      --max-w: 1140px;
+      --section-py: 88px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--white);
+      color: var(--dark);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    img, svg { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+    button { cursor: pointer; font-family: inherit; border: none; background: none; }
+    ul { list-style: none; }
+
+    .container { width: 100%; max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
+
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s cubic-bezier(.22,1,.36,1), transform .6s cubic-bezier(.22,1,.36,1); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: .1s; }
+    .reveal-delay-2 { transition-delay: .2s; }
+    .reveal-delay-3 { transition-delay: .3s; }
+    .reveal-delay-4 { transition-delay: .4s; }
+
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: .72rem; font-weight: 600; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--amber); margin-bottom: 16px;
+    }
+    h1, h2, h3 { font-family: var(--font-serif); font-weight: 400; line-height: 1.14; letter-spacing: -0.4px; }
+    .section-title { font-size: clamp(1.9rem, 3.6vw, 2.6rem); color: var(--dark); margin-bottom: 16px; }
+    .section-title.light { color: var(--white); }
+    .section-subtitle { font-size: 1rem; color: var(--warm-gray); max-width: 540px; line-height: 1.7; font-weight: 300; }
+    .section-subtitle.light { color: rgba(250,250,248,.62); }
+
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; border-radius: 8px; font-size: .9rem; font-weight: 500; line-height: 1; transition: background .2s, transform .15s, border-color .2s; }
+    .btn:active { transform: scale(.97); }
+    .btn-primary { background: var(--green); color: var(--white); }
+    .btn-primary:hover { background: var(--green-deep); }
+    .btn-secondary { background: transparent; color: var(--white); border: 1.5px solid rgba(250,250,248,.28); }
+    .btn-secondary:hover { background: rgba(250,250,248,.08); border-color: rgba(250,250,248,.5); }
+    .btn-outline { background: transparent; color: var(--green); border: 1.5px solid var(--green); }
+    .btn-outline:hover { background: var(--green); color: var(--white); }
+    .btn-sm { padding: 9px 18px; font-size: .82rem; }
+
+    #header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(250,250,248,.94); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); }
+    .nav-inner { display: flex; align-items: center; height: 62px; gap: 20px; }
+    .logo { display: flex; align-items: center; gap: 9px; font-family: var(--font-serif); font-size: 1.15rem; color: var(--dark); flex-shrink: 0; }
+    .logo-mark { width: 27px; height: 27px; border-radius: 8px; background: var(--green); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .audience-pill { font-size: .66rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--amber); background: var(--amber-pale); padding: 4px 10px; border-radius: 100px; white-space: nowrap; }
+    .nav-links { display: flex; align-items: center; gap: 26px; margin-left: auto; }
+    .nav-links a { font-size: .84rem; font-weight: 500; color: var(--warm-gray); transition: color .2s; }
+    .nav-links a:hover { color: var(--dark); }
+    .nav-cta { margin-left: 4px; flex-shrink: 0; }
+
+    .hamburger { display: none; flex-direction: column; gap: 5px; width: 30px; padding: 4px; margin-left: auto; }
+    .hamburger span { display: block; height: 2px; border-radius: 2px; background: var(--dark); }
+    .mobile-menu { display: none; position: fixed; inset: 62px 0 0 0; background: var(--white); padding: 28px 24px; flex-direction: column; gap: 22px; z-index: 99; }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { font-size: 1.05rem; font-weight: 500; color: var(--dark); padding: 6px 0; border-bottom: 1px solid var(--border); }
+
+    /* ============ HERO ============ */
+    #hero { background: var(--dark); padding: 148px 0 92px; position: relative; overflow: hidden; }
+    #hero::before { content: ''; position: absolute; top: -140px; right: -110px; width: 560px; height: 560px; border-radius: 50%; background: radial-gradient(circle, rgba(46,107,78,.35) 0%, transparent 70%); pointer-events: none; }
+    .hero-inner { display: grid; grid-template-columns: 1.05fr .95fr; gap: 56px; align-items: center; position: relative; z-index: 1; }
+
+    .notary-badge {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: rgba(250,250,248,.06); border: 1px solid rgba(250,250,248,.12); border-radius: 100px;
+      padding: 7px 16px 7px 8px; margin-bottom: 24px;
+    }
+    .notary-badge .av { width: 26px; height: 26px; border-radius: 50%; background: var(--green-l); display: flex; align-items: center; justify-content: center; font-size: .66rem; font-weight: 700; color: #fff; flex-shrink: 0; }
+    .notary-badge .txt { font-size: .82rem; color: rgba(250,250,248,.7); }
+    .notary-badge .txt strong { color: var(--white); font-weight: 600; }
+
+    .hero-title { font-size: clamp(2.2rem, 4vw, 2.9rem); color: var(--white); margin-bottom: 20px; line-height: 1.12; }
+    .hero-title .accent { color: var(--scan); font-style: italic; }
+    .hero-subtitle { font-size: 1.02rem; color: rgba(250,250,248,.66); line-height: 1.75; margin-bottom: 32px; max-width: 480px; font-weight: 300; }
+    .hero-actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 36px; }
+    .hero-note { display: flex; align-items: center; gap: 10px; padding-top: 26px; border-top: 1px solid rgba(250,250,248,.08); font-size: .84rem; color: rgba(250,250,248,.46); font-weight: 300; }
+
+    /* Platform mockup — opens with notary context already resolved */
+    .platform-mockup { width: 100%; max-width: 400px; background: #fff; border-radius: 16px; box-shadow: 0 28px 70px rgba(0,0,0,.3); overflow: hidden; margin: 0 auto; }
+    .pm-header { background: var(--dark); padding: 13px 20px; display: flex; align-items: center; justify-content: space-between; }
+    .pm-logo { display: flex; align-items: center; gap: 8px; font-family: var(--font-serif); font-size: .8rem; color: var(--white); }
+    .pm-tag { font-size: .64rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: rgba(250,250,248,.4); }
+    .pm-invite { padding: 18px 22px 4px; }
+    .pm-invite-label { font-size: .68rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+    .pm-invite-title { font-family: var(--font-serif); font-size: 1.14rem; color: var(--dark); margin-bottom: 4px; }
+    .pm-invite-sub { font-size: .82rem; color: var(--warm-gray); margin-bottom: 18px; font-weight: 300; }
+
+    .slot-list { display: flex; flex-direction: column; gap: 9px; padding: 0 22px 20px; }
+    .slot-row { display: flex; align-items: center; gap: 11px; padding: 11px 13px; border: 1.5px dashed var(--border); border-radius: 10px; background: var(--off-white); transition: all .3s ease; }
+    .slot-row.uploading { border-style: solid; border-color: var(--amber); background: var(--amber-pale); }
+    .slot-row.done { border-style: solid; border-color: rgba(46,107,78,.3); background: var(--green-pale); }
+    .slot-icon { width: 28px; height: 28px; border-radius: 7px; background: var(--sand-l); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: .85rem; }
+    .slot-row.done .slot-icon { background: rgba(46,107,78,.16); }
+    .slot-info { flex: 1; min-width: 0; }
+    .slot-name { font-size: .82rem; font-weight: 600; color: var(--dark); }
+    .slot-status { font-size: .72rem; color: var(--muted); }
+    .slot-row.done .slot-status { color: var(--green-deep); font-weight: 600; }
+    .slot-check { width: 20px; height: 20px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+    .slot-row.done .slot-check { background: var(--green); }
+
+    .phone-footnote { text-align: center; font-size: .8rem; color: rgba(250,250,248,.38); margin-top: 16px; }
+
+    /* ============ HOW IT WORKS ============ */
+    #how-it-works { background: var(--off-white); padding: var(--section-py) 0; border-top: 1px solid var(--border); }
+    .hiw-header { text-align: center; margin-bottom: 56px; }
+    .hiw-header .section-subtitle { margin: 0 auto; }
+    .steps-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; position: relative; }
+    .steps-grid::before { content: ''; position: absolute; top: 36px; left: calc(12.5% + 20px); right: calc(12.5% + 20px); height: 2px; background: linear-gradient(90deg, var(--green-l) 0%, var(--border) 100%); z-index: 0; }
+    .step { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 0 16px; position: relative; z-index: 1; }
+    .step-num { width: 72px; height: 72px; border-radius: 50%; background: var(--white); border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; margin-bottom: 22px; position: relative; transition: border-color .3s, box-shadow .3s; }
+    .step:hover .step-num { border-color: var(--green-l); box-shadow: 0 0 0 6px rgba(46,107,78,.08); }
+    .step-num .num-label { position: absolute; top: -6px; right: -6px; width: 20px; height: 20px; border-radius: 50%; background: var(--amber); color: var(--white); font-size: .6rem; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+    .step-title { font-family: var(--font-serif); font-size: 1.02rem; color: var(--dark); margin-bottom: 9px; }
+    .step-desc { font-size: .84rem; color: var(--warm-gray); line-height: 1.65; font-weight: 300; }
+
+    /* ============ FACT / CONFIANZA ============ */
+    #confianza { background: var(--dark); padding: var(--section-py) 0; position: relative; overflow: hidden; }
+    #confianza::before { content: ''; position: absolute; top: -150px; left: -150px; width: 560px; height: 560px; border-radius: 50%; background: radial-gradient(circle, rgba(46,107,78,.26) 0%, transparent 65%); pointer-events: none; }
+    .conf-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; position: relative; z-index: 1; }
+    .conf-header { text-align: left; margin-bottom: 0; }
+
+    .fact-panel { background: #fff; border-radius: var(--radius-lg); box-shadow: 0 24px 60px rgba(0,0,0,.3); overflow: hidden; max-width: 420px; margin: 0 auto; }
+    .fact-panel-header { background: var(--off-white); border-bottom: 1px solid var(--border); padding: 14px 20px; }
+    .fact-panel-header .fp-label { font-size: .68rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+    .fact-panel-header .fp-title { font-family: var(--font-serif); font-size: 1.02rem; color: var(--dark); margin-top: 2px; }
+    .fact-panel-body { padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 10px; }
+    .fact-row { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border: 1px solid var(--border); border-radius: 10px; background: var(--white); }
+    .fact-row.ok { border-color: rgba(46,107,78,.3); background: var(--green-pale); }
+    .fact-row.warn { border-color: rgba(200,146,42,.35); background: var(--amber-pale); }
+    .fact-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .fact-row.ok .fact-dot { background: var(--green); }
+    .fact-row.warn .fact-dot { background: var(--amber); }
+    .fact-body { flex: 1; min-width: 0; }
+    .fact-label { font-size: .68rem; color: var(--muted); text-transform: uppercase; letter-spacing: .03em; margin-bottom: 2px; }
+    .fact-value { font-family: var(--font-mono); font-size: .82rem; color: var(--dark); font-weight: 500; }
+    .fact-verdict { font-size: .66rem; font-weight: 600; padding: 4px 8px; border-radius: 5px; white-space: nowrap; }
+    .fact-row.ok .fact-verdict { color: var(--green-deep); background: rgba(46,107,78,.12); }
+    .fact-row.warn .fact-verdict { color: var(--amber); background: rgba(200,146,42,.14); }
+    .fact-manifest-btn { width: 100%; background: var(--green); color: #fff; border-radius: 8px; padding: 12px; font-size: .84rem; font-weight: 500; text-align: center; margin-top: 4px; }
+    .fp-footnote { font-size: .74rem; color: var(--muted); text-align: center; margin-top: 10px; line-height: 1.55; }
+
+    /* ============ TRUST ============ */
+    #trust { background: var(--off-white); padding: var(--section-py) 0; border-top: 1px solid var(--border); }
+    .trust-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+    .trust-pillars { display: flex; flex-direction: column; gap: 28px; }
+    .pillar { display: flex; gap: 18px; align-items: flex-start; }
+    .pillar-icon { width: 44px; height: 44px; border-radius: 10px; background: var(--green-pale); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .pillar-content h3 { font-family: var(--font-serif); font-size: 1.05rem; color: var(--dark); margin-bottom: 6px; }
+    .pillar-content p { font-size: .86rem; color: var(--warm-gray); line-height: 1.65; font-weight: 300; }
+    .trust-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .stat-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 24px 20px; text-align: center; box-shadow: 0 1px 20px rgba(26,29,25,.04); }
+    .stat-number { font-family: var(--font-serif); font-size: 2.1rem; color: var(--green); line-height: 1; margin-bottom: 8px; }
+    .stat-label { font-size: .8rem; color: var(--warm-gray); line-height: 1.55; font-weight: 300; }
+
+    /* ============ FAQ ============ */
+    #faq { background: var(--white); padding: var(--section-py) 0; border-top: 1px solid var(--border); }
+    .faq-inner { display: grid; grid-template-columns: 1fr 1.6fr; gap: 64px; align-items: start; }
+    .faq-sidebar { position: sticky; top: 100px; }
+    .faq-sidebar .section-subtitle { margin-bottom: 26px; }
+    .faq-list { display: flex; flex-direction: column; }
+    .faq-item { border-bottom: 1px solid var(--border); }
+    .faq-item:first-child { border-top: 1px solid var(--border); }
+    .faq-question { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 20px 0; font-size: .96rem; font-weight: 600; color: var(--dark); text-align: left; transition: color .2s; }
+    .faq-question:hover { color: var(--green-deep); }
+    .faq-chevron { width: 26px; height: 26px; border-radius: 50%; background: var(--off-white); display: flex; align-items: center; justify-content: center; flex-shrink: 0; border: 1px solid var(--border); transition: background .2s, border-color .2s, transform .3s; }
+    .faq-item.open .faq-chevron { background: var(--green-pale); border-color: var(--green-l); transform: rotate(180deg); }
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height .4s cubic-bezier(.22,1,.36,1); }
+    .faq-answer p { padding-bottom: 18px; font-size: .89rem; color: var(--warm-gray); line-height: 1.7; font-weight: 300; }
+    .faq-item.open .faq-answer { max-height: 400px; }
+
+    /* ============ FINAL CTA ============ */
+    #cta { background: var(--dark); padding: var(--section-py) 0; position: relative; overflow: hidden; }
+    #cta::before { content: ''; position: absolute; top: -120px; right: -120px; width: 460px; height: 460px; border-radius: 50%; background: radial-gradient(circle, rgba(46,107,78,.3) 0%, transparent 70%); pointer-events: none; }
+    .cta-inner { text-align: center; max-width: 600px; margin: 0 auto; position: relative; z-index: 1; }
+    .cta-inner .eyebrow { justify-content: center; }
+    .cta-inner .section-title { margin-bottom: 16px; }
+    .cta-inner .section-subtitle { margin: 0 auto 36px; }
+    .cta-actions { display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; }
+
+    /* ============ FOOTER ============ */
+    #footer { background: var(--dark-2); padding: 56px 0 36px; border-top: 1px solid rgba(250,250,248,.06); }
+    .footer-top { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 40px; padding-bottom: 40px; border-bottom: 1px solid rgba(250,250,248,.07); }
+    .footer-brand .logo { color: var(--white); margin-bottom: 14px; opacity: .9; }
+    .footer-brand p { font-size: .84rem; color: rgba(250,250,248,.42); line-height: 1.7; max-width: 300px; }
+    .footer-col h4 { font-family: var(--font-sans); font-size: .78rem; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; color: rgba(250,250,248,.28); margin-bottom: 18px; }
+    .footer-col ul { display: flex; flex-direction: column; gap: 11px; }
+    .footer-col a { font-size: .87rem; color: rgba(250,250,248,.52); transition: color .2s; }
+    .footer-col a:hover { color: var(--white); }
+    .footer-bottom { padding-top: 28px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .footer-bottom p { font-size: .8rem; color: rgba(250,250,248,.28); }
+    .powered-by { font-size: .8rem; color: rgba(250,250,248,.4); }
+    .powered-by a { color: var(--scan); font-weight: 600; }
+
+    @media (max-width: 1024px) {
+      .hero-inner, .conf-inner, .trust-inner, .faq-inner { grid-template-columns: 1fr; gap: 44px; }
+      .steps-grid { grid-template-columns: 1fr 1fr; gap: 36px; }
+      .steps-grid::before { display: none; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      :root { --section-py: 64px; }
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      #hero { padding: 110px 0 64px; }
+      .steps-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <header id="header">
+    <div class="container">
+      <nav class="nav-inner">
+        <a href="/" class="logo">
+          <div class="logo-mark"><svg width="14" height="14" viewBox="0 0 20 20" fill="none"><path d="M4 16V8l6-4 6 4v8" stroke="#FAFAF8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 16v-5h4v5" stroke="#FAFAF8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          TuNotariaExpress
+        </a>
+        <span class="audience-pill">Tu expediente</span>
+        <ul class="nav-links">
+          <li><a href="#how-it-works">Cómo funciona</a></li>
+          <li><a href="#confianza">Tus datos</a></li>
+          <li><a href="#faq">Preguntas</a></li>
+        </ul>
+        <a href="#hero" class="btn btn-primary btn-sm nav-cta">Continuar mi expediente</a>
+        <button class="hamburger" id="hamburger" aria-label="Menú"><span></span><span></span><span></span></button>
+      </nav>
+    </div>
+  </header>
+
+  <nav class="mobile-menu" id="mobileMenu">
+    <a href="#how-it-works">Cómo funciona</a>
+    <a href="#confianza">Tus datos</a>
+    <a href="#faq">Preguntas frecuentes</a>
+    <a href="#hero" class="btn btn-primary" style="margin-top:8px;justify-content:center;">Continuar mi expediente</a>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section id="hero">
+    <div class="container">
+      <div class="hero-inner">
+        <div>
+          <div class="notary-badge reveal">
+            <div class="av">N26</div>
+            <div class="txt"><strong>Notaría 26</strong> te invitó a completar tu expediente</div>
+          </div>
+          <h1 class="hero-title reveal reveal-delay-1">Tu Poder pleitos<br/>y cobranzas, <span class="accent">listo en días</span></h1>
+          <p class="hero-subtitle reveal reveal-delay-2">Sube tus documentos y un asistente te guía para armar tu expediente. Cada dato viene con su confianza y tu notaría revisa solo lo que importa. Tú llegas a firmar.</p>
+          <div class="hero-actions reveal reveal-delay-3">
+            <a href="#hero" class="btn btn-primary">
+              <svg width="17" height="17" viewBox="0 0 18 18" fill="none"><path d="M9 5v8M5 9l4 4 4-4" stroke="#FAFAF8" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="9" r="7" stroke="#FAFAF8" stroke-width="1.6"/></svg>
+              Continuar mi expediente
+            </a>
+            <a href="#how-it-works" class="btn btn-secondary">Ver cómo funciona</a>
+          </div>
+          <p class="hero-note reveal reveal-delay-3">Tu progreso se guarda automáticamente. Continúa cuando quieras.</p>
+        </div>
+
+        <div class="reveal reveal-delay-2">
+          <div class="platform-mockup">
+            <div class="pm-header">
+              <div class="pm-logo">
+                <svg width="13" height="13" viewBox="0 0 20 20" fill="none"><path d="M4 16V8l6-4 6 4v8" stroke="#FAFAF8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 16v-5h4v5" stroke="#FAFAF8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                TuNotariaExpress
+              </div>
+              <div class="pm-tag">Notaría 26</div>
+            </div>
+            <div class="pm-invite">
+              <div class="pm-invite-label">Tu expediente</div>
+              <div class="pm-invite-title">Poder pleitos y cobranzas</div>
+              <div class="pm-invite-sub">Te faltan 2 documentos por subir</div>
+            </div>
+            <div class="slot-list">
+              <div class="slot-row done">
+                <div class="slot-icon">🪪</div>
+                <div class="slot-info">
+                  <div class="slot-name">INE (frente y reverso)</div>
+                  <div class="slot-status">Subido y leído</div>
+                </div>
+                <div class="slot-check"><svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              </div>
+              <div class="slot-row done">
+                <div class="slot-icon">📄</div>
+                <div class="slot-info">
+                  <div class="slot-name">Comprobante de domicilio</div>
+                  <div class="slot-status">Subido y leído</div>
+                </div>
+                <div class="slot-check"><svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              </div>
+              <div class="slot-row uploading">
+                <div class="slot-icon">📋</div>
+                <div class="slot-info">
+                  <div class="slot-name">Acta de matrimonio</div>
+                  <div class="slot-status">Pendiente</div>
+                </div>
+              </div>
+              <div class="slot-row">
+                <div class="slot-icon">🪪</div>
+                <div class="slot-info">
+                  <div class="slot-name">INE de tu apoderado</div>
+                  <div class="slot-status">Pendiente</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="phone-footnote">Cada dato incluye un porcentaje de confianza. Tu notaría revisa solo lo que importa.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== HOW IT WORKS ===== -->
+  <section id="how-it-works">
+    <div class="container">
+      <div class="hiw-header">
+        <div class="eyebrow reveal">Proceso</div>
+        <h2 class="section-title reveal reveal-delay-1">¿Cómo funciona tu expediente?</h2>
+        <p class="section-subtitle reveal reveal-delay-2" style="margin:0 auto;">Cuatro pasos. Sin oficinas, sin filas, sin tecnicismos.</p>
+      </div>
+
+      <div class="steps-grid">
+        <div class="step reveal">
+          <div class="step-num">
+            <span class="num-label">1</span>
+            <svg width="28" height="28" viewBox="0 0 32 32" fill="none"><path d="M18 4H10a3 3 0 0 0-3 3v18a3 3 0 0 0 3 3h12a3 3 0 0 0 3-3V10l-7-6z" stroke="#2E6B4E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M18 4v6h6" stroke="#2E6B4E" stroke-width="1.8" stroke-linecap="round"/></svg>
+          </div>
+          <h3 class="step-title">Sube tus documentos</h3>
+          <p class="step-desc">Tu notaría ya definió qué necesitas. Cárgalos desde tu celular o computadora en minutos.</p>
+        </div>
+        <div class="step reveal reveal-delay-1">
+          <div class="step-num">
+            <span class="num-label">2</span>
+            <svg width="28" height="28" viewBox="0 0 32 32" fill="none"><rect x="5" y="5" width="22" height="22" rx="4" stroke="#2E6B4E" stroke-width="1.8"/><path d="M10 12h12M10 17h9" stroke="#2E6B4E" stroke-width="1.8" stroke-linecap="round"/></svg>
+          </div>
+          <h3 class="step-title">Leemos y comparamos</h3>
+          <p class="step-desc">Extraemos los datos de cada documento y los comparamos entre sí — cada uno con su nivel de confianza.</p>
+        </div>
+        <div class="step reveal reveal-delay-2">
+          <div class="step-num">
+            <span class="num-label">3</span>
+            <svg width="28" height="28" viewBox="0 0 32 32" fill="none"><rect x="5" y="5" width="22" height="22" rx="4" stroke="#2E6B4E" stroke-width="1.8"/><path d="M19 20l2 2 4-4" stroke="#2E6B4E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3 class="step-title">Confirmas tus datos</h3>
+          <p class="step-desc">Revisas lo que encontramos. Si algo no coincide entre documentos, tú decides cuál es correcto.</p>
+        </div>
+        <div class="step reveal reveal-delay-3">
+          <div class="step-num">
+            <span class="num-label">4</span>
+            <svg width="28" height="28" viewBox="0 0 32 32" fill="none"><rect x="4" y="6" width="24" height="22" rx="4" stroke="#2E6B4E" stroke-width="1.8"/><path d="M10 19l2.5 2.5L22 16" stroke="#2E6B4E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3 class="step-title">Tu notaría revisa y agenda</h3>
+          <p class="step-desc">Con tu expediente completo, tu notaría te contacta para agendar tu cita de firma.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONFIANZA ===== -->
+  <section id="confianza">
+    <div class="container">
+      <div class="conf-inner">
+        <div>
+          <div class="eyebrow reveal">Confianza verificable</div>
+          <h2 class="section-title light reveal reveal-delay-1">No solo leemos tus documentos. Los comparamos entre sí.</h2>
+          <p class="section-subtitle light reveal reveal-delay-2">Si tu INE y tu comprobante de domicilio no coinciden, te lo decimos antes de que tu notaría lo vea — así tú decides cuál es correcto, sin sorpresas el día de tu cita.</p>
+        </div>
+
+        <div class="reveal reveal-delay-2">
+          <div class="fact-panel">
+            <div class="fact-panel-header">
+              <div class="fp-label">Poder pleitos y cobranzas</div>
+              <div class="fp-title">Confirma tus datos</div>
+            </div>
+            <div class="fact-panel-body">
+              <div class="fact-row ok">
+                <div class="fact-dot"></div>
+                <div class="fact-body">
+                  <div class="fact-label">Nombre completo</div>
+                  <div class="fact-value">María Hernández González</div>
+                </div>
+                <div class="fact-verdict">Coincide</div>
+              </div>
+              <div class="fact-row ok">
+                <div class="fact-dot"></div>
+                <div class="fact-body">
+                  <div class="fact-label">CURP</div>
+                  <div class="fact-value">HEGM850312MDFRNR08</div>
+                </div>
+                <div class="fact-verdict">Coincide</div>
+              </div>
+              <div class="fact-row warn">
+                <div class="fact-dot"></div>
+                <div class="fact-body">
+                  <div class="fact-label">Domicilio</div>
+                  <div class="fact-value">Av. Insurgentes 100, Coyoacán</div>
+                </div>
+                <div class="fact-verdict">Revisar</div>
+              </div>
+              <button class="fact-manifest-btn">Confirmar datos correctos</button>
+            </div>
+          </div>
+          <p class="fp-footnote">INE y comprobante de domicilio muestran domicilios distintos. Indica cuál es correcto.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TRUST ===== -->
+  <section id="trust">
+    <div class="container">
+      <div class="trust-inner">
+        <div>
+          <div class="eyebrow reveal">Seguridad y confianza</div>
+          <h2 class="section-title reveal reveal-delay-1">Tu información, protegida en todo momento</h2>
+          <p class="section-subtitle reveal reveal-delay-2" style="margin-bottom:44px;">Solo tu notaría puede ver tu expediente. Nunca lo compartimos con nadie más.</p>
+
+          <div class="trust-pillars">
+            <div class="pillar reveal reveal-delay-1">
+              <div class="pillar-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2l7 3v6c0 5-3.5 8.5-7 10C8.5 19.5 5 16 5 11V5l7-3z" stroke="#2E6B4E" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="#2E6B4E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="pillar-content">
+                <h3>Proceso guiado, sin tecnicismos</h3>
+                <p>El asistente habla en español cotidiano. Si tienes una duda, solo escríbela y te respondemos.</p>
+              </div>
+            </div>
+            <div class="pillar reveal reveal-delay-2">
+              <div class="pillar-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="11" width="18" height="11" rx="2" stroke="#2E6B4E" stroke-width="1.8"/><path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="#2E6B4E" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+              <div class="pillar-content">
+                <h3>Documentos encriptados</h3>
+                <p>Tu información viaja cifrada con AES-256, el mismo estándar que usan los bancos.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="trust-stats reveal reveal-delay-2">
+          <div class="stat-card"><div class="stat-number">96%</div><div class="stat-label">confianza promedio en datos extraídos del INE</div></div>
+          <div class="stat-card"><div class="stat-number">&lt;2 min</div><div class="stat-label">para subir y leer un documento</div></div>
+          <div class="stat-card"><div class="stat-number">AES-256</div><div class="stat-label">encriptación en todos tus documentos</div></div>
+          <div class="stat-card"><div class="stat-number">4</div><div class="stat-label">estados con notarías activas en la plataforma</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FAQ ===== -->
+  <section id="faq">
+    <div class="container">
+      <div class="faq-inner">
+        <div class="faq-sidebar">
+          <div class="eyebrow reveal">Preguntas frecuentes</div>
+          <h2 class="section-title reveal reveal-delay-1">¿Tienes dudas?</h2>
+          <p class="section-subtitle reveal reveal-delay-2">Si no encuentras lo que buscas, nuestro equipo está disponible de lunes a viernes de 9 a.m. a 7 p.m.</p>
+          <a href="mailto:hola@nominds.ai" class="btn btn-outline btn-sm reveal reveal-delay-3">Hablar con soporte</a>
+        </div>
+
+        <div class="faq-list reveal reveal-delay-1">
+          <div class="faq-item">
+            <button class="faq-question">
+              ¿Cuánto tiempo tarda el proceso completo?
+              <span class="faq-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="#1A1D19" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </button>
+            <div class="faq-answer"><p>La mayoría de los trámites se completan en pocos días hábiles. El tiempo depende de qué tan rápido compartas tus documentos y de la agenda de tu notaría para la cita de firma. Siempre estarás informado del avance.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              ¿Cuánto cuesta usar esta plataforma?
+              <span class="faq-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="#1A1D19" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </button>
+            <div class="faq-answer"><p>Armar tu expediente aquí no tiene costo para ti. Los honorarios notariales son independientes y los fija tu notaría conforme al arancel del estado correspondiente — ellos te informarán el costo antes de iniciar.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              ¿Es seguro subir mis documentos?
+              <span class="faq-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="#1A1D19" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </button>
+            <div class="faq-answer"><p>Sí. Tu información viaja cifrada mediante HTTPS y tus documentos se almacenan con encriptación AES-256. Solo tu notaría puede verlos, y puedes solicitar su eliminación en cualquier momento.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              ¿El trámite tiene validez legal si lo preparo aquí?
+              <span class="faq-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="#1A1D19" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </button>
+            <div class="faq-answer"><p>Esta plataforma te ayuda a recopilar y organizar la información para tu expediente. La formalización legal la hace tu notaría en persona, conforme a la Ley del Notariado de tu estado — la cita de firma es el momento en que el documento adquiere plena validez jurídica.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FINAL CTA ===== -->
+  <section id="cta">
+    <div class="container">
+      <div class="cta-inner">
+        <div class="eyebrow reveal">Continúa donde te quedaste</div>
+        <h2 class="section-title light reveal reveal-delay-1">Te faltan 2 documentos por subir</h2>
+        <p class="section-subtitle light reveal reveal-delay-2">Tu progreso se guarda automáticamente. Continúa cuando quieras — no hay prisa.</p>
+        <div class="cta-actions reveal reveal-delay-3">
+          <a href="#hero" class="btn btn-primary">
+            <svg width="17" height="17" viewBox="0 0 18 18" fill="none"><path d="M9 5v8M5 9l4 4 4-4" stroke="#FAFAF8" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="9" r="7" stroke="#FAFAF8" stroke-width="1.6"/></svg>
+            Continuar mi expediente
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer id="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="/" class="logo">
+            <div class="logo-mark"><svg width="14" height="14" viewBox="0 0 20 20" fill="none"><path d="M4 16V8l6-4 6 4v8" stroke="#FAFAF8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 16v-5h4v5" stroke="#FAFAF8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            TuNotariaExpress
+          </a>
+          <p>Hacemos que armar tu expediente notarial sea sencillo, sin importar qué tan familiarizado estés con la tecnología o el derecho.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Ayuda</h4>
+          <ul>
+            <li><a href="#how-it-works">Cómo funciona</a></li>
+            <li><a href="#faq">Preguntas frecuentes</a></li>
+            <li><a href="mailto:hola@nominds.ai">Contacto</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Empresa</h4>
+          <ul>
+            <li><a href="https://nominds.ai" target="_blank" rel="noopener">Sobre nominds</a></li>
+            <li><a href="/notarias.html">¿Eres notaría?</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 TuNotariaExpress. Ciudad de México, México.</p>
+        <p class="powered-by">tecnología de <a href="https://nominds.ai" target="_blank" rel="noopener">nominds</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => {
+      const open = hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('open', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    });
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        mobileMenu.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    });
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    document.querySelectorAll('.faq-question').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.faq-item');
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+      });
+    });
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', (e) => {
+        const href = anchor.getAttribute('href');
+        if (href === '#') return;
+        const target = document.querySelector(href);
+        if (!target) return;
+        e.preventDefault();
+        const top = target.getBoundingClientRect().top + window.scrollY - 80;
+        window.scrollTo({ top, behavior: 'smooth' });
+      });
+    });
+  </script>
+
+</body>
+</html>

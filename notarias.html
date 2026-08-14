@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TuNotariaExpress para notarías — Manda una liga, recibe el expediente</title>
+  <meta name="description" content="nominds para notarías: crea el expediente, envía la liga a tu cliente y recibe sus documentos ya organizados, con cada dato validado y su nivel de confianza. Tú revisas solo lo que necesita tu firma." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --green:      #2E6B4E;
+      --green-l:    #3C8264;
+      --green-pale: #E4EFE8;
+      --green-deep: #245840;
+      --scan:       #4CAF7A;
+      --amber:      #C8922A;
+      --amber-pale: #F5EDD8;
+      --dark:       #1A1D19;
+      --dark-2:     #272B25;
+      --white:      #FAFAF8;
+      --off-white:  #F4F2EE;
+      --border:     #E6E8E3;
+      --sand-l:     #ECF0ED;
+      --warm-gray:  #717870;
+      --muted:      #969C92;
+      --error:      #B84E2F;
+
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 16px;
+
+      --font-serif: 'DM Serif Display', Georgia, serif;
+      --font-sans:  'DM Sans', system-ui, sans-serif;
+      --font-mono:  'DM Mono', monospace;
+
+      --max-w: 1140px;
+      --section-py: 88px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--white);
+      color: var(--dark);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    img, svg { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+    button { cursor: pointer; font-family: inherit; border: none; background: none; }
+    ul { list-style: none; }
+
+    .container { width: 100%; max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
+
+    /* ============ SCROLL REVEAL ============ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .6s cubic-bezier(.22,1,.36,1), transform .6s cubic-bezier(.22,1,.36,1);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: .1s; }
+    .reveal-delay-2 { transition-delay: .2s; }
+    .reveal-delay-3 { transition-delay: .3s; }
+
+    /* ============ TYPE ============ */
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: .72rem; font-weight: 600; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--amber); margin-bottom: 16px;
+    }
+    h1, h2, h3 { font-family: var(--font-serif); font-weight: 400; line-height: 1.14; letter-spacing: -0.4px; }
+    .section-title { font-size: clamp(1.9rem, 3.6vw, 2.6rem); color: var(--dark); margin-bottom: 16px; }
+    .section-title.light { color: var(--white); }
+    .section-subtitle { font-size: 1rem; color: var(--warm-gray); max-width: 540px; line-height: 1.7; font-weight: 300; }
+    .section-subtitle.light { color: rgba(250,250,248,.62); }
+
+    /* ============ BUTTONS ============ */
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 24px; border-radius: 8px; font-size: .9rem; font-weight: 500; line-height: 1;
+      transition: background .2s, transform .15s, border-color .2s;
+    }
+    .btn:active { transform: scale(.97); }
+    .btn-primary { background: var(--green); color: var(--white); }
+    .btn-primary:hover { background: var(--green-deep); }
+    .btn-secondary { background: transparent; color: var(--white); border: 1.5px solid rgba(250,250,248,.28); }
+    .btn-secondary:hover { background: rgba(250,250,248,.08); border-color: rgba(250,250,248,.5); }
+    .btn-outline { background: transparent; color: var(--green); border: 1.5px solid var(--green); }
+    .btn-outline:hover { background: var(--green); color: var(--white); }
+    .btn-sm { padding: 9px 18px; font-size: .82rem; }
+
+    /* ============ HEADER ============ */
+    #header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(250,250,248,.94); backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner { display: flex; align-items: center; height: 62px; gap: 20px; }
+    .logo { display: flex; align-items: center; gap: 9px; font-family: var(--font-serif); font-size: 1.15rem; color: var(--dark); flex-shrink: 0; }
+    .logo-mark { width: 27px; height: 27px; border-radius: 8px; background: var(--green); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .audience-pill {
+      font-size: .66rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase;
+      color: var(--green-deep); background: var(--green-pale); padding: 4px 10px; border-radius: 100px;
+      white-space: nowrap;
+    }
+    .nav-links { display: flex; align-items: center; gap: 26px; margin-left: auto; }
+    .nav-links a { font-size: .84rem; font-weight: 500; color: var(--warm-gray); transition: color .2s; }
+    .nav-links a:hover { color: var(--dark); }
+    .nav-cta { margin-left: 4px; flex-shrink: 0; }
+    .switch-audience {
+      font-size: .78rem; color: var(--muted); border-bottom: 1px dashed var(--border); padding-bottom: 1px;
+      transition: color .2s;
+    }
+    .switch-audience:hover { color: var(--warm-gray); }
+
+    .hamburger { display: none; flex-direction: column; gap: 5px; width: 30px; padding: 4px; margin-left: auto; }
+    .hamburger span { display: block; height: 2px; border-radius: 2px; background: var(--dark); }
+    .mobile-menu { display: none; position: fixed; inset: 62px 0 0 0; background: var(--white); padding: 28px 24px; flex-direction: column; gap: 22px; z-index: 99; }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { font-size: 1.05rem; font-weight: 500; color: var(--dark); padding: 6px 0; border-bottom: 1px solid var(--border); }
+
+    /* ============ HERO ============ */
+    #hero { background: var(--dark); padding: 148px 0 92px; position: relative; overflow: hidden; }
+    #hero::before {
+      content: ''; position: absolute; top: -140px; right: -110px; width: 560px; height: 560px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(46,107,78,.35) 0%, transparent 70%); pointer-events: none;
+    }
+    .hero-inner { display: grid; grid-template-columns: 1.05fr .95fr; gap: 56px; align-items: center; position: relative; z-index: 1; }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(200,146,42,.14); border: 1px solid rgba(200,146,42,.3); border-radius: 6px;
+      padding: 5px 12px; font-size: .72rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--amber); margin-bottom: 22px;
+    }
+    .hero-title { font-size: clamp(2.2rem, 4vw, 2.9rem); color: var(--white); margin-bottom: 20px; line-height: 1.12; }
+    .hero-title .accent { color: var(--scan); font-style: italic; }
+    .hero-subtitle { font-size: 1.02rem; color: rgba(250,250,248,.66); line-height: 1.75; margin-bottom: 32px; max-width: 480px; font-weight: 300; }
+    .hero-actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 36px; }
+    .hero-social-proof {
+      display: flex; align-items: center; gap: 10px; padding-top: 26px;
+      border-top: 1px solid rgba(250,250,248,.08); font-size: .86rem; color: rgba(250,250,248,.5);
+    }
+    .hero-social-proof strong { color: var(--white); font-weight: 600; }
+
+    /* Notary dashboard mockup */
+    .dash-mockup {
+      width: 100%; max-width: 420px; background: #fff; border-radius: 16px;
+      box-shadow: 0 28px 70px rgba(0,0,0,.3); overflow: hidden; margin: 0 auto;
+    }
+    .dash-header { background: var(--dark); padding: 13px 20px; display: flex; align-items: center; justify-content: space-between; }
+    .dash-logo { display: flex; align-items: center; gap: 8px; font-family: var(--font-serif); font-size: .82rem; color: var(--white); }
+    .dash-tag { font-size: .64rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: rgba(250,250,248,.4); }
+    .dash-body { padding: 20px 22px 22px; }
+    .dash-label { font-size: .67rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: 5px; }
+    .dash-title { font-family: var(--font-serif); font-size: 1.08rem; color: var(--dark); margin-bottom: 16px; }
+
+    .link-box {
+      display: flex; align-items: center; gap: 8px; background: var(--off-white); border: 1px solid var(--border);
+      border-radius: 8px; padding: 10px 13px; margin-bottom: 18px;
+    }
+    .link-box .url { font-family: var(--font-mono); font-size: .76rem; color: var(--warm-gray); flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .link-box .copy { font-size: .7rem; font-weight: 600; color: var(--green); flex-shrink: 0; }
+
+    .expediente-row {
+      display: flex; align-items: center; gap: 11px;
+      padding: 11px 13px; border: 1px solid var(--border); border-radius: 10px; margin-bottom: 8px; background: var(--white);
+      transition: border-color .2s;
+    }
+    .expediente-avatar {
+      width: 32px; height: 32px; border-radius: 50%; background: var(--sand-l); color: var(--dark-2);
+      display: flex; align-items: center; justify-content: center; font-size: .7rem; font-weight: 700; flex-shrink: 0;
+    }
+    .expediente-body { flex: 1; min-width: 0; }
+    .expediente-name { font-size: .82rem; font-weight: 600; color: var(--dark); }
+    .expediente-op { font-size: .72rem; color: var(--muted); }
+    .expediente-progress { width: 62px; flex-shrink: 0; }
+    .progress-track { height: 4px; background: var(--border); border-radius: 4px; overflow: hidden; margin-bottom: 3px; }
+    .progress-bar { height: 100%; background: var(--green); border-radius: 4px; }
+    .progress-label { font-size: .64rem; color: var(--muted); text-align: right; font-family: var(--font-mono); }
+    .expediente-row.done { border-color: rgba(46,107,78,.3); background: var(--green-pale); }
+    .expediente-row.done .expediente-op { color: var(--green-deep); font-weight: 600; }
+
+    .phone-footnote { text-align: center; font-size: .8rem; color: rgba(250,250,248,.38); margin-top: 16px; }
+
+    /* ============ PAIN / HOW ============ */
+    #pain { background: var(--off-white); padding: var(--section-py) 0; border-top: 1px solid var(--border); }
+    .pain-header { text-align: center; margin-bottom: 56px; }
+    .pain-header .section-subtitle { margin: 0 auto; }
+    .pain-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+    .pain-card {
+      background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-md);
+      padding: 30px 26px; transition: border-color .25s, box-shadow .25s, transform .25s;
+    }
+    .pain-card:hover { border-color: rgba(46,107,78,.3); box-shadow: 0 8px 32px rgba(26,29,25,.07); transform: translateY(-3px); }
+    .pain-icon { width: 42px; height: 42px; border-radius: 10px; background: var(--green-pale); display: flex; align-items: center; justify-content: center; margin-bottom: 18px; }
+    .pain-num { font-family: var(--font-mono); font-size: .72rem; color: var(--muted); margin-bottom: 10px; }
+    .pain-title { font-family: var(--font-serif); font-size: 1.12rem; margin-bottom: 10px; }
+    .pain-desc { font-size: .88rem; color: var(--warm-gray); line-height: 1.7; font-weight: 300; }
+
+    /* ============ FACT PREVIEW (technology-equivalent) ============ */
+    #fact-preview { background: var(--dark); padding: var(--section-py) 0; position: relative; overflow: hidden; }
+    #fact-preview::before {
+      content: ''; position: absolute; top: -150px; left: -150px; width: 560px; height: 560px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(46,107,78,.26) 0%, transparent 65%); pointer-events: none;
+    }
+    .fp-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; position: relative; z-index: 1; }
+    .fp-text .section-title { margin-bottom: 20px; }
+    .fp-list { display: flex; flex-direction: column; gap: 20px; margin-top: 28px; }
+    .fp-item { display: flex; gap: 14px; }
+    .fp-item-icon {
+      width: 34px; height: 34px; border-radius: 9px; background: rgba(76,175,122,.14); border: 1px solid rgba(76,175,122,.28);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .fp-item-text h4 { font-family: var(--font-sans); font-weight: 600; font-size: .95rem; color: var(--white); margin-bottom: 4px; }
+    .fp-item-text p { font-size: .85rem; color: rgba(250,250,248,.55); line-height: 1.6; font-weight: 300; }
+
+    .fact-panel {
+      background: #fff; border-radius: var(--radius-lg); box-shadow: 0 24px 60px rgba(0,0,0,.3);
+      overflow: hidden; max-width: 420px; margin: 0 auto;
+    }
+    .fact-panel-header { background: var(--off-white); border-bottom: 1px solid var(--border); padding: 14px 20px; }
+    .fact-panel-header .fp-label { font-size: .68rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+    .fact-panel-header .fp-title { font-family: var(--font-serif); font-size: 1.02rem; color: var(--dark); margin-top: 2px; }
+    .fact-panel-body { padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 10px; }
+    .fact-row { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border: 1px solid var(--border); border-radius: 10px; background: var(--white); }
+    .fact-row.ok { border-color: rgba(46,107,78,.3); background: var(--green-pale); }
+    .fact-row.warn { border-color: rgba(200,146,42,.35); background: var(--amber-pale); }
+    .fact-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .fact-row.ok .fact-dot { background: var(--green); }
+    .fact-row.warn .fact-dot { background: var(--amber); }
+    .fact-body { flex: 1; min-width: 0; }
+    .fact-label { font-size: .68rem; color: var(--muted); text-transform: uppercase; letter-spacing: .03em; margin-bottom: 2px; }
+    .fact-value { font-family: var(--font-mono); font-size: .82rem; color: var(--dark); font-weight: 500; }
+    .fact-verdict { font-size: .66rem; font-weight: 600; padding: 4px 8px; border-radius: 5px; white-space: nowrap; }
+    .fact-row.ok .fact-verdict { color: var(--green-deep); background: rgba(46,107,78,.12); }
+    .fact-row.warn .fact-verdict { color: var(--amber); background: rgba(200,146,42,.14); }
+
+    /* ============ TRÁMITES ============ */
+    #tramites { background: var(--white); padding: var(--section-py) 0; border-top: 1px solid var(--border); }
+    .tramites-header { margin-bottom: 48px; }
+    .tramites-header .section-subtitle { margin: 0; }
+    .tramites-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+    .tramite-card {
+      background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius-md);
+      padding: 26px 22px; display: flex; flex-direction: column; gap: 12px;
+      transition: border-color .25s, box-shadow .25s, transform .25s;
+    }
+    .tramite-card:hover { border-color: var(--green-l); box-shadow: 0 8px 32px rgba(26,29,25,.07); transform: translateY(-3px); }
+    .tramite-card .icn { width: 44px; height: 44px; border-radius: 10px; background: var(--off-white); display: flex; align-items: center; justify-content: center; }
+    .tramite-card:hover .icn { background: var(--green-pale); }
+    .tramite-card .name { font-family: var(--font-serif); font-size: 1.02rem; color: var(--dark); }
+    .tramite-card .desc { font-size: .82rem; color: var(--warm-gray); line-height: 1.6; flex: 1; font-weight: 300; }
+
+    /* ============ FAQ ============ */
+    #faq { background: var(--off-white); padding: var(--section-py) 0; border-top: 1px solid var(--border); }
+    .faq-inner { display: grid; grid-template-columns: 1fr 1.6fr; gap: 64px; align-items: start; }
+    .faq-sidebar { position: sticky; top: 100px; }
+    .faq-sidebar .section-subtitle { margin-bottom: 26px; }
+    .faq-list { display: flex; flex-direction: column; }
+    .faq-item { border-bottom: 1px solid var(--border); }
+    .faq-item:first-child { border-top: 1px solid var(--border); }
+    .faq-question {
+      width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      padding: 20px 0; font-size: .96rem; font-weight: 600; color: var(--dark); text-align: left; transition: color .2s;
+    }
+    .faq-question:hover { color: var(--green-deep); }
+    .faq-chevron {
+      width: 26px; height: 26px; border-radius: 50%; background: var(--white); display: flex; align-items: center;
+      justify-content: center; flex-shrink: 0; border: 1px solid var(--border); transition: background .2s, border-color .2s, transform .3s;
+    }
+    .faq-item.open .faq-chevron { background: var(--green-pale); border-color: var(--green-l); transform: rotate(180deg); }
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height .4s cubic-bezier(.22,1,.36,1); }
+    .faq-answer p { padding-bottom: 18px; font-size: .89rem; color: var(--warm-gray); line-height: 1.7; font-weight: 300; }
+    .faq-item.open .faq-answer { max-height: 400px; }
+
+    /* ============ FINAL CTA ============ */
+    #cta { background: var(--dark); padding: var(--section-py) 0; position: relative; overflow: hidden; }
+    #cta::before {
+      content: ''; position: absolute; top: -120px; right: -120px; width: 460px; height: 460px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(46,107,78,.3) 0%, transparent 70%); pointer-events: none;
+    }
+    .cta-inner { text-align: center; max-width: 620px; margin: 0 auto; position: relative; z-index: 1; }
+    .cta-inner .eyebrow { justify-content: center; }
+    .cta-inner .section-title { margin-bottom: 16px; }
+    .cta-inner .section-subtitle { margin: 0 auto 36px; }
+    .cta-actions { display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; }
+
+    /* ============ FOOTER ============ */
+    #footer { background: var(--dark-2); padding: 56px 0 36px; border-top: 1px solid rgba(250,250,248,.06); }
+    .footer-top { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 40px; padding-bottom: 40px; border-bottom: 1px solid rgba(250,250,248,.07); }
+    .footer-brand .logo { color: var(--white); margin-bottom: 14px; opacity: .9; }
+    .footer-brand p { font-size: .84rem; color: rgba(250,250,248,.42); line-height: 1.7; max-width: 300px; }
+    .footer-col h4 { font-family: var(--font-sans); font-size: .78rem; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; color: rgba(250,250,248,.28); margin-bottom: 18px; }
+    .footer-col ul { display: flex; flex-direction: column; gap: 11px; }
+    .footer-col a { font-size: .87rem; color: rgba(250,250,248,.52); transition: color .2s; }
+    .footer-col a:hover { color: var(--white); }
+    .footer-bottom { padding-top: 28px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .footer-bottom p { font-size: .8rem; color: rgba(250,250,248,.28); }
+    .powered-by { font-size: .8rem; color: rgba(250,250,248,.4); }
+    .powered-by a { color: var(--scan); font-weight: 600; }
+
+    /* ============ RESPONSIVE ============ */
+    @media (max-width: 1024px) {
+      .hero-inner, .fp-inner, .faq-inner { grid-template-columns: 1fr; gap: 44px; }
+      .pain-grid { grid-template-columns: 1fr 1fr; }
+      .tramites-grid { grid-template-columns: 1fr 1fr; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      :root { --section-py: 64px; }
+      .nav-links, .nav-cta, .switch-audience { display: none; }
+      .hamburger { display: flex; }
+      #hero { padding: 110px 0 64px; }
+      .pain-grid { grid-template-columns: 1fr; }
+      .tramites-grid { grid-template-columns: 1fr 1fr; }
+      .footer-top { grid-template-columns: 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <header id="header">
+    <div class="container">
+      <nav class="nav-inner">
+        <a href="/notarias.html" class="logo">
+          <div class="logo-mark">
+            <svg width="14" height="14" viewBox="0 0 20 20" fill="none"><path d="M4 16V8l6-4 6 4v8" stroke="#FAFAF8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 16v-5h4v5" stroke="#FAFAF8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          TuNotariaExpress
+        </a>
+        <span class="audience-pill">Para notarías</span>
+        <ul class="nav-links">
+          <li><a href="#pain">Cómo funciona</a></li>
+          <li><a href="#tramites">Trámites</a></li>
+          <li><a href="#faq">Preguntas</a></li>
+          <li><a href="/expediente.html" class="switch-audience">¿Eres cliente? →</a></li>
+        </ul>
+        <a href="#cta" class="btn btn-primary btn-sm nav-cta">Agendar demo</a>
+        <button class="hamburger" id="hamburger" aria-label="Menú"><span></span><span></span><span></span></button>
+      </nav>
+    </div>
+  </header>
+
+  <nav class="mobile-menu" id="mobileMenu">
+    <a href="#pain">Cómo funciona</a>
+    <a href="#tramites">Trámites</a>
+    <a href="#faq">Preguntas frecuentes</a>
+    <a href="/expediente.html">¿Eres cliente con una liga?</a>
+    <a href="#cta" class="btn btn-primary" style="margin-top:8px;justify-content:center;">Agendar demo</a>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section id="hero">
+    <div class="container">
+      <div class="hero-inner">
+        <div>
+          <div class="hero-eyebrow reveal">nominds para notarías · México</div>
+          <h1 class="hero-title reveal reveal-delay-1">Manda una liga.<br/><span class="accent">Recibe el expediente</span> completo.</h1>
+          <p class="hero-subtitle reveal reveal-delay-2">Deja de perseguir INEs y comprobantes por WhatsApp. Crea el expediente, envía la liga a tu cliente, y él arma su propio expediente mientras tú revisas solo lo que necesita tu firma.</p>
+          <div class="hero-actions reveal reveal-delay-3">
+            <a href="#cta" class="btn btn-primary">Agendar demo</a>
+            <a href="#pain" class="btn btn-secondary">Ver cómo funciona</a>
+          </div>
+          <div class="hero-social-proof reveal reveal-delay-3">
+            <strong>Notarías en 4 estados</strong>&nbsp;ya usan la plataforma
+          </div>
+        </div>
+
+        <div class="reveal reveal-delay-2">
+          <div class="dash-mockup">
+            <div class="dash-header">
+              <div class="dash-logo">
+                <svg width="13" height="13" viewBox="0 0 20 20" fill="none"><path d="M4 16V8l6-4 6 4v8" stroke="#FAFAF8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 16v-5h4v5" stroke="#FAFAF8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Notaría 26 · Panel
+              </div>
+              <div class="dash-tag">3 expedientes activos</div>
+            </div>
+            <div class="dash-body">
+              <div class="dash-label">Liga para tu cliente</div>
+              <div class="dash-title">Poder pleitos y cobranzas</div>
+              <div class="link-box">
+                <span class="url">tunotariaexpress.com/e/8f2a91</span>
+                <span class="copy">Copiar</span>
+              </div>
+
+              <div class="dash-label" style="margin-bottom:8px;">Progreso de tus clientes</div>
+              <div class="expediente-row done">
+                <div class="expediente-avatar">MG</div>
+                <div class="expediente-body">
+                  <div class="expediente-name">María Guadalupe</div>
+                  <div class="expediente-op">Listo para tu revisión</div>
+                </div>
+                <div class="expediente-progress">
+                  <div class="progress-track"><div class="progress-bar" style="width:100%;"></div></div>
+                  <div class="progress-label">4/4</div>
+                </div>
+              </div>
+              <div class="expediente-row">
+                <div class="expediente-avatar">RL</div>
+                <div class="expediente-body">
+                  <div class="expediente-name">Ricardo López</div>
+                  <div class="expediente-op">Subiendo documentos</div>
+                </div>
+                <div class="expediente-progress">
+                  <div class="progress-track"><div class="progress-bar" style="width:50%;"></div></div>
+                  <div class="progress-label">2/4</div>
+                </div>
+              </div>
+              <div class="expediente-row">
+                <div class="expediente-avatar">JP</div>
+                <div class="expediente-body">
+                  <div class="expediente-name">Jesica Pacheco</div>
+                  <div class="expediente-op">Liga enviada</div>
+                </div>
+                <div class="expediente-progress">
+                  <div class="progress-track"><div class="progress-bar" style="width:0%;"></div></div>
+                  <div class="progress-label">0/4</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="phone-footnote">Tú creas el expediente. Tu cliente recopila. Tú revisas solo cuando está completo.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PAIN / HOW IT WORKS ===== -->
+  <section id="pain">
+    <div class="container">
+      <div class="pain-header">
+        <div class="eyebrow reveal" style="justify-content:center;">El problema actual</div>
+        <h2 class="section-title reveal reveal-delay-1">Tu equipo no debería ser una mesa de recepción de PDFs</h2>
+        <p class="section-subtitle reveal reveal-delay-2" style="margin:0 auto;">Cada expediente empieza igual: pedir documentos, esperar, perseguir, recibir la mitad, volver a pedir. nominds mueve ese trabajo a donde debe estar — con el cliente, con ayuda.</p>
+      </div>
+
+      <div class="pain-grid">
+        <div class="pain-card reveal">
+          <div class="pain-num">01</div>
+          <div class="pain-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 4h16v12H8l-4 4V4z" stroke="#2E6B4E" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="pain-title">Tú creas el expediente</div>
+          <div class="pain-desc">Eliges el trámite y quiénes participan. La plataforma genera la lista exacta de documentos que se necesitan — nada de adivinar ni improvisar sobre la marcha.</div>
+        </div>
+
+        <div class="pain-card reveal reveal-delay-1">
+          <div class="pain-num">02</div>
+          <div class="pain-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M13 2L4.5 13.5H12L11 22l8.5-11.5H12.5L13 2z" stroke="#2E6B4E" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="pain-title">Tu cliente recopila</div>
+          <div class="pain-desc">Le mandas una liga. Un asistente lo guía para subir cada documento, sin que tu equipo tenga que explicar nada por teléfono ni WhatsApp.</div>
+        </div>
+
+        <div class="pain-card reveal reveal-delay-2">
+          <div class="pain-num">03</div>
+          <div class="pain-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4" stroke="#2E6B4E" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><rect x="3" y="4" width="18" height="16" rx="2" stroke="#2E6B4E" stroke-width="1.7"/></svg>
+          </div>
+          <div class="pain-title">Tú revisas y certificas</div>
+          <div class="pain-desc">El expediente te llega completo, con cada dato validado entre documentos y su nivel de confianza. Tú ejerces tu fe pública sobre datos ya ordenados.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FACT PREVIEW (tecnología) ===== -->
+  <section id="fact-preview">
+    <div class="container">
+      <div class="fp-inner">
+        <div class="fp-text">
+          <div class="eyebrow reveal">Lo que ve tu equipo</div>
+          <h2 class="section-title light reveal reveal-delay-1">Cada dato llega con su confianza. Tú revisas solo lo que importa.</h2>
+          <p class="section-subtitle light reveal reveal-delay-2">Cuando tu cliente termina de subir sus documentos, no te llega una carpeta de PDFs sueltos — te llega un expediente donde cada dato ya fue comparado entre fuentes.</p>
+
+          <div class="fp-list">
+            <div class="fp-item reveal reveal-delay-1">
+              <div class="fp-item-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4" stroke="#4CAF7A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9" stroke="#4CAF7A" stroke-width="1.8"/></svg></div>
+              <div class="fp-item-text">
+                <h4>Coinciden entre documentos</h4>
+                <p>El dato queda marcado como listo — tú solo confirmas.</p>
+              </div>
+            </div>
+            <div class="fp-item reveal reveal-delay-2">
+              <div class="fp-item-icon" style="background:rgba(200,146,42,.14);border-color:rgba(200,146,42,.28);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 17h.01" stroke="#C8922A" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="#C8922A" stroke-width="1.8"/></svg></div>
+              <div class="fp-item-text">
+                <h4>Discrepan entre documentos</h4>
+                <p>Se marca para revisión, con ambas versiones a la vista.</p>
+              </div>
+            </div>
+            <div class="fp-item reveal reveal-delay-3">
+              <div class="fp-item-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2l7 3v6c0 5-3.5 8.5-7 10C8.5 19.5 5 16 5 11V5l7-3z" stroke="#4CAF7A" stroke-width="1.8" stroke-linejoin="round"/></svg></div>
+              <div class="fp-item-text">
+                <h4>Tú ejerces tu fe pública</h4>
+                <p>Sobre datos ya ordenados — nunca sustituimos tu criterio.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="reveal reveal-delay-2">
+          <div class="fact-panel">
+            <div class="fact-panel-header">
+              <div class="fp-label">Poder pleitos y cobranzas · María H.</div>
+              <div class="fp-title">Revisión de expediente</div>
+            </div>
+            <div class="fact-panel-body">
+              <div class="fact-row ok">
+                <div class="fact-dot"></div>
+                <div class="fact-body">
+                  <div class="fact-label">Nombre completo</div>
+                  <div class="fact-value">María Hernández González</div>
+                </div>
+                <div class="fact-verdict">Coincide</div>
+              </div>
+              <div class="fact-row ok">
+                <div class="fact-dot"></div>
+                <div class="fact-body">
+                  <div class="fact-label">CURP</div>
+                  <div class="fact-value">HEGM850312MDFRNR08</div>
+                </div>
+                <div class="fact-verdict">Coincide</div>
+              </div>
+              <div class="fact-row warn">
+                <div class="fact-dot"></div>
+                <div class="fact-body">
+                  <div class="fact-label">Domicilio</div>
+                  <div class="fact-value">Av. Insurgentes 100, Coyoacán</div>
+                </div>
+                <div class="fact-verdict">Revisar</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TRÁMITES ===== -->
+  <section id="tramites">
+    <div class="container">
+      <div class="tramites-header">
+        <div class="eyebrow reveal">Trámites disponibles</div>
+        <h2 class="section-title reveal reveal-delay-1">Los trámites que ya puedes ofrecer</h2>
+        <p class="section-subtitle reveal reveal-delay-2">Cada uno con su propio catálogo de documentos requeridos y su propio árbol de datos a validar.</p>
+      </div>
+
+      <div class="tramites-grid">
+        <div class="tramite-card reveal">
+          <div class="icn"><svg width="24" height="24" viewBox="0 0 28 28" fill="none"><rect x="3" y="3" width="22" height="22" rx="4" stroke="#2E6B4E" stroke-width="1.8"/><path d="M8 10h12M8 14h8M8 18h6" stroke="#2E6B4E" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+          <div class="name">Poder Notarial</div>
+          <p class="desc">Poder pleitos y cobranzas, actos de administración o de dominio, con uno o varios apoderados.</p>
+        </div>
+        <div class="tramite-card reveal reveal-delay-1">
+          <div class="icn"><svg width="24" height="24" viewBox="0 0 28 28" fill="none"><rect x="3" y="3" width="22" height="22" rx="4" stroke="#2E6B4E" stroke-width="1.8"/><path d="M8 10h12M8 14h8M8 18h6" stroke="#2E6B4E" stroke-width="1.8" stroke-linecap="round"/><circle cx="21" cy="19" r="4" fill="#E4EFE8" stroke="#C8922A" stroke-width="1.5"/><path d="M19.5 19l1 1 2-2" stroke="#C8922A" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="name">Acta Constitutiva</div>
+          <p class="desc">Constitución de sociedades con socios, administradores y capital social ya estructurados.</p>
+        </div>
+        <div class="tramite-card reveal reveal-delay-2">
+          <div class="icn"><svg width="24" height="24" viewBox="0 0 28 28" fill="none"><path d="M4 22V12l10-7 10 7v10" stroke="#2E6B4E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><rect x="10" y="15" width="8" height="7" rx="1" stroke="#2E6B4E" stroke-width="1.8"/></svg></div>
+          <div class="name">Compraventa de Inmueble</div>
+          <p class="desc">Datos del inmueble, partes y montos de operación, con extracción de tablas del título de propiedad.</p>
+        </div>
+        <div class="tramite-card reveal reveal-delay-3">
+          <div class="icn"><svg width="24" height="24" viewBox="0 0 28 28" fill="none"><path d="M14 22s-9-5-9-12a6 6 0 0 1 11.7-1.9A6 6 0 0 1 23 10c0 7-9 12-9 12z" stroke="#2E6B4E" stroke-width="1.8" stroke-linejoin="round"/></svg></div>
+          <div class="name">Donación</div>
+          <p class="desc">Transferencia de bienes muebles o inmuebles, con validación de titularidad entre partes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FAQ ===== -->
+  <section id="faq">
+    <div class="container">
+      <div class="faq-inner">
+        <div class="faq-sidebar">
+          <div class="eyebrow reveal">Preguntas frecuentes</div>
+          <h2 class="section-title reveal reveal-delay-1">Antes de agendar tu demo</h2>
+          <p class="section-subtitle reveal reveal-delay-2">Si no encuentras lo que buscas, nuestro equipo está disponible de lunes a viernes de 9 a.m. a 7 p.m.</p>
+          <a href="mailto:hola@nominds.ai" class="btn btn-outline btn-sm reveal reveal-delay-3">Hablar con ventas</a>
+        </div>
+
+        <div class="faq-list reveal reveal-delay-1">
+          <div class="faq-item">
+            <button class="faq-question">
+              ¿Nominds reemplaza mi criterio como notario?
+              <span class="faq-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="#1A1D19" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </button>
+            <div class="faq-answer"><p>No. nominds lee, extrae y estructura la información de los documentos que tu cliente sube — nunca decide, firma ni certifica por ti. Cada dato llega con su nivel de confianza para que tu equipo revise solo lo que importa. La fe pública sigue siendo, en todo momento, un acto exclusivamente tuyo.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              ¿Cómo le llega la liga a mi cliente?
+              <span class="faq-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="#1A1D19" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </button>
+            <div class="faq-answer"><p>Tú generas la liga desde tu panel al crear el expediente y se la envías por el canal que prefieras — WhatsApp, correo o SMS. Al abrirla, tu cliente ve de inmediato el nombre de tu notaría y el trámite que le corresponde; no tiene que elegir nada ni adivinar qué documentos necesita.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              ¿Qué pasa si mi cliente no sabe usar la plataforma?
+              <span class="faq-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="#1A1D19" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </button>
+            <div class="faq-answer"><p>El asistente guía paso a paso en lenguaje cotidiano, sin tecnicismos. Si aun así se traba, tu cliente puede escribir su duda y nuestro equipo de soporte lo atiende directamente — tu equipo no tiene que intervenir.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              ¿Es seguro para los datos de mis clientes?
+              <span class="faq-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="#1A1D19" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </button>
+            <div class="faq-answer"><p>Los documentos viajan cifrados y se almacenan con encriptación AES-256. Cada expediente vive aislado por notaría — tu equipo solo ve los expedientes que tú creaste, nunca los de otra notaría en la plataforma.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              ¿Cuánto tarda implementarlo en mi notaría?
+              <span class="faq-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="#1A1D19" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </button>
+            <div class="faq-answer"><p>No hay instalación. Agendas una demo, configuramos tu notaría en la plataforma, y tu equipo puede crear su primer expediente el mismo día. Te acompañamos en los primeros trámites para asegurar que el flujo se ajusta a cómo ya trabajas.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FINAL CTA ===== -->
+  <section id="cta">
+    <div class="container">
+      <div class="cta-inner">
+        <div class="eyebrow reveal">Empieza hoy</div>
+        <h2 class="section-title light reveal reveal-delay-1">¿Listo para dejar de perseguir documentos?</h2>
+        <p class="section-subtitle light reveal reveal-delay-2">Agenda una demo de 20 minutos. Te mostramos cómo se vería tu primer expediente, de principio a fin.</p>
+        <div class="cta-actions reveal reveal-delay-3">
+          <a href="mailto:hola@nominds.ai" class="btn btn-primary">Agendar demo</a>
+          <a href="#tramites" class="btn btn-secondary">Ver trámites disponibles</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer id="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="/notarias.html" class="logo">
+            <div class="logo-mark"><svg width="14" height="14" viewBox="0 0 20 20" fill="none"><path d="M4 16V8l6-4 6 4v8" stroke="#FAFAF8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 16v-5h4v5" stroke="#FAFAF8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            TuNotariaExpress
+          </a>
+          <p>La plataforma de nominds para que las notarías mexicanas dejen de perseguir documentos y empiecen a recibir expedientes listos para revisar.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Producto</h4>
+          <ul>
+            <li><a href="#pain">Cómo funciona</a></li>
+            <li><a href="#tramites">Trámites</a></li>
+            <li><a href="/expediente.html">¿Eres cliente con una liga?</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Empresa</h4>
+          <ul>
+            <li><a href="https://nominds.ai" target="_blank" rel="noopener">Sobre nominds</a></li>
+            <li><a href="mailto:hola@nominds.ai">Contacto</a></li>
+            <li><a href="#faq">Preguntas frecuentes</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 TuNotariaExpress. Ciudad de México, México.</p>
+        <p class="powered-by">tecnología de <a href="https://nominds.ai" target="_blank" rel="noopener">nominds</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => {
+      const open = hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('open', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    });
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        mobileMenu.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    });
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    document.querySelectorAll('.faq-question').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.faq-item');
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+      });
+    });
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', (e) => {
+        const href = anchor.getAttribute('href');
+        if (href === '#') return;
+        const target = document.querySelector(href);
+        if (!target) return;
+        e.preventDefault();
+        const top = target.getBoundingClientRect().top + window.scrollY - 80;
+        window.scrollTo({ top, behavior: 'smooth' });
+      });
+    });
+  </script>
+
+</body>
+</html>

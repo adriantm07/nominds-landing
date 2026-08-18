@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TuNotariaExpress para notarías — Manda una liga, recibe el expediente</title>
+  <link rel="icon" href="/public/brand/tne-symbol-black.png" type="image/png" />
   <meta name="description" content="nominds para notarías: crea el expediente, envía la liga a tu cliente y recibe sus documentos ya organizados, con cada dato validado y su nivel de confianza. Tú revisas solo lo que necesita tu firma." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -104,7 +105,8 @@
     }
     .nav-inner { display: flex; align-items: center; height: 62px; gap: 20px; }
     .logo { display: flex; align-items: center; gap: 9px; font-family: var(--font-serif); font-size: 1.15rem; color: var(--dark); flex-shrink: 0; }
-    .logo-mark { width: 27px; height: 27px; border-radius: 8px; background: var(--green); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .logo-mark { width: 32px; height: 16px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .logo-mark img { width: 100%; height: 100%; object-fit: contain; }
     .audience-pill {
       font-size: .66rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase;
       color: var(--green-deep); background: var(--green-pale); padding: 4px 10px; border-radius: 100px;
@@ -334,7 +336,7 @@
       <nav class="nav-inner">
         <a href="/notarias.html" class="logo">
           <div class="logo-mark">
-            <svg width="14" height="14" viewBox="0 0 20 20" fill="none"><path d="M4 16V8l6-4 6 4v8" stroke="#FAFAF8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 16v-5h4v5" stroke="#FAFAF8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <img src="/public/brand/tne-symbol-black.png" alt="" width="32" height="16" />
           </div>
           TuNotariaExpress
         </a>
@@ -366,7 +368,7 @@
         <div>
           <div class="hero-eyebrow reveal">nominds para notarías · México</div>
           <h1 class="hero-title reveal reveal-delay-1">Manda una liga.<br/><span class="accent">Recibe el expediente</span> completo.</h1>
-          <p class="hero-subtitle reveal reveal-delay-2">Deja de perseguir INEs y comprobantes por WhatsApp. Crea el expediente, envía la liga a tu cliente, y él arma su propio expediente mientras tú revisas solo lo que necesita tu firma.</p>
+          <p class="hero-subtitle reveal reveal-delay-2">Deja de perseguir INEs y comprobantes por email o WhatsApp. Crea el expediente, envía la liga a tu cliente, y él arma su propio expediente mientras tú revisas solo lo que necesita tu firma. Tú entras una sola vez, cuando todo esté listo.</p>
           <div class="hero-actions reveal reveal-delay-3">
             <a href="#cta" class="btn btn-primary">Agendar demo</a>
             <a href="#pain" class="btn btn-secondary">Ver cómo funciona</a>
@@ -380,7 +382,7 @@
           <div class="dash-mockup">
             <div class="dash-header">
               <div class="dash-logo">
-                <svg width="13" height="13" viewBox="0 0 20 20" fill="none"><path d="M4 16V8l6-4 6 4v8" stroke="#FAFAF8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 16v-5h4v5" stroke="#FAFAF8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <img src="/public/brand/tne-symbol-black.png" alt="" width="22" height="11"  style="filter:brightness(0) invert(1);" />
                 Notaría 26 · Panel
               </div>
               <div class="dash-tag">3 expedientes activos</div>
@@ -441,7 +443,7 @@
       <div class="pain-header">
         <div class="eyebrow reveal" style="justify-content:center;">El problema actual</div>
         <h2 class="section-title reveal reveal-delay-1">Tu equipo no debería ser una mesa de recepción de PDFs</h2>
-        <p class="section-subtitle reveal reveal-delay-2" style="margin:0 auto;">Cada expediente empieza igual: pedir documentos, esperar, perseguir, recibir la mitad, volver a pedir. nominds mueve ese trabajo a donde debe estar — con el cliente, con ayuda.</p>
+        <p class="section-subtitle reveal reveal-delay-2" style="margin:0 auto;">Cada expediente empieza igual: pedir documentos, esperar, perseguir, recibir la mitad, volver a pedir. nominds mueve ese trabajo a donde debe estar, con el cliente, con ayuda.</p>
       </div>
 
       <div class="pain-grid">
@@ -451,7 +453,7 @@
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 4h16v12H8l-4 4V4z" stroke="#2E6B4E" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
           <div class="pain-title">Tú creas el expediente</div>
-          <div class="pain-desc">Eliges el trámite y quiénes participan. La plataforma genera la lista exacta de documentos que se necesitan — nada de adivinar ni improvisar sobre la marcha.</div>
+          <div class="pain-desc">Eliges el trámite y quiénes participan. La plataforma genera la lista exacta de documentos que se necesitan, nada de adivinar ni improvisar sobre la marcha.</div>
         </div>
 
         <div class="pain-card reveal reveal-delay-1">
@@ -460,7 +462,7 @@
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M13 2L4.5 13.5H12L11 22l8.5-11.5H12.5L13 2z" stroke="#2E6B4E" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
           <div class="pain-title">Tu cliente recopila</div>
-          <div class="pain-desc">Le mandas una liga. Un asistente lo guía para subir cada documento, sin que tu equipo tenga que explicar nada por teléfono ni WhatsApp.</div>
+          <div class="pain-desc">Le mandas una liga. Un asistente lo guía para subir cada documento, sin que tu equipo tenga que explicar nada por email ni WhatsApp.</div>
         </div>
 
         <div class="pain-card reveal reveal-delay-2">
@@ -482,14 +484,14 @@
         <div class="fp-text">
           <div class="eyebrow reveal">Lo que ve tu equipo</div>
           <h2 class="section-title light reveal reveal-delay-1">Cada dato llega con su confianza. Tú revisas solo lo que importa.</h2>
-          <p class="section-subtitle light reveal reveal-delay-2">Cuando tu cliente termina de subir sus documentos, no te llega una carpeta de PDFs sueltos — te llega un expediente donde cada dato ya fue comparado entre fuentes.</p>
+          <p class="section-subtitle light reveal reveal-delay-2">Cuando tu cliente termina de subir sus documentos, no te llega una carpeta de PDFs sueltos, te llega un expediente donde cada dato ya fue comparado entre fuentes.</p>
 
           <div class="fp-list">
             <div class="fp-item reveal reveal-delay-1">
               <div class="fp-item-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4" stroke="#4CAF7A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9" stroke="#4CAF7A" stroke-width="1.8"/></svg></div>
               <div class="fp-item-text">
                 <h4>Coinciden entre documentos</h4>
-                <p>El dato queda marcado como listo — tú solo confirmas.</p>
+                <p>El dato queda marcado como listo, tú solo confirmas.</p>
               </div>
             </div>
             <div class="fp-item reveal reveal-delay-2">
@@ -503,7 +505,7 @@
               <div class="fp-item-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2l7 3v6c0 5-3.5 8.5-7 10C8.5 19.5 5 16 5 11V5l7-3z" stroke="#4CAF7A" stroke-width="1.8" stroke-linejoin="round"/></svg></div>
               <div class="fp-item-text">
                 <h4>Tú ejerces tu fe pública</h4>
-                <p>Sobre datos ya ordenados — nunca sustituimos tu criterio.</p>
+                <p>Sobre datos ya ordenados, nunca sustituimos tu criterio.</p>
               </div>
             </div>
           </div>
@@ -654,7 +656,7 @@
       <div class="footer-top">
         <div class="footer-brand">
           <a href="/notarias.html" class="logo">
-            <div class="logo-mark"><svg width="14" height="14" viewBox="0 0 20 20" fill="none"><path d="M4 16V8l6-4 6 4v8" stroke="#FAFAF8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 16v-5h4v5" stroke="#FAFAF8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div class="logo-mark"><img src="/public/brand/tne-symbol-black.png" alt="" width="32" height="16"  style="filter:brightness(0) invert(1);" /></div>
             TuNotariaExpress
           </a>
           <p>La plataforma de nominds para que las notarías mexicanas dejen de perseguir documentos y empiecen a recibir expedientes listos para revisar.</p>

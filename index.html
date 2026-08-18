@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TuNotariaExpress — Tu expediente notarial, sin filas ni confusión</title>
+  <link rel="icon" href="/public/brand/tne-symbol-black.png" type="image/png" />
   <meta name="description" content="TuNotariaExpress es la plataforma de nominds para trámites notariales en México. ¿Tienes una liga de tu notaría? Entra aquí. ¿Eres notaría? Descubre cómo ofrecerlo a tus clientes." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -77,12 +78,11 @@
       opacity: .88;
     }
     .logo-mark {
-      width: 28px; height: 28px;
-      border-radius: 8px;
-      background: var(--green);
+      width: 34px; height: 17px;
       display: flex; align-items: center; justify-content: center;
       flex-shrink: 0;
     }
+    .logo-mark img { width: 100%; height: 100%; object-fit: contain; }
 
     h1 {
       font-family: var(--font-serif);
@@ -189,10 +189,7 @@
   <div class="wrap">
     <div class="logo">
       <div class="logo-mark">
-        <svg width="13" height="13" viewBox="0 0 20 20" fill="none">
-          <path d="M4 16V8l6-4 6 4v8" stroke="#FAFAF8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M8 16v-5h4v5" stroke="#FAFAF8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+        <img src="/public/brand/tne-symbol-black.png" alt="" width="34" height="17"  style="filter:brightness(0) invert(1);" />
       </div>
       TuNotariaExpress
     </div>
@@ -209,7 +206,7 @@
           </svg>
         </div>
         <div class="door-title">Tengo una liga de mi notaría</div>
-        <div class="door-desc">Tu notario te envió un enlace para armar tu expediente. Sube tus documentos desde aquí — nosotros nos encargamos del resto.</div>
+        <div class="door-desc">Tu notario te envió un enlace para armar tu expediente. Sube tus documentos desde aquí, nosotros nos encargamos del resto.</div>
         <div class="door-cta">Ir a mi expediente →</div>
       </a>
 
@@ -220,8 +217,8 @@
             <path d="M7 9h10M7 13h10M7 17h6" stroke="#C8922A" stroke-width="1.7" stroke-linecap="round"/>
           </svg>
         </div>
-        <div class="door-title">Soy notaría y quiero ofrecer esto</div>
-        <div class="door-desc">Deja de perseguir documentos por WhatsApp. Crea el expediente, manda la liga, y que tu cliente haga el trabajo.</div>
+        <div class="door-title">Soy notaría</div>
+        <div class="door-desc">Deja de perseguir documentos por email o WhatsApp. Crea el expediente, manda la liga, y recíbelo ya organizado.</div>
         <div class="door-cta">Ver cómo funciona para notarías →</div>
       </a>
     </div>

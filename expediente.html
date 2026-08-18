@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tu expediente — TuNotariaExpress</title>
+  <link rel="icon" href="/public/brand/tne-symbol-black.png" type="image/png" />
   <meta name="description" content="Arma tu expediente notarial subiendo tus documentos paso a paso. Tu notaría revisa y tú llegas a firmar." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -89,7 +90,8 @@
     #header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(250,250,248,.94); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); }
     .nav-inner { display: flex; align-items: center; height: 62px; gap: 20px; }
     .logo { display: flex; align-items: center; gap: 9px; font-family: var(--font-serif); font-size: 1.15rem; color: var(--dark); flex-shrink: 0; }
-    .logo-mark { width: 27px; height: 27px; border-radius: 8px; background: var(--green); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .logo-mark { width: 32px; height: 16px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .logo-mark img { width: 100%; height: 100%; object-fit: contain; }
     .audience-pill { font-size: .66rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--amber); background: var(--amber-pale); padding: 4px 10px; border-radius: 100px; white-space: nowrap; }
     .nav-links { display: flex; align-items: center; gap: 26px; margin-left: auto; }
     .nav-links a { font-size: .84rem; font-weight: 500; color: var(--warm-gray); transition: color .2s; }
@@ -264,7 +266,7 @@
     <div class="container">
       <nav class="nav-inner">
         <a href="/" class="logo">
-          <div class="logo-mark"><svg width="14" height="14" viewBox="0 0 20 20" fill="none"><path d="M4 16V8l6-4 6 4v8" stroke="#FAFAF8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 16v-5h4v5" stroke="#FAFAF8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="logo-mark"><img src="/public/brand/tne-symbol-black.png" alt="" width="32" height="16" /></div>
           TuNotariaExpress
         </a>
         <span class="audience-pill">Tu expediente</span>
@@ -295,8 +297,8 @@
             <div class="av">N26</div>
             <div class="txt"><strong>Notaría 26</strong> te invitó a completar tu expediente</div>
           </div>
-          <h1 class="hero-title reveal reveal-delay-1">Tu Poder pleitos<br/>y cobranzas, <span class="accent">listo en días</span></h1>
-          <p class="hero-subtitle reveal reveal-delay-2">Sube tus documentos y un asistente te guía para armar tu expediente. Cada dato viene con su confianza y tu notaría revisa solo lo que importa. Tú llegas a firmar.</p>
+          <h1 class="hero-title reveal reveal-delay-1">De tus documentos a tu expediente,<br/><span class="accent">listo para tu notaría</span></h1>
+          <p class="hero-subtitle reveal reveal-delay-2">Sube tus documentos paso a paso y arma tu expediente. Cada dato viene con su confianza, listo para que tu notaría lo revise. Tú llegas a firmar.</p>
           <div class="hero-actions reveal reveal-delay-3">
             <a href="#hero" class="btn btn-primary">
               <svg width="17" height="17" viewBox="0 0 18 18" fill="none"><path d="M9 5v8M5 9l4 4 4-4" stroke="#FAFAF8" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="9" r="7" stroke="#FAFAF8" stroke-width="1.6"/></svg>
@@ -311,7 +313,7 @@
           <div class="platform-mockup">
             <div class="pm-header">
               <div class="pm-logo">
-                <svg width="13" height="13" viewBox="0 0 20 20" fill="none"><path d="M4 16V8l6-4 6 4v8" stroke="#FAFAF8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 16v-5h4v5" stroke="#FAFAF8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <img src="/public/brand/tne-symbol-black.png" alt="" width="22" height="11"  style="filter:brightness(0) invert(1);" />
                 TuNotariaExpress
               </div>
               <div class="pm-tag">Notaría 26</div>
@@ -384,7 +386,7 @@
             <svg width="28" height="28" viewBox="0 0 32 32" fill="none"><rect x="5" y="5" width="22" height="22" rx="4" stroke="#2E6B4E" stroke-width="1.8"/><path d="M10 12h12M10 17h9" stroke="#2E6B4E" stroke-width="1.8" stroke-linecap="round"/></svg>
           </div>
           <h3 class="step-title">Leemos y comparamos</h3>
-          <p class="step-desc">Extraemos los datos de cada documento y los comparamos entre sí — cada uno con su nivel de confianza.</p>
+          <p class="step-desc">Extraemos los datos de cada documento y los comparamos entre sí, cada uno con su nivel de confianza.</p>
         </div>
         <div class="step reveal reveal-delay-2">
           <div class="step-num">
@@ -413,7 +415,7 @@
         <div>
           <div class="eyebrow reveal">Confianza verificable</div>
           <h2 class="section-title light reveal reveal-delay-1">No solo leemos tus documentos. Los comparamos entre sí.</h2>
-          <p class="section-subtitle light reveal reveal-delay-2">Si tu INE y tu comprobante de domicilio no coinciden, te lo decimos antes de que tu notaría lo vea — así tú decides cuál es correcto, sin sorpresas el día de tu cita.</p>
+          <p class="section-subtitle light reveal reveal-delay-2">Si tu INE y tu CURP no coinciden, te lo decimos antes de que tu notaría lo vea, así tú decides cuál es correcto, sin sorpresas el día de tu cita.</p>
         </div>
 
         <div class="reveal reveal-delay-2">
@@ -470,7 +472,7 @@
               <div class="pillar-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2l7 3v6c0 5-3.5 8.5-7 10C8.5 19.5 5 16 5 11V5l7-3z" stroke="#2E6B4E" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="#2E6B4E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
               <div class="pillar-content">
                 <h3>Proceso guiado, sin tecnicismos</h3>
-                <p>El asistente habla en español cotidiano. Si tienes una duda, solo escríbela y te respondemos.</p>
+                <p>Cada paso te dice exactamente qué documento subir y por qué. Si tienes una duda, nuestro equipo de soporte te responde.</p>
               </div>
             </div>
             <div class="pillar reveal reveal-delay-2">
@@ -544,7 +546,7 @@
       <div class="cta-inner">
         <div class="eyebrow reveal">Continúa donde te quedaste</div>
         <h2 class="section-title light reveal reveal-delay-1">Te faltan 2 documentos por subir</h2>
-        <p class="section-subtitle light reveal reveal-delay-2">Tu progreso se guarda automáticamente. Continúa cuando quieras — no hay prisa.</p>
+        <p class="section-subtitle light reveal reveal-delay-2">Tu progreso se guarda automáticamente. Continúa cuando quieras, no hay prisa.</p>
         <div class="cta-actions reveal reveal-delay-3">
           <a href="#hero" class="btn btn-primary">
             <svg width="17" height="17" viewBox="0 0 18 18" fill="none"><path d="M9 5v8M5 9l4 4 4-4" stroke="#FAFAF8" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="9" r="7" stroke="#FAFAF8" stroke-width="1.6"/></svg>
@@ -561,7 +563,7 @@
       <div class="footer-top">
         <div class="footer-brand">
           <a href="/" class="logo">
-            <div class="logo-mark"><svg width="14" height="14" viewBox="0 0 20 20" fill="none"><path d="M4 16V8l6-4 6 4v8" stroke="#FAFAF8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 16v-5h4v5" stroke="#FAFAF8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div class="logo-mark"><img src="/public/brand/tne-symbol-black.png" alt="" width="32" height="16"  style="filter:brightness(0) invert(1);" /></div>
             TuNotariaExpress
           </a>
           <p>Hacemos que armar tu expediente notarial sea sencillo, sin importar qué tan familiarizado estés con la tecnología o el derecho.</p>
